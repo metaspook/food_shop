@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/pages/home.dart';
+import 'package:food_shop/pages/food_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(title: 'Food Shop'),
+      home: const FoodListPage(title: 'Food Shop'),
     );
   }
 }

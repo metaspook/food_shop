@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/pages/cart.dart';
 import 'package:food_shop/pages/food_list.dart';
 
 void main() {
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
           secondary: Colors.pink,
         ),
       ),
-      home: const FoodListPage(title: 'Food Shop'),
+      home: const CartPage(title: 'Your Cart'),
+      // home: const FoodListPage(title: 'Food Shop'),
     );
   }
 }

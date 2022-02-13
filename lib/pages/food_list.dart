@@ -61,7 +61,7 @@ class _FoodListPageState extends State<FoodListPage> {
                           children: [
                             // SizedBox(width: 5),
                             Text(
-                              '\$${Random().nextInt(500)}',
+                              '\$${Random().nextInt(100)}',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!

@@ -13,7 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Food Shop',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        // primarySwatch: Colors.indigo,
+        colorScheme: ColorScheme.light(
+          primary: Colors.indigo,
+          secondary: Colors.pink,
+        ),
       ),
       home: const FoodListPage(title: 'Food Shop'),
     );

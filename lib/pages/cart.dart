@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/utils/methods.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key, required this.title}) : super(key: key);
@@ -13,7 +14,9 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   late List<Map<String, dynamic>> _cartItemList;
-  late List<int> _cartPriceList;
+  late List<int> _cartItemQuantityList;
+  late List<int> _cartItemPriceList;
+  late List<int> _itemPriceList;
 
   @override
   void initState() {
@@ -50,10 +53,15 @@ class _CartPageState extends State<CartPage> {
             "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/breadsticks.png"
       }
     ];
-    _cartPriceList = List<int>.generate(
+    _itemPriceList = List<int>.generate(
       _cartItemList.length,
       (i) => Random().nextInt(100),
       growable: false,
+    );
+    _cartItemPriceList = [..._itemPriceList];
+    _cartItemQuantityList = List<int>.generate(
+      _cartItemList.length,
+      (i) => 1,
     );
   }
 
@@ -67,6 +75,7 @@ class _CartPageState extends State<CartPage> {
           ElevatedButton.icon(
             onPressed: () => setState(() {
               _cartItemList.clear();
+              _cartItemPriceList.clear();
             }),
             icon: Icon(
               CupertinoIcons.delete,
@@ -88,10 +97,10 @@ class _CartPageState extends State<CartPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                          // padding: EdgeInsets.all(1),
                           onPressed: () {
                             setState(() {
                               _cartItemList.removeAt(index);
+                              _cartItemPriceList.removeAt(index);
                             });
                           },
                           icon: Icon(
@@ -105,10 +114,6 @@ class _CartPageState extends State<CartPage> {
                         ),
                       ],
                     ),
-                    // Image.network(
-                    //   _cartItemList[index]['image'],
-                    //   fit: BoxFit.cover,
-                    // ),
                     title: Text(
                       _cartItemList[index]['name'],
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -116,21 +121,75 @@ class _CartPageState extends State<CartPage> {
                           color: Colors.grey.shade600),
                       textAlign: TextAlign.center,
                     ),
-                    // subtitle:
-                    // Text(
-                    //   '\$${Random().nextInt(100)}',
-                    //   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    //       fontWeight: FontWeight.bold,
-                    //       color: Theme.of(context).colorScheme.secondary),
-                    //   textAlign: TextAlign.center,
-                    // ),
-                    trailing: Text(
-                      '\$${_cartPriceList[index]}',
+                    subtitle: Text(
+                      '\$${_cartItemPriceList[index]}',
                       style: Theme.of(context).textTheme.headline6!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.secondary),
                       textAlign: TextAlign.center,
                     ),
+                    trailing: FittedBox(
+                      child: Row(
+                        children: [
+                          Text(
+                            "${_cartItemQuantityList[index]}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary),
+                            textAlign: TextAlign.center,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            // mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (_cartItemQuantityList[index] > 1) {
+                                      _cartItemQuantityList[index]--;
+                                      _cartItemPriceList[index] -=
+                                          _itemPriceList[index];
+                                    }
+                                  });
+                                },
+                                icon: Icon(
+                                  CupertinoIcons.minus_square,
+                                  color: Colors.orange,
+                                  size: 40,
+                                ),
+                              ),
+                              IconButton(
+                                // padding: EdgeInsets.all(1),
+                                onPressed: () {
+                                  setState(() {
+                                    _cartItemQuantityList[index]++;
+                                    _cartItemPriceList[index] +=
+                                        _itemPriceList[index];
+                                  });
+                                },
+                                icon: Icon(
+                                  CupertinoIcons.plus_square,
+                                  color: Colors.orange,
+                                  size: 40,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Text(
+                    //   '\$${_cartPriceList[index]}',
+                    //   style: Theme.of(context).textTheme.headline5!.copyWith(
+                    //       fontWeight: FontWeight.bold,
+                    //       color: Theme.of(context).colorScheme.secondary),
+                    //   textAlign: TextAlign.center,
+                    // ),
                   ),
                 );
               }),
@@ -138,14 +197,28 @@ class _CartPageState extends State<CartPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton.icon(
-                onPressed: null,
+                onPressed: () {
+                  Methods.customDialog(
+                    title: 'Order Confirmation',
+                    subtitle: 'subtitle',
+                    context: context,
+                    primaryButtonText: 'Cancel',
+                    primaryButtonFunction: () {
+                      if (Navigator.canPop(context)) Navigator.pop(context);
+                    },
+                    secondaryButtonText: 'Confirm',
+                    secondaryButtonFunction: () {
+                      if (Navigator.canPop(context)) Navigator.pop(context);
+                    },
+                  );
+                },
                 icon: Icon(
                   CupertinoIcons.text_badge_checkmark,
                   color: Colors.orange,
                 ),
-                label: Text('Checkout'),
+                label: Text('Make Order'),
               ),
-              SizedBox(width: 65),
+              SizedBox(width: 50),
               Text(
                 'Total:',
                 style: Theme.of(context).textTheme.headline5!.copyWith(
@@ -154,7 +227,9 @@ class _CartPageState extends State<CartPage> {
                 textAlign: TextAlign.center,
               ),
               Text(
-                '\$${_cartPriceList.reduce((value, element) => value + element)}',
+                _cartItemPriceList.isEmpty
+                    ? '\$0'
+                    : '\$${_cartItemPriceList.reduce((value, element) => value + element)}',
                 style: Theme.of(context).textTheme.headline4!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.secondary),

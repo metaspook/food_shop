@@ -72,7 +72,7 @@ class _CartPageState extends State<CartPage> {
         centerTitle: true,
         title: Text(widget.title),
         actions: [
-          ElevatedButton.icon(
+          IconButton(
             onPressed: () => setState(() {
               _cartItemList.clear();
               _cartItemPriceList.clear();
@@ -81,7 +81,6 @@ class _CartPageState extends State<CartPage> {
               CupertinoIcons.delete,
               color: Colors.orange,
             ),
-            label: Text('Remove Cart'),
           ),
         ],
       ),
@@ -197,10 +196,15 @@ class _CartPageState extends State<CartPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton.icon(
+                label: Text('Make Order'),
+                icon: Icon(
+                  CupertinoIcons.text_badge_checkmark,
+                  color: Colors.orange,
+                ),
                 onPressed: () {
                   Methods.customDialog(
                     title: 'Order Confirmation',
-                    subtitle: 'subtitle',
+                    // subtitle: 'Do you want confirm the order?',
                     context: context,
                     primaryButtonText: 'Cancel',
                     primaryButtonFunction: () {
@@ -212,11 +216,6 @@ class _CartPageState extends State<CartPage> {
                     },
                   );
                 },
-                icon: Icon(
-                  CupertinoIcons.text_badge_checkmark,
-                  color: Colors.orange,
-                ),
-                label: Text('Make Order'),
               ),
               SizedBox(width: 50),
               Text(

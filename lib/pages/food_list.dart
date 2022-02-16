@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:badges/badges.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +17,7 @@ class FoodListPage extends StatefulWidget {
 
 class _FoodListPageState extends State<FoodListPage> {
   late final Future<List<Food>> futureFood;
+  int? _badgeCount;
 
   @override
   void initState() {
@@ -30,6 +33,40 @@ class _FoodListPageState extends State<FoodListPage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         centerTitle: true,
         title: Text(widget.title),
+        actions: [
+          // adaptive badge.
+          Badge(
+            showBadge: _badgeCount == null ? false : true,
+            badgeColor: Theme.of(context).colorScheme.secondary,
+            shape: BadgeShape.square,
+            borderRadius: BorderRadius.circular(20),
+            position: BadgePosition.topEnd(top: 2.5, end: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
+            badgeContent: Text(
+              '$_badgeCount',
+              style:
+                  TextStyle(color: Theme.of(context).scaffoldBackgroundColor),
+              // style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            ),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.cart,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                  ),
+                  onPressed: () => setState(() {
+                    // _cartItemList.clear();
+                    // _cartItemPriceList.clear();
+                  }),
+                ),
+                if (_badgeCount != null)
+                  SizedBox(
+                      width: 7.5 * _badgeCount.toString().length.toDouble()),
+              ],
+            ),
+          ),
+        ],
       ),
       body: FutureBuilder<List<Food>>(
         future: futureFood,
@@ -51,11 +88,29 @@ class _FoodListPageState extends State<FoodListPage> {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         Flexible(
-                          child: Image.network(
-                            snapshot.data![index].image,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                            child: CachedNetworkImage(
+                          imageUrl: snapshot.data![index].image,
+                          // placeholder: (context, url) =>
+                          //     CircularProgressIndicator(),
+                          // progressIndicatorBuilder:
+                          //     (context, url, downloadProgress) =>
+                          //         CircularProgressIndicator(
+                          //             value: downloadProgress.progress),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                          // fit: BoxFit.cover,
+                        )
+                            // Image(
+                            //     image: CachedNetworkImageProvider(
+                            //         snapshot.data![index].image))
+                            // CachedNetworkImage(
+                            //   imageUrl: ,
+                            //   child: Image.network(
+                            //     snapshot.data![index].image,
+                            //     fit: BoxFit.cover,
+                            //   ),
+                            // ),
+                            ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -76,13 +131,27 @@ class _FoodListPageState extends State<FoodListPage> {
                               children: [
                                 IconButton(
                                   // padding: EdgeInsets.all(1),
-                                  onPressed: null,
+                                  onPressed: () => setState(() {
+                                    // _badgeCount == _badgeCount ?? ++_badgeCount!;
+                                    if (_badgeCount != null) {
+                                      _badgeCount = _badgeCount! + 1;
+                                    } else {
+                                      _badgeCount = 1;
+                                    }
+                                  }),
                                   icon: Icon(CupertinoIcons.cart_badge_plus,
                                       color: Colors.cyan),
                                 ),
                                 IconButton(
                                   // padding: EdgeInsets.all(1),
-                                  onPressed: null,
+                                  onPressed: () => setState(() {
+                                    // _badgeCount == _badgeCount ?? ++_badgeCount!;
+                                    if (_badgeCount != null &&
+                                        _badgeCount! != 0) {
+                                      _badgeCount = _badgeCount! - 1;
+                                    }
+                                  }),
+
                                   icon: Icon(
                                     CupertinoIcons.cart_badge_minus,
                                     color: Colors.orange,

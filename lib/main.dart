@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
           secondary: Colors.pink,
         ),
       ),
-      home: const CartPage(title: 'Your Cart'),
-      // home: const FoodListPage(title: 'Food Shop'),
+      // home: const CartPage(title: 'Your Cart'),
+      home: const FoodListPage(title: 'Food Shop'),
     );
   }
 }

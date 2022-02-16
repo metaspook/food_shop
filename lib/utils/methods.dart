@@ -41,7 +41,7 @@ class Methods {
               : Text(
                   subtitle,
                   textAlign: TextAlign.center,
-                  style: Theme.of(ctx).textTheme.headline3,
+                  style: Theme.of(ctx).textTheme.headline4,
                 ),
           actionsAlignment:
               secondaryButtonText == null && secondaryButtonFunction == null

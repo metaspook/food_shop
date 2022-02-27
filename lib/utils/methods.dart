@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/widgets/custom_divider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Methods {
   // customDialog 2022-02-15
@@ -80,4 +81,7 @@ class Methods {
       },
     );
   }
+
+  static Future<SharedPreferences> get prefs async =>
+      await SharedPreferences.getInstance();
 }

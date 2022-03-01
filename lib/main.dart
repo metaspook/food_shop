@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/pages/admin.dart';
 import 'package:food_shop/pages/cart.dart';
 import 'package:food_shop/pages/food_list.dart';
 import 'package:food_shop/pages/sign_in.dart';
@@ -14,7 +16,7 @@ Future<void> main() async {
   Constant.prefs = await SharedPreferences.getInstance();
   // Initializing Shared Preferences
   // SharedPreferences prefs = await SharedPreferences.getInstance();
-  runApp(const MyApp());
+  runApp(kIsWeb ? const AdminApp() : const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -42,6 +44,35 @@ class MyApp extends StatelessWidget {
       // home: const CartPage(title: 'Your Cart'),
       // home: FoodListPage(),
       home: const SignUpPage(),
+    );
+  }
+}
+
+class AdminApp extends StatelessWidget {
+  const AdminApp({Key? key}) : super(key: key);
+  // final SharedPreferences prefs;
+  // final _key = GlobalKey();
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Food Shop Admin',
+      theme: ThemeData(
+        // primarySwatch: Colors.indigo,
+        colorScheme: const ColorScheme.light(
+          primary: Colors.indigo,
+          secondary: Colors.pink,
+        ),
+      ),
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => FoodListPage(prefs: prefs),
+      //   '/cart': (context) => CartPage(prefs: prefs),
+      // },
+      // home: const CartPage(title: 'Your Cart'),
+      // home: FoodListPage(),
+      home: const AdminPage(),
     );
   }
 }

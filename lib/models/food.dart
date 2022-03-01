@@ -1,6 +1,5 @@
 // MODEL CLASS
 import 'dart:convert';
-// import 'package:shared_preferences/shared_preferences.dart';
 
 class Food {
   Food({
@@ -33,74 +32,4 @@ class Food {
 
   static List<String> toJsonStringList(List<Food> list) =>
       [for (Food e in list) e.toJsonString()];
-
-  // // Shared Preferences helpers (..Prefs.. methods).
-  // static Food getPrefs(
-  //     {required SharedPreferences prefs, required String key}) {
-  //   return Food.fromJson(jsonDecode(prefs.getString(key)!));
-  // }
-
-  // static void setPrefs({
-  //   required SharedPreferences prefs,
-  //   required String key,
-  //   required Food value,
-  // }) {
-  //   prefs.setString(key, jsonEncode(value.toJson()));
-  // }
-
-  // static List<Food> getPrefsList(
-  //     {required SharedPreferences prefs, required String key}) {
-  //   return [
-  //     for (String e in prefs.getStringList(key) ?? [])
-  //       Food.fromJson(jsonDecode(e))
-  //   ];
-  // }
-
-  // static void setPrefsList({
-  //   required SharedPreferences prefs,
-  //   required String key,
-  //   required List<Food> list,
-  // }) {
-  //   prefs.setStringList(key, [for (Food e in list) jsonEncode(e.toJson())]);
-  // }
-
-  // static void addPrefsListItem({
-  //   required SharedPreferences prefs,
-  //   required String key,
-  //   required Food item,
-  // }) {
-  //   setPrefsList(
-  //     prefs: prefs,
-  //     key: key,
-  //     list: [...getPrefsList(prefs: prefs, key: key), item],
-  //   );
-  // }
-
-  // static void removePrefsListItem({
-  //   required SharedPreferences prefs,
-  //   required String key,
-  //   required Food item,
-  // }) {
-  //   List<Food> itemList = getPrefsList(prefs: prefs, key: key);
-  //   itemList.remove(item);
-  //   setPrefsList(
-  //     prefs: prefs,
-  //     key: key,
-  //     list: [...itemList],
-  //   );
-  // }
-
-  // static void removePrefsListItemAt({
-  //   required SharedPreferences prefs,
-  //   required String key,
-  //   required int index,
-  // }) {
-  //   List<Food> itemList = getPrefsList(prefs: prefs, key: key);
-  //   itemList.removeAt(index);
-  //   setPrefsList(
-  //     prefs: prefs,
-  //     key: key,
-  //     list: [...itemList],
-  //   );
-  // }
 }

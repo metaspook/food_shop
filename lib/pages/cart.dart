@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/food.dart';
-import 'package:food_shop/utils/methods.dart';
+import 'package:food_shop/utils/method.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({

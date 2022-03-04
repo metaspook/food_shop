@@ -27,7 +27,7 @@ class _CartPageState extends State<CartPage> {
   void initState() {
     super.initState();
     _cartItemPriceList = [...?widget.itemPriceList];
-    Methods.prefs.then((db) {
+    Method.prefs.then((db) {
       if (db.getStringList("cartItemList") != null) {
         setState(() {
           _cartItemList.addAll(db.getStringList("cartItemList")!);
@@ -72,7 +72,7 @@ class _CartPageState extends State<CartPage> {
               children: [
                 IconButton(
                   onPressed: () {
-                    Methods.customDialog(
+                    Method.customDialog(
                       title: '⚠️ Caution!',
                       subtitle: 'Do you want to delete this cart?',
                       context: context,
@@ -88,7 +88,7 @@ class _CartPageState extends State<CartPage> {
                           // if (Navigator.canPop(context)) {
                           // int count = 0;
                           // Navigator.of(context).popUntil((_) => count++ >= 2);
-                          Methods.prefs.then((db) => db.clear());
+                          Method.prefs.then((db) => db.clear());
                           _cartItemList.clear();
                           _cartItemPriceList.clear();
                           // }
@@ -138,7 +138,7 @@ class _CartPageState extends State<CartPage> {
                                 onPressed: () {
                                   setState(() {
                                     _cartItemList.removeAt(index);
-                                    Methods.prefs.then((db) => db.setStringList(
+                                    Method.prefs.then((db) => db.setStringList(
                                         "cartItemList", _cartItemList));
                                     _cartItemPriceList.removeAt(index);
                                   });
@@ -255,7 +255,7 @@ class _CartPageState extends State<CartPage> {
                         color: Colors.orange,
                       ),
                       onPressed: () {
-                        Methods.customDialog(
+                        Method.customDialog(
                           title: 'Order Confirmation',
                           // subtitle: 'Do you want confirm the order?',
                           context: context,

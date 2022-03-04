@@ -2,12 +2,11 @@
 import 'package:flutter/material.dart';
 
 class Controller {
-  static final TextEditingController fullNameController =
-      TextEditingController();
-  static final TextEditingController emailController = TextEditingController();
-  static final TextEditingController passwordController =
-      TextEditingController();
-  static final TextEditingController phoneController = TextEditingController();
-  static final TextEditingController addressController =
-      TextEditingController();
+  static final fullNameController = TextEditingController();
+  static final emailController = TextEditingController();
+  static final passwordController = TextEditingController();
+  static final phoneController = TextEditingController();
+  static final addressController = TextEditingController();
+  static final pageController = PageController();
+  static final scrollController = ScrollController();
 }

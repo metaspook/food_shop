@@ -46,6 +46,11 @@ class User {
     };
   }
 
+  static List<User> fromJsonList(List<Map<String, dynamic>> jsonList) =>
+      [for (Map<String, dynamic> e in jsonList) User.fromJson(e)];
+  static List<User> fromJsonListString(String listString) =>
+      [for (Map<String, dynamic> e in jsonDecode(listString)) User.fromJson(e)];
+
   factory User.fromJsonString(String jsonString) =>
       User.fromJson(jsonDecode(jsonString));
 

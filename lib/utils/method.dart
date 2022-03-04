@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:food_shop/utils/constant.dart';
 import 'package:food_shop/widgets/custom_divider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Methods {
+class Method {
   // customDialog 2022-02-15
   static void customDialog({
     required BuildContext context,
@@ -84,4 +87,28 @@ class Methods {
 
   static Future<SharedPreferences> get prefs async =>
       await SharedPreferences.getInstance();
+
+  // static void initPrefsData() async {
+  //   await Constant.prefsCrypt.getString(key).then((value) {
+  //     Constant.prefsData = value;
+  //   });
+  // }
+
+  /// Load data on "Constant.prefsData" global variable.
+  // static void loadPrefsData(String key) async {
+  //   Variable.prefsData[key] = await Variable.prefsCrypt.getString(key);
+  // }
+
+  // static void setPrefsData(String key, String value) {
+  //   Variable.prefsData[key] = value;
+  //   Variable.prefsCrypt.setString(key, value);
+  // }
+
+  // static String base64Encode(String str) {
+  //   return base64.encode(utf8.encode('I like dogs'));
+  // }
+
+  // static String base64Decode() {
+
+  // }
 }

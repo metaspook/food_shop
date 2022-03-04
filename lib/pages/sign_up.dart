@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/user.dart';
 import 'package:food_shop/pages/profile.dart';
 import 'package:food_shop/utils/constant.dart';
 import 'package:food_shop/utils/controller.dart';
+import 'package:food_shop/utils/method.dart';
 import 'package:food_shop/utils/validator.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -15,6 +18,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
+  static const Base64Codec base64 = Base64Codec();
 
   @override
   void dispose() {
@@ -84,27 +88,44 @@ class _SignUpPageState extends State<SignUpPage> {
             FittedBox(
               child: ElevatedButton.icon(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Constant.prefs.setStringList("userList", [
-                      ...?Constant.prefs.getStringList("userList"),
-                      User.fromJson({
-                        "id": (Constant.prefs.getStringList("userList") == null
-                                ? 0
-                                : Constant.prefs
-                                    .getStringList("userList")!
-                                    .length) +
-                            1,
-                        "fullName": Controller.fullNameController.text,
-                        "email": Controller.emailController.text,
-                        "password": Controller.passwordController.text,
-                        "phone": Controller.phoneController.text,
-                        "address": Controller.addressController.text,
-                      }).toJsonString()
-                    ]);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
-                    );
-                  }
+                  // if (_formKey.currentState!.validate()) {
+                  // Constant.prefsCrypt.setString('test1', 'This is test1');
+                  // Constant.prefsCrypt.setString('test1', 'This is test2');
+                  // Constant.prefsCrypt.setString('test1', 'This is test3');
+                  // Constant.prefsCrypt.setString('test1', 'This is test7');
+                  // Method.setPrefsData("userList", "This is test115");
+                  // "id": 1,
+                  //         "fullName": Controller.fullNameController.text,
+                  //         "email": Controller.emailController.text,
+                  //         "password": Controller.passwordController.text,
+                  //         "phone": Controller.phoneController.text,
+                  //         "address": Controller.addressController.text,
+                  //  id: 1,
+                  //         fullName: Controller.fullNameController.text,
+                  //         email: Controller.emailController.text,
+                  //         password: Controller.passwordController.text,
+                  //         phone: Controller.phoneController.text,
+                  //         address: Controller.addressController.text,
+                  // Method.setPrefsData(
+                  //   "userList",
+                  //   jsonEncode([
+                  //     ...jsonDecode(Variable.prefsData["userList"]!),
+                  //     {
+                  //       "id":
+                  //           jsonDecode(Variable.prefsData["userList"]!).length +
+                  //               1,
+                  //       "fullName": Controller.fullNameController.text,
+                  //       "email": Controller.emailController.text,
+                  //       "password": Controller.passwordController.text,
+                  //       "phone": Controller.phoneController.text,
+                  //       "address": Controller.addressController.text,
+                  //     }
+                  //   ]),
+                  // );
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   const SnackBar(content: Text('Processing Data')),
+                  // );
+                  // }
                   Navigator.push(
                     context,
                     MaterialPageRoute(

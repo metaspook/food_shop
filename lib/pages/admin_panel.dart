@@ -1,5 +1,13 @@
+import 'dart:convert';
+
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/models/user.dart';
+import 'package:food_shop/pages/views/dashboard.dart';
+import 'package:food_shop/pages/views/orders.dart';
+import 'package:food_shop/pages/views/users.dart';
+import 'package:food_shop/utils/constant.dart';
+import 'package:food_shop/utils/controller.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
@@ -9,31 +17,56 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
-  PageController page = PageController();
+  // late final List<User> _userList;
+  // User.fromJsonStringList(Constant.prefs.getStringList("userList")!);
+
+  @override
+  void dispose() {
+    super.dispose();
+    Controller.pageController.dispose();
+    Controller.scrollController.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Constant.prefs.setStringList("userList", ["user1"]);
+    // _userList = (Constant.prefs.getStringList("userList") == null ||
+    //         Constant.prefs.getStringList("userList")!.isEmpty)
+    //     ? []
+    //     : User.fromJsonStringList(Constant.prefs.getStringList("userList")!);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    // List<User> userList =
+    //     // User.fromJsonListString(Constant.prefsData["userList"]!);
+    //     [
+    //   for (Map<String, dynamic> e
+    //       in jsonDecode(Constant.prefsData["userList"]!))
+    //     User.fromJson(e)
+    // ];
     return Scaffold(
       appBar: AppBar(
         // automaticallyImplyLeading: false,
         centerTitle: true,
-        title: const Text('Admin Dashboard'),
+        title: const Text('Admin Panel'),
       ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SideMenu(
-            controller: page,
+            controller: Controller.pageController,
             style: SideMenuStyle(
               displayMode: SideMenuDisplayMode.auto,
               hoverColor:
                   Theme.of(context).colorScheme.secondary.withOpacity(0.25),
-
               selectedColor: Theme.of(context).colorScheme.secondary,
               selectedTitleTextStyle: TextStyle(color: Colors.white),
               selectedIconColor: Colors.white,
-              // backgroundColor: Colors.amber
-              // openSideMenuWidth: 200
+              // backgroundColor: Colors.amber,
+              openSideMenuWidth: 225,
             ),
             title: Column(
               children: [
@@ -50,25 +83,17 @@ class _AdminPageState extends State<AdminPage> {
                     ),
                   ),
                 ),
-                Divider(
-                  indent: 8.0,
-                  endIndent: 8.0,
-                ),
+                const Divider(indent: 8.0, endIndent: 8.0),
               ],
             ),
-            footer: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'mohada',
-                style: TextStyle(fontSize: 15),
-              ),
-            ),
+            footer: Text('© 2022 Metaspook',
+                style: Theme.of(context).textTheme.subtitle1),
             items: [
               SideMenuItem(
                 priority: 0,
                 title: 'Dashboard',
                 onTap: () {
-                  page.jumpToPage(0);
+                  Controller.pageController.jumpToPage(0);
                 },
                 icon: Icons.home,
               ),
@@ -76,15 +101,15 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 1,
                 title: 'Users',
                 onTap: () {
-                  page.jumpToPage(1);
+                  Controller.pageController.jumpToPage(1);
                 },
                 icon: Icons.supervisor_account,
               ),
               SideMenuItem(
                 priority: 2,
-                title: 'Files',
+                title: 'Orders',
                 onTap: () {
-                  page.jumpToPage(2);
+                  Controller.pageController.jumpToPage(2);
                 },
                 icon: Icons.file_copy_rounded,
               ),
@@ -92,7 +117,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 3,
                 title: 'Download',
                 onTap: () {
-                  page.jumpToPage(3);
+                  Controller.pageController.jumpToPage(3);
                 },
                 icon: Icons.download,
               ),
@@ -100,7 +125,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 4,
                 title: 'Settings',
                 onTap: () {
-                  page.jumpToPage(4);
+                  Controller.pageController.jumpToPage(4);
                 },
                 icon: Icons.settings,
               ),
@@ -114,26 +139,11 @@ class _AdminPageState extends State<AdminPage> {
           ),
           Expanded(
             child: PageView(
-              controller: page,
+              controller: Controller.pageController,
               children: [
-                Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: Text(
-                      'Page\n   1',
-                      style: TextStyle(fontSize: 35),
-                    ),
-                  ),
-                ),
-                Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: Text(
-                      'Page\n   2',
-                      style: TextStyle(fontSize: 35),
-                    ),
-                  ),
-                ),
+                DashboardView(),
+                UsersView(),
+                OrdersView(),
                 Container(
                   color: Colors.white,
                   child: Center(

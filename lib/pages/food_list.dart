@@ -26,7 +26,7 @@ class _FoodListPageState extends State<FoodListPage> {
   void initState() {
     super.initState();
     _futureFood = _fetchFood();
-    Methods.prefs.then((db) {
+    Method.prefs.then((db) {
       if (db.getStringList("cartItemList") != null) {
         setState(() {
           _cartItemList.addAll(db.getStringList("cartItemList")!);
@@ -86,7 +86,7 @@ class _FoodListPageState extends State<FoodListPage> {
                       // print(value);
                       if (value) {
                         setState(() {
-                          Methods.prefs.then((db) {
+                          Method.prefs.then((db) {
                             if (db.getStringList("cartItemList") != null) {
                               _cartItemList.clear();
                               _cartItemList
@@ -194,7 +194,7 @@ class _FoodListPageState extends State<FoodListPage> {
                                         _cartItemList.remove(snapshot
                                             .data![index]
                                             .toJsonString());
-                                        Methods.prefs.then((db) =>
+                                        Method.prefs.then((db) =>
                                             db.setStringList(
                                                 "cartItemList", _cartItemList));
                                       });
@@ -209,7 +209,7 @@ class _FoodListPageState extends State<FoodListPage> {
                                       setState(() {
                                         _cartItemList.add(snapshot.data![index]
                                             .toJsonString());
-                                        Methods.prefs.then((db) =>
+                                        Method.prefs.then((db) =>
                                             db.setStringList(
                                                 "cartItemList", _cartItemList));
                                       });

@@ -1,11 +1,13 @@
+import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/pages/admin.dart';
+import 'package:food_shop/pages/admin_panel.dart';
 import 'package:food_shop/pages/cart.dart';
 import 'package:food_shop/pages/food_list.dart';
 import 'package:food_shop/pages/sign_in.dart';
 import 'package:food_shop/pages/sign_up.dart';
 import 'package:food_shop/utils/constant.dart';
+import 'package:food_shop/utils/method.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
@@ -13,9 +15,14 @@ Future<void> main() async {
   // about using binary messenger before runApp()
   // WidgetsFlutterBinding.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
-  Constant.prefs = await SharedPreferences.getInstance();
+  // Constant.prefsCrypt = EncryptedSharedPreferences();
+  // Constant.prefs = await Constant.prefsCrypt.getInstance();
   // Initializing Shared Preferences
   // SharedPreferences prefs = await SharedPreferences.getInstance();
+  // Constant.prefsCrypt.reload();
+  // Method.setPrefsData("userList", " x");
+  // Method.loadPrefsData("userList");
+
   runApp(kIsWeb ? const AdminApp() : const MyApp());
 }
 

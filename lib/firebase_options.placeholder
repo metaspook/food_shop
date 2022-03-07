@@ -1,0 +1,14 @@
+// 1. add 'firebase_options.dart' in your '.gitignore'.
+// 2. make an copy of this file as 'firebase_options.dart'.
+// 3. in 'firebase_options.dart' replace values and remove these comments.
+class FireOps {
+  static const String apiKey = "<place here>";
+  static const String authDomain = "<place here>";
+  static const String databaseURL ="<place here>";
+  static const String projectId = "<place here>";
+  static const String storageBucket = "<place here>";
+  static const String messagingSenderId = "<place here>";
+  static const String appId = "<place here>";
+  static const String measurementId = "<place here>";
+  // ...
+}

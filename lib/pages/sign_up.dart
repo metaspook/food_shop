@@ -7,6 +7,7 @@ import 'package:food_shop/utils/constant.dart';
 import 'package:food_shop/utils/controller.dart';
 import 'package:food_shop/utils/method.dart';
 import 'package:food_shop/utils/validator.dart';
+import 'package:food_shop/utils/variable.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -126,12 +127,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   //   const SnackBar(content: Text('Processing Data')),
                   // );
                   // }
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProfilePage(),
-                    ),
-                  );
+
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => ProfilePage(),
+                  //   ),
+                  // );
+                  createData();
                 },
                 icon: Icon(Icons.login),
                 label: Text('Sign up'),
@@ -144,4 +147,18 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
+}
+
+void createData() {
+  // Variable.dbRealtime.child("users").push().set([
+  //   {'name': 'Yashwant Kumar', 'description': 'Senior Software Engineer'},
+  //   {'name': 'Yashwant Kumar', 'description': 'Senior Software Engineer'},
+  //   {'name': 'Yashwant Kumar', 'description': 'Senior Software Engineer'},
+  // ]);
+
+  // Variable.dbRealtime.child("categories/").update(
+  //     // "Category One",
+  //     // "Category Two",
+  //     // {"description": "Team Lead", "name": "Deepak Nishad"},
+  //     {"description": "Team Lexxad", "name": "Deepak Nishcccadf"});
 }

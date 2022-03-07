@@ -1,7 +1,9 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/user.dart';
 import 'package:food_shop/utils/constant.dart';
 import 'package:food_shop/utils/controller.dart';
+import 'package:food_shop/utils/variable.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({Key? key}) : super(key: key);
@@ -11,63 +13,78 @@ class DashboardView extends StatefulWidget {
 }
 
 class _DashboardViewState extends State<DashboardView> {
-  late final List<Map<String, dynamic>> gridInfoList;
-  @override
-  void initState() {
-    super.initState();
-    gridInfoList = [
-      {
-        "title": "Users",
-        "count": Constant.userList.length,
-        "icon": Icons.supervised_user_circle_sharp
-      },
-      {"title": "Orders", "count": 20, "icon": Icons.file_copy},
-      {"title": "Pending", "count": 45, "icon": Icons.access_alarms_sharp},
-      {"title": "Confirmed", "count": 36, "icon": Icons.done_outline_rounded}
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return Container(
       color: Colors.white,
-      child: GridView.builder(
-        controller: Controller.scrollController,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: size.width > 600 ? 4 : 2,
-          childAspectRatio: 2,
-        ),
-        itemCount: gridInfoList.length,
-        itemBuilder: (context, index) {
-          return Card(
-              elevation: 5,
-              // shadowColor: Colors.black,
-              // color: Colors.white54,
-              child: ListTile(
-                // contentPadding: EdgeInsetsGeometry.infinity,
-                // visualDensity:
-                //     VisualDensity.adaptivePlatformDensity,
-                title: Text(
-                  gridInfoList[index]["title"],
-                  style: Theme.of(context).textTheme.headline4,
-                ),
+      child: Center(
+        child: StreamBuilder<DatabaseEvent>(
+            stream: Variable.dbRealtime.ref().onValue,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final List<Map<String, dynamic>> _gridInfoList = [
+                  {
+                    "title": "Users",
+                    "count":
+                        snapshot.data!.snapshot.child("users").children.length,
+                    "icon": Icons.supervised_user_circle_sharp
+                  },
+                  {"title": "Orders", "count": 20, "icon": Icons.file_copy},
+                  {
+                    "title": "Pending",
+                    "count": 45,
+                    "icon": Icons.access_alarms_sharp
+                  },
+                  {
+                    "title": "Confirmed",
+                    "count": 36,
+                    "icon": Icons.done_outline_rounded
+                  }
+                ];
+                // print(snapshot.data!.snapshot.child("users").children.length);
+                return GridView.builder(
+                  controller: Controller.scrollController,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: size.width > 600 ? 4 : 2,
+                    childAspectRatio: 2,
+                  ),
+                  itemCount: Variable.gridInfoList.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                        elevation: 5,
+                        // shadowColor: Colors.black,
+                        // color: Colors.white54,
+                        child: ListTile(
+                          // contentPadding: EdgeInsetsGeometry.infinity,
+                          // visualDensity:
+                          //     VisualDensity.adaptivePlatformDensity,
+                          title: Text(
+                            _gridInfoList[index]["title"],
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
 
-                leading: Icon(
-                  gridInfoList[index]["icon"],
-                  color: Theme.of(context).colorScheme.secondary,
-                  size: size.width * 0.05,
-                ),
-                onTap: null,
-                trailing: Text(
-                  gridInfoList[index]["count"].toString(),
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                        fontSize: size.width > 600 ? 50 : 25,
-                      ),
-                ),
-              ));
-        },
+                          leading: Icon(
+                            _gridInfoList[index]["icon"],
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: size.width * 0.05,
+                          ),
+                          onTap: null,
+                          trailing: Text(
+                            _gridInfoList[index]["count"].toString(),
+                            style:
+                                Theme.of(context).textTheme.headline4!.copyWith(
+                                      fontSize: size.width > 600 ? 50 : 25,
+                                    ),
+                          ),
+                        ));
+                  },
+                );
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+              return const CircularProgressIndicator.adaptive();
+            }),
       ),
     );
   }

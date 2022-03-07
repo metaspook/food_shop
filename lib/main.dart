@@ -1,29 +1,40 @@
-import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
-import 'package:flutter/foundation.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:food_shop/firebase_options.dart';
 import 'package:food_shop/pages/admin_panel.dart';
-import 'package:food_shop/pages/cart.dart';
-import 'package:food_shop/pages/food_list.dart';
-import 'package:food_shop/pages/sign_in.dart';
 import 'package:food_shop/pages/sign_up.dart';
-import 'package:food_shop/utils/constant.dart';
-import 'package:food_shop/utils/method.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:food_shop/utils/variable.dart';
 
 Future<void> main() async {
   // Note that this line is required, otherwise flutter throws an error
   // about using binary messenger before runApp()
-  // WidgetsFlutterBinding.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
-  // Constant.prefsCrypt = EncryptedSharedPreferences();
-  // Constant.prefs = await Constant.prefsCrypt.getInstance();
-  // Initializing Shared Preferences
-  // SharedPreferences prefs = await SharedPreferences.getInstance();
-  // Constant.prefsCrypt.reload();
-  // Method.setPrefsData("userList", " x");
-  // Method.loadPrefsData("userList");
-
-  runApp(kIsWeb ? const AdminApp() : const MyApp());
+  if (kIsWeb) {
+    // specify "firebase-options.json" in assets dir before.
+    // await rootBundle.loadString('firebase-options.json').then((value) async {
+    //   final firebaseOptions = jsonDecode(value) as Map<String, dynamic>;
+    await Firebase.initializeApp(
+        options: const FirebaseOptions(
+      apiKey: FireOps.apiKey,
+      authDomain: FireOps.authDomain,
+      databaseURL: FireOps.databaseURL,
+      projectId: FireOps.projectId,
+      storageBucket: FireOps.storageBucket,
+      messagingSenderId: FireOps.messagingSenderId,
+      appId: FireOps.appId,
+      measurementId: FireOps.measurementId,
+    ));
+    Variable.dbRealtime = FirebaseDatabase.instance;
+    runApp(const AdminApp());
+    // }).catchError((_) {});
+  } else {
+    await Firebase.initializeApp();
+    Variable.dbRealtime = FirebaseDatabase.instance;
+    Variable.dbRealtime.setPersistenceEnabled(true);
+    runApp(const MyApp());
+  }
 }
 
 class MyApp extends StatelessWidget {

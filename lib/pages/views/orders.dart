@@ -45,11 +45,11 @@ class _OrdersViewState extends State<OrdersView> {
                         // visualDensity:
                         //     VisualDensity.adaptivePlatformDensity,
                         title: Text(
-                          Constant.userList[index].fullName,
+                          Constant.userList[index]["fullName"],
                           style: Theme.of(context).textTheme.headline6,
                         ),
                         subtitle: Text(
-                          Constant.userList[index].fullName,
+                          Constant.userList[index]["email"],
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                         leading: Image.asset(

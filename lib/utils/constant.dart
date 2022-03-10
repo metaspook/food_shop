@@ -72,5 +72,79 @@ class Constant {
       "address": "lake city, Khikhet",
     },
   ];
+  static const List<Map<String, dynamic>> oderList = [
+    {
+      "orderId": "JenCvqPWYdf",
+      "userId": "-MxVBDVretrevKX6IRjeo",
+      "totalPrice": 343,
+      "status": "Pending",
+      "cart": [
+        {"itemIndex": 0, "quantity": 10}
+      ]
+    },
+    {
+      "orderId": "JenCvqPWdK",
+      "userId": "-MxVBDV0eshhKX6IRjeo",
+      "totalPrice": 546,
+      "status": "Confirmed",
+      "cart": [
+        {"itemIndex": 1, "quantity": 25}
+      ]
+    },
+    {
+      "orderId": "JenCvqPWsK",
+      "userId": "-MxVBDVhjhzvKX6IRjeo",
+      "totalPrice": 357,
+      "status": "Canceled",
+      "cart": [
+        {"itemIndex": 2, "quantity": 58}
+      ]
+    },
+    {
+      "orderId": "JenCvqPaYK",
+      "userId": "-MxVBDV0vCkjkkIRjeo",
+      "totalPrice": 456,
+      "status": "Confirmed",
+      "cart": [
+        {"itemIndex": 3, "quantity": 47}
+      ]
+    },
+    {
+      "orderId": "JenCvqPwYK",
+      "userId": "-MxVBDV0vCkjk6IRjeo",
+      "totalPrice": 528,
+      "status": "Canceled",
+      "cart": [
+        {"itemIndex": 4, "quantity": 57}
+      ]
+    },
+    {
+      "orderId": "JenCvqrtYK",
+      "userId": "-MxVhg0vCzvKX6IRjeo",
+      "totalPrice": 756,
+      "status": "Confirmed",
+      "cart": [
+        {"itemIndex": 5, "quantity": 67}
+      ]
+    },
+    {
+      "orderId": "JenCvqyyyK",
+      "userId": "-MxVBDV0vCzvjjjRjeo",
+      "totalPrice": 915,
+      "status": "Pending",
+      "cart": [
+        {"itemIndex": 6, "quantity": 96}
+      ]
+    },
+    {
+      "orderId": "JenCrrrriK",
+      "userId": "-MxVBjhjgjKX6IRjeo",
+      "totalPrice": 524,
+      "status": "Pending",
+      "cart": [
+        {"itemIndex": 7, "quantity": 14}
+      ]
+    },
+  ];
   static const Base64Codec base64 = Base64Codec();
 }

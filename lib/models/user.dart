@@ -12,7 +12,7 @@ class User {
     this.image,
   });
 
-  final int id;
+  final String id;
   final String fullName;
   final String email;
   final String password;

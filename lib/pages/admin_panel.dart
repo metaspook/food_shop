@@ -4,6 +4,7 @@ import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/user.dart';
 import 'package:food_shop/pages/views/dashboard.dart';
+import 'package:food_shop/pages/views/downloads.dart';
 import 'package:food_shop/pages/views/orders.dart';
 import 'package:food_shop/pages/views/users.dart';
 import 'package:food_shop/utils/constant.dart';
@@ -91,9 +92,17 @@ class _AdminPageState extends State<AdminPage> {
             items: [
               SideMenuItem(
                 priority: 0,
-                title: 'Dashboard',
+                title: 'Orders',
                 onTap: () {
                   Controller.pageController.jumpToPage(0);
+                },
+                icon: Icons.file_copy_rounded,
+              ),
+              SideMenuItem(
+                priority: 2,
+                title: 'Dashboard',
+                onTap: () {
+                  Controller.pageController.jumpToPage(2);
                 },
                 icon: Icons.home,
               ),
@@ -104,14 +113,6 @@ class _AdminPageState extends State<AdminPage> {
                   Controller.pageController.jumpToPage(1);
                 },
                 icon: Icons.supervisor_account,
-              ),
-              SideMenuItem(
-                priority: 2,
-                title: 'Orders',
-                onTap: () {
-                  Controller.pageController.jumpToPage(2);
-                },
-                icon: Icons.file_copy_rounded,
               ),
               SideMenuItem(
                 priority: 3,
@@ -141,9 +142,9 @@ class _AdminPageState extends State<AdminPage> {
             child: PageView(
               controller: Controller.pageController,
               children: [
+                OrdersView(),
                 DashboardView(),
                 UsersView(),
-                OrdersView(),
                 Container(
                   color: Colors.white,
                   child: Center(
@@ -153,15 +154,7 @@ class _AdminPageState extends State<AdminPage> {
                     ),
                   ),
                 ),
-                Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: Text(
-                      'Page\n   4',
-                      style: TextStyle(fontSize: 35),
-                    ),
-                  ),
-                ),
+                DownloadsView(),
                 Container(
                   color: Colors.white,
                   child: Center(

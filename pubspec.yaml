@@ -42,6 +42,8 @@ dependencies:
   easy_sidemenu: ^0.1.1+1
   firebase_core: ^1.13.1
   firebase_database: ^9.0.8
+  charts_flutter: ^0.12.0
+  font_awesome_flutter: ^9.2.0
 
 dev_dependencies:
   flutter_test:

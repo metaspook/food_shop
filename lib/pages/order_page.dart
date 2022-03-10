@@ -25,6 +25,22 @@ class _OrderPageState extends State<OrderPage> {
     {"itemIndex": 1, "quantity": 1},
     {"itemIndex": 2, "quantity": 44},
     {"itemIndex": 3, "quantity": 23},
+    {"itemIndex": 0, "quantity": 5},
+    {"itemIndex": 1, "quantity": 1},
+    {"itemIndex": 2, "quantity": 44},
+    {"itemIndex": 3, "quantity": 23},
+    {"itemIndex": 0, "quantity": 5},
+    {"itemIndex": 1, "quantity": 1},
+    {"itemIndex": 2, "quantity": 44},
+    {"itemIndex": 3, "quantity": 23},
+    {"itemIndex": 0, "quantity": 5},
+    {"itemIndex": 1, "quantity": 1},
+    {"itemIndex": 2, "quantity": 44},
+    {"itemIndex": 3, "quantity": 23},
+    {"itemIndex": 0, "quantity": 5},
+    {"itemIndex": 1, "quantity": 1},
+    {"itemIndex": 2, "quantity": 44},
+    {"itemIndex": 3, "quantity": 23},
   ];
 
   final List<Map<String, dynamic>> _itemList = [
@@ -113,10 +129,12 @@ class _OrderPageState extends State<OrderPage> {
       "unitPrice": 55
     }
   ];
-  late List<int> _cartItemQuantityList;
-  late List<int> _cartItemPriceList;
   static const _title = 'Order Page';
   bool updateDB = false;
+  int totalPrice = 0;
+  late List<int> _cartItemQuantityList;
+  late List<int> _cartItemPriceList;
+  late List<int> _cartSubTotalList;
 
   @override
   void initState() {
@@ -128,6 +146,11 @@ class _OrderPageState extends State<OrderPage> {
       (i) => 10 + Random().nextInt(100 - 10),
       growable: false,
     );
+    _cartSubTotalList = [
+      for (var i = 0; i < _cartItemList.length; i++)
+        _cartItemList[i]['quantity'] *
+            _itemList[_cartItemList[i]['itemIndex']]['unitPrice']
+    ];
     // Method.prefs.then((db) {
     //   if (db.getStringList("cartItemList") != null) {
     //     setState(() {
@@ -215,315 +238,454 @@ class _OrderPageState extends State<OrderPage> {
           )
         ],
       ),
-      body: Align(
-          alignment: Alignment.topCenter,
-          child: LayoutBuilder(builder: (context, constraints) {
-            return SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.all(8),
-              child: Table(
-                defaultColumnWidth:
-                    FixedColumnWidth(constraints.maxWidth / 4.75),
-                border: TableBorder.all(
-                    color: Colors.black, style: BorderStyle.solid, width: 2),
-                children: [
-                  TableRow(children: [
-                    Column(children: [
-                      Text('Product', style: TextStyle(fontSize: 20.0))
-                    ]),
-                    Column(children: [
-                      Text('Unit Price', style: TextStyle(fontSize: 20.0))
-                    ]),
-                    Column(children: [
-                      Text('Quantity', style: TextStyle(fontSize: 20.0))
-                    ]),
-                    Column(children: [
-                      Text('Subtotal', style: TextStyle(fontSize: 20.0))
-                    ]),
-                  ]),
-                  for (var i = 0; i < _cartItemList.length; i++)
-                    TableRow(children: [
-                      Row(children: [
-                        Flexible(
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                "${_itemList[_cartItemList[i]['itemIndex']]['image']}",
-                            //         // imageUrl: _cartItemList[index].image,
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                            // fit: BoxFit.scaleDown,
-                            height: constraints.maxHeight * 0.05,
-                            width: constraints.maxWidth * 0.05,
+      body: LayoutBuilder(builder: (context, constraints) {
+        return Center(
+          child: Flex(
+            direction: size.width > 1250 ? Axis.horizontal : Axis.vertical,
+            // mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Card(
+                margin: EdgeInsets.all(12),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("""
+      Customer ID: GlfdigjdfkFDfd Customer Name: Javed Hasan
+      Customer Phone: 01356565632
+      Order ID: ghhhigjdfkFDfd
+                    """),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton.icon(
+                          label: const Text('Make Order'),
+                          icon: const Icon(
+                            CupertinoIcons.text_badge_checkmark,
+                            color: Colors.orange,
+                          ),
+                          onPressed: () {
+                            Method.customDialog(
+                              title: 'Order Confirmation',
+                              // subtitle: 'Do you want confirm the order?',
+                              context: context,
+                              primaryButtonText: 'Cancel',
+                              primaryButtonFunction: () {
+                                if (Navigator.canPop(context)) {
+                                  Navigator.pop(context);
+                                }
+                              },
+                              secondaryButtonText: 'Confirm',
+                              secondaryButtonFunction: () {
+                                if (Navigator.canPop(context)) {
+                                  Navigator.pop(context);
+                                }
+                              },
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 50),
+                        Text(
+                          'Total: ',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          '\$${_cartSubTotalList.reduce((v, e) => v + e)}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(width: 100),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Table(
+                        defaultVerticalAlignment:
+                            TableCellVerticalAlignment.middle,
+                        defaultColumnWidth: size.width > 1250
+                            ? FixedColumnWidth(200)
+                            : FlexColumnWidth(),
+                        // defaultColumnWidth: FlexColumnWidth(),
+                        border: TableBorder.all(
+                            color: Colors.black,
+                            style: BorderStyle.solid,
+                            width: 2),
+                        children: [
+                          TableRow(children: [
+                            Column(children: [
+                              Text(
+                                'Product',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              )
+                            ]),
+                            Column(children: [
+                              Text(
+                                'Unit Price',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              )
+                            ]),
+                            Column(children: [
+                              Text(
+                                'Quantity',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              )
+                            ]),
+                            Column(children: [
+                              Text(
+                                'Subtotal',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              )
+                            ]),
+                          ]),
+                        ],
+                      ),
+                      Flexible(
+                        child: SingleChildScrollView(
+                          child: Table(
+                            defaultVerticalAlignment:
+                                TableCellVerticalAlignment.middle,
+                            defaultColumnWidth: size.width > 1250
+                                ? FixedColumnWidth(200)
+                                : FlexColumnWidth(),
+                            // defaultColumnWidth: FlexColumnWidth(),
+                            border: TableBorder.all(
+                                color: Colors.black,
+                                style: BorderStyle.solid,
+                                width: 2),
+                            children: [
+                              // for (var j = 0; j < 8; j++)
+                              for (var i = 0; i < _cartItemList.length; i++)
+                                TableRow(children: [
+                                  Row(children: [
+                                    Flexible(
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            "${_itemList[_cartItemList[i]['itemIndex']]['image']}",
+                                        //         // imageUrl: _cartItemList[index].image,
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error),
+                                        // fit: BoxFit.scaleDown,
+                                        height: constraints.maxHeight * 0.05,
+                                        width: constraints.maxWidth * 0.05,
+                                      ),
+                                    ),
+                                    // Image.asset(
+                                    // '${_itemList[_cartItemList[i]['itemIndex']]['image']}'),
+                                    Text(
+                                        '${_itemList[_cartItemList[i]['itemIndex']]['name']}')
+                                  ]),
+                                  Column(children: [
+                                    Text(
+                                        "\$${_itemList[_cartItemList[i]['itemIndex']]['unitPrice']}")
+                                  ]),
+                                  Column(children: [
+                                    Text("${_cartItemList[i]['quantity']}")
+                                  ]),
+                                  Column(children: [
+                                    Text(
+                                        '\$${_cartItemList[i]['quantity'] * _itemList[_cartItemList[i]['itemIndex']]['unitPrice']}')
+                                  ]),
+                                ]),
+                              // TableRow(children: [
+                              //   Column(children: [Text('Javatpoint')]),
+                              //   Column(children: [Text('MySQL')]),
+                              //   Column(children: [Text('5*')]),
+                              //   Column(children: [Text('5*')]),
+                              // ]),
+                              // TableRow(children: [
+                              //   Column(children: [Text('Javatpoint')]),
+                              //   Column(children: [Text('ReactJS')]),
+                              //   Column(children: [Text('5*')]),
+                              //   Column(children: [Text('5*')]),
+                              // ]),
+                              // TableRow(children: [
+                              //   Column(children: [Text('Javatpoint')]),
+                              //   Column(children: [Text('ReactJS')]),
+                              //   Column(children: [Text('5*')]),
+                              //   Column(children: [Text('5*')]),
+                              // ]),
+                            ],
                           ),
                         ),
-                        // Image.asset(
-                        // '${_itemList[_cartItemList[i]['itemIndex']]['image']}'),
-                        Text(
-                            '${_itemList[_cartItemList[i]['itemIndex']]['name']}')
-                      ]),
-                      Column(children: [Text('Flutter')]),
-                      Column(children: [Text('5*')]),
-                      Column(children: [Text('5*')]),
-                    ]),
-                  // TableRow(children: [
-                  //   Column(children: [Text('Javatpoint')]),
-                  //   Column(children: [Text('MySQL')]),
-                  //   Column(children: [Text('5*')]),
-                  //   Column(children: [Text('5*')]),
-                  // ]),
-                  // TableRow(children: [
-                  //   Column(children: [Text('Javatpoint')]),
-                  //   Column(children: [Text('ReactJS')]),
-                  //   Column(children: [Text('5*')]),
-                  //   Column(children: [Text('5*')]),
-                  // ]),
-                  // TableRow(children: [
-                  //   Column(children: [Text('Javatpoint')]),
-                  //   Column(children: [Text('ReactJS')]),
-                  //   Column(children: [Text('5*')]),
-                  //   Column(children: [Text('5*')]),
-                  // ]),
-                ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            );
-            // Column(
-            //   // physics: NeverScrollableScrollPhysics(),
-            //   // shrinkWrap: true,
-            //   // padding:
-            //   //     const EdgeInsets.only(top: 5, bottom: 25, left: 5, right: 5),
-            //   children: <Widget>[
-            //     Text("Product Name" +
-            //         " " * (constraints.maxWidth * 0.12).round() +
-            //         "Unit Price" +
-            //         // "      " +
-            //         "Quantity" +
-            //         // "       " +
-            //         "Subtotal"),
-            //     Flexible(
-            //       child: ListView.builder(
-            //           physics: const AlwaysScrollableScrollPhysics(),
-            //           // shrinkWrap: true,
-            //           itemCount: _cartItemList.length,
-            //           itemExtent: 75,
-            //           itemBuilder: (context, index) {
-            //             return Card(
-            //               child: Row(
-            //                 // mainAxisSize: MainAxisSize.min,
-            //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //                 children: [
-            //                   CachedNetworkImage(
-            //                     imageUrl:
-            //                         Food.fromJson(_cartItemList[index]).image,
-            //                     // imageUrl: _cartItemList[index].image,
-            //                     errorWidget: (context, url, error) =>
-            //                         const Icon(Icons.error),
-            //                     // fit: BoxFit.cover,
-            //                   ),
-            //                   // Image.network(
-            //                   //   widget.cartItemList[index].image,
-            //                   //   fit: BoxFit.fill,
-            //                   // ),
-            //                   Text(
-            //                     Food.fromJson(_cartItemList[index]).name,
-            //                     // _cartItemList[index].name,
-            //                     style: Theme.of(context)
-            //                         .textTheme
-            //                         .titleLarge!
-            //                         .copyWith(
-            //                             fontWeight: FontWeight.bold,
-            //                             color: Colors.grey.shade600),
-            //                     textAlign: TextAlign.center,
-            //                   ),
-            //                   Text(
-            //                     '\$${_cartItemPriceList[index]}',
-            //                     style: Theme.of(context)
-            //                         .textTheme
-            //                         .headline6!
-            //                         .copyWith(
-            //                             fontWeight: FontWeight.bold,
-            //                             color: Theme.of(context)
-            //                                 .colorScheme
-            //                                 .secondary),
-            //                     textAlign: TextAlign.center,
-            //                   ),
-            //                   Text(
-            //                     '${_cartItemQuantityList[index]}',
-            //                     style: Theme.of(context)
-            //                         .textTheme
-            //                         .headline6!
-            //                         .copyWith(
-            //                             fontWeight: FontWeight.bold,
-            //                             color: Theme.of(context)
-            //                                 .colorScheme
-            //                                 .secondary),
-            //                     textAlign: TextAlign.center,
-            //                   ),
-            //                 ],
-            //               ),
-            //               // child: ListTile(
-            //               //   leading: Row(
-            //               //     mainAxisSize: MainAxisSize.min,
-            //               //     children: [
-            //               //       CachedNetworkImage(
-            //               //         imageUrl:
-            //               //             Food.fromJson(_cartItemList[index]).image,
-            //               //         // imageUrl: _cartItemList[index].image,
-            //               //         errorWidget: (context, url, error) =>
-            //               //             const Icon(Icons.error),
-            //               //         // fit: BoxFit.cover,
-            //               //       ),
-            //               //       // Image.network(
-            //               //       //   widget.cartItemList[index].image,
-            //               //       //   fit: BoxFit.fill,
-            //               //       // ),
-            //               //       Text(
-            //               //         Food.fromJson(_cartItemList[index]).name,
-            //               //         // _cartItemList[index].name,
-            //               //         style: Theme.of(context)
-            //               //             .textTheme
-            //               //             .titleLarge!
-            //               //             .copyWith(
-            //               //                 fontWeight: FontWeight.bold,
-            //               //                 color: Colors.grey.shade600),
-            //               //         textAlign: TextAlign.center,
-            //               //       ),
-            //               //     ],
-            //               //   ),
-            //               //   title: Text(
-            //               //     '$${_cartItemPriceList[index]}',
-            //               //     style: Theme.of(context)
-            //               //         .textTheme
-            //               //         .headline6!
-            //               //         .copyWith(
-            //               //             fontWeight: FontWeight.bold,
-            //               //             color: Theme.of(context)
-            //               //                 .colorScheme
-            //               //                 .secondary),
-            //               //     textAlign: TextAlign.center,
-            //               //   ),
-            //               //   subtitle: Text(
-            //               //     '$${_cartItemPriceList[index]}',
-            //               //     style: Theme.of(context)
-            //               //         .textTheme
-            //               //         .headline6!
-            //               //         .copyWith(
-            //               //             fontWeight: FontWeight.bold,
-            //               //             color: Theme.of(context)
-            //               //                 .colorScheme
-            //               //                 .secondary),
-            //               //     textAlign: TextAlign.center,
-            //               //   ),
-            //               //   trailing: FittedBox(
-            //               //     child: Row(
-            //               //       children: [
-            //               //         Text(
-            //               //           "${_cartItemQuantityList[index]}",
-            //               //           style: Theme.of(context)
-            //               //               .textTheme
-            //               //               .headline4!
-            //               //               .copyWith(
-            //               //                   fontWeight: FontWeight.bold,
-            //               //                   color: Theme.of(context)
-            //               //                       .colorScheme
-            //               //                       .secondary),
-            //               //           textAlign: TextAlign.center,
-            //               //         ),
-            //               //         Column(
-            //               //           mainAxisAlignment: MainAxisAlignment.center,
-            //               //           // mainAxisSize: MainAxisSize.min,
-            //               //           children: [
-            //               //             IconButton(
-            //               //               onPressed: () {
-            //               //                 setState(() {
-            //               //                   if (_cartItemQuantityList[index] >
-            //               //                       1) {
-            //               //                     _cartItemQuantityList[index]--;
-            //               //                     _cartItemPriceList[index] -=
-            //               //                         widget.itemPriceList![index];
-            //               //                   }
-            //               //                 });
-            //               //               },
-            //               //               icon: const Icon(
-            //               //                 CupertinoIcons.minus_square,
-            //               //                 color: Colors.orange,
-            //               //                 size: 40,
-            //               //               ),
-            //               //             ),
-            //               //             IconButton(
-            //               //               // padding: EdgeInsets.all(1),
-            //               //               onPressed: () {
-            //               //                 setState(() {
-            //               //                   _cartItemQuantityList[index]++;
-            //               //                   _cartItemPriceList[index] +=
-            //               //                       widget.itemPriceList![index];
-            //               //                 });
-            //               //               },
-            //               //               icon: const Icon(
-            //               //                 CupertinoIcons.plus_square,
-            //               //                 color: Colors.orange,
-            //               //                 size: 40,
-            //               //               ),
-            //               //             ),
-            //               //           ],
-            //               //         ),
-            //               //       ],
-            //               //     ),
-            //               //   ),
-            //               // ),
-            //             );
-            //           }),
-            //     ),
-            //     Row(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: [
-            //         ElevatedButton.icon(
-            //           label: const Text('Make Order'),
-            //           icon: const Icon(
-            //             CupertinoIcons.text_badge_checkmark,
-            //             color: Colors.orange,
-            //           ),
-            //           onPressed: () {
-            //             Method.customDialog(
-            //               title: 'Order Confirmation',
-            //               // subtitle: 'Do you want confirm the order?',
-            //               context: context,
-            //               primaryButtonText: 'Cancel',
-            //               primaryButtonFunction: () {
-            //                 if (Navigator.canPop(context)) {
-            //                   Navigator.pop(context);
-            //                 }
-            //               },
-            //               secondaryButtonText: 'Confirm',
-            //               secondaryButtonFunction: () {
-            //                 if (Navigator.canPop(context)) {
-            //                   Navigator.pop(context);
-            //                 }
-            //               },
-            //             );
-            //           },
-            //         ),
-            //         const SizedBox(width: 50),
-            //         Text(
-            //           'Total:',
-            //           style: Theme.of(context).textTheme.headline5!.copyWith(
-            //               fontWeight: FontWeight.bold,
-            //               color: Theme.of(context).colorScheme.secondary),
-            //           textAlign: TextAlign.center,
-            //         ),
-            //         Text(
-            //           _cartItemPriceList.isEmpty
-            //               ? '\$0'
-            //               : '\$${_cartItemPriceList.reduce((value, element) => value + element)}',
-            //           style: Theme.of(context).textTheme.headline4!.copyWith(
-            //               fontWeight: FontWeight.bold,
-            //               color: Theme.of(context).colorScheme.secondary),
-            //           textAlign: TextAlign.center,
-            //         ),
-            //       ],
-            //     ),
-            //   ],
-            // );
-          })),
+            ],
+          ),
+        );
+        // Column(
+        //   // physics: NeverScrollableScrollPhysics(),
+        //   // shrinkWrap: true,
+        //   // padding:
+        //   //     const EdgeInsets.only(top: 5, bottom: 25, left: 5, right: 5),
+        //   children: <Widget>[
+        //     Text("Product Name" +
+        //         " " * (constraints.maxWidth * 0.12).round() +
+        //         "Unit Price" +
+        //         // "      " +
+        //         "Quantity" +
+        //         // "       " +
+        //         "Subtotal"),
+        //     Flexible(
+        //       child: ListView.builder(
+        //           physics: const AlwaysScrollableScrollPhysics(),
+        //           // shrinkWrap: true,
+        //           itemCount: _cartItemList.length,
+        //           itemExtent: 75,
+        //           itemBuilder: (context, index) {
+        //             return Card(
+        //               child: Row(
+        //                 // mainAxisSize: MainAxisSize.min,
+        //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //                 children: [
+        //                   CachedNetworkImage(
+        //                     imageUrl:
+        //                         Food.fromJson(_cartItemList[index]).image,
+        //                     // imageUrl: _cartItemList[index].image,
+        //                     errorWidget: (context, url, error) =>
+        //                         const Icon(Icons.error),
+        //                     // fit: BoxFit.cover,
+        //                   ),
+        //                   // Image.network(
+        //                   //   widget.cartItemList[index].image,
+        //                   //   fit: BoxFit.fill,
+        //                   // ),
+        //                   Text(
+        //                     Food.fromJson(_cartItemList[index]).name,
+        //                     // _cartItemList[index].name,
+        //                     style: Theme.of(context)
+        //                         .textTheme
+        //                         .titleLarge!
+        //                         .copyWith(
+        //                             fontWeight: FontWeight.bold,
+        //                             color: Colors.grey.shade600),
+        //                     textAlign: TextAlign.center,
+        //                   ),
+        //                   Text(
+        //                     '$${_cartItemPriceList[index]}',
+        //                     style: Theme.of(context)
+        //                         .textTheme
+        //                         .headline6!
+        //                         .copyWith(
+        //                             fontWeight: FontWeight.bold,
+        //                             color: Theme.of(context)
+        //                                 .colorScheme
+        //                                 .secondary),
+        //                     textAlign: TextAlign.center,
+        //                   ),
+        //                   Text(
+        //                     '${_cartItemQuantityList[index]}',
+        //                     style: Theme.of(context)
+        //                         .textTheme
+        //                         .headline6!
+        //                         .copyWith(
+        //                             fontWeight: FontWeight.bold,
+        //                             color: Theme.of(context)
+        //                                 .colorScheme
+        //                                 .secondary),
+        //                     textAlign: TextAlign.center,
+        //                   ),
+        //                 ],
+        //               ),
+        //               // child: ListTile(
+        //               //   leading: Row(
+        //               //     mainAxisSize: MainAxisSize.min,
+        //               //     children: [
+        //               //       CachedNetworkImage(
+        //               //         imageUrl:
+        //               //             Food.fromJson(_cartItemList[index]).image,
+        //               //         // imageUrl: _cartItemList[index].image,
+        //               //         errorWidget: (context, url, error) =>
+        //               //             const Icon(Icons.error),
+        //               //         // fit: BoxFit.cover,
+        //               //       ),
+        //               //       // Image.network(
+        //               //       //   widget.cartItemList[index].image,
+        //               //       //   fit: BoxFit.fill,
+        //               //       // ),
+        //               //       Text(
+        //               //         Food.fromJson(_cartItemList[index]).name,
+        //               //         // _cartItemList[index].name,
+        //               //         style: Theme.of(context)
+        //               //             .textTheme
+        //               //             .titleLarge!
+        //               //             .copyWith(
+        //               //                 fontWeight: FontWeight.bold,
+        //               //                 color: Colors.grey.shade600),
+        //               //         textAlign: TextAlign.center,
+        //               //       ),
+        //               //     ],
+        //               //   ),
+        //               //   title: Text(
+        //               //     '$${_cartItemPriceList[index]}',
+        //               //     style: Theme.of(context)
+        //               //         .textTheme
+        //               //         .headline6!
+        //               //         .copyWith(
+        //               //             fontWeight: FontWeight.bold,
+        //               //             color: Theme.of(context)
+        //               //                 .colorScheme
+        //               //                 .secondary),
+        //               //     textAlign: TextAlign.center,
+        //               //   ),
+        //               //   subtitle: Text(
+        //               //     '$${_cartItemPriceList[index]}',
+        //               //     style: Theme.of(context)
+        //               //         .textTheme
+        //               //         .headline6!
+        //               //         .copyWith(
+        //               //             fontWeight: FontWeight.bold,
+        //               //             color: Theme.of(context)
+        //               //                 .colorScheme
+        //               //                 .secondary),
+        //               //     textAlign: TextAlign.center,
+        //               //   ),
+        //               //   trailing: FittedBox(
+        //               //     child: Row(
+        //               //       children: [
+        //               //         Text(
+        //               //           "${_cartItemQuantityList[index]}",
+        //               //           style: Theme.of(context)
+        //               //               .textTheme
+        //               //               .headline4!
+        //               //               .copyWith(
+        //               //                   fontWeight: FontWeight.bold,
+        //               //                   color: Theme.of(context)
+        //               //                       .colorScheme
+        //               //                       .secondary),
+        //               //           textAlign: TextAlign.center,
+        //               //         ),
+        //               //         Column(
+        //               //           mainAxisAlignment: MainAxisAlignment.center,
+        //               //           // mainAxisSize: MainAxisSize.min,
+        //               //           children: [
+        //               //             IconButton(
+        //               //               onPressed: () {
+        //               //                 setState(() {
+        //               //                   if (_cartItemQuantityList[index] >
+        //               //                       1) {
+        //               //                     _cartItemQuantityList[index]--;
+        //               //                     _cartItemPriceList[index] -=
+        //               //                         widget.itemPriceList![index];
+        //               //                   }
+        //               //                 });
+        //               //               },
+        //               //               icon: const Icon(
+        //               //                 CupertinoIcons.minus_square,
+        //               //                 color: Colors.orange,
+        //               //                 size: 40,
+        //               //               ),
+        //               //             ),
+        //               //             IconButton(
+        //               //               // padding: EdgeInsets.all(1),
+        //               //               onPressed: () {
+        //               //                 setState(() {
+        //               //                   _cartItemQuantityList[index]++;
+        //               //                   _cartItemPriceList[index] +=
+        //               //                       widget.itemPriceList![index];
+        //               //                 });
+        //               //               },
+        //               //               icon: const Icon(
+        //               //                 CupertinoIcons.plus_square,
+        //               //                 color: Colors.orange,
+        //               //                 size: 40,
+        //               //               ),
+        //               //             ),
+        //               //           ],
+        //               //         ),
+        //               //       ],
+        //               //     ),
+        //               //   ),
+        //               // ),
+        //             );
+        //           }),
+        //     ),
+        //     Row(
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       children: [
+        //         ElevatedButton.icon(
+        //           label: const Text('Make Order'),
+        //           icon: const Icon(
+        //             CupertinoIcons.text_badge_checkmark,
+        //             color: Colors.orange,
+        //           ),
+        //           onPressed: () {
+        //             Method.customDialog(
+        //               title: 'Order Confirmation',
+        //               // subtitle: 'Do you want confirm the order?',
+        //               context: context,
+        //               primaryButtonText: 'Cancel',
+        //               primaryButtonFunction: () {
+        //                 if (Navigator.canPop(context)) {
+        //                   Navigator.pop(context);
+        //                 }
+        //               },
+        //               secondaryButtonText: 'Confirm',
+        //               secondaryButtonFunction: () {
+        //                 if (Navigator.canPop(context)) {
+        //                   Navigator.pop(context);
+        //                 }
+        //               },
+        //             );
+        //           },
+        //         ),
+        //         const SizedBox(width: 50),
+        //         Text(
+        //           'Total:',
+        //           style: Theme.of(context).textTheme.headline5!.copyWith(
+        //               fontWeight: FontWeight.bold,
+        //               color: Theme.of(context).colorScheme.secondary),
+        //           textAlign: TextAlign.center,
+        //         ),
+        //         Text(
+        //           _cartItemPriceList.isEmpty
+        //               ? '$0'
+        //               : '$${_cartItemPriceList.reduce((value, element) => value + element)}',
+        //           style: Theme.of(context).textTheme.headline4!.copyWith(
+        //               fontWeight: FontWeight.bold,
+        //               color: Theme.of(context).colorScheme.secondary),
+        //           textAlign: TextAlign.center,
+        //         ),
+        //       ],
+        //     ),
+        //   ],
+        // );
+      }),
     );
   }
 }

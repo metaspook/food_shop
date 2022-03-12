@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:food_shop/models/user.dart';
 import 'package:food_shop/utils/constant.dart';
 import 'package:food_shop/utils/controller.dart';
@@ -70,11 +72,27 @@ class _UsersViewState extends State<UsersView> {
                                   Variable.userList[index].email,
                                   style: Theme.of(context).textTheme.bodyText2,
                                 ),
-                                leading: Image.asset(
-                                    'assets/images/placeholder_user_00.jpg'),
+                                leading: ConstrainedBox(
+                                  constraints: const BoxConstraints(
+                                      maxHeight: 50, maxWidth: 50),
+                                  child: CachedNetworkImage(
+                                    httpHeaders: const {
+                                      "Content-Type": "image/jpeg"
+                                    },
+                                    imageUrl: Variable.userList[index].image ??
+                                        "assets/images/placeholder_user_00.jpg",
+                                    progressIndicatorBuilder: (context, url,
+                                            downloadProgress) =>
+                                        LinearProgressIndicator(
+                                            value: downloadProgress.progress),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error_outline),
+                                  ),
+                                ),
                                 onTap: null,
                                 trailing: IconButton(
-                                  icon: Icon(Icons.delete_forever_outlined),
+                                  icon:
+                                      const Icon(Icons.delete_forever_outlined),
                                   onPressed: () => setState(() {
                                     // createData();
                                     Variable.dbRealtime

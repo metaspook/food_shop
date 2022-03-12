@@ -1,9 +1,13 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:food_shop/firebase_options.dart';
 import 'package:food_shop/pages/admin_panel.dart';
+import 'package:food_shop/pages/fake_uploader.dart';
 import 'package:food_shop/pages/food_list.dart';
 import 'package:food_shop/pages/order_page.dart';
 import 'package:food_shop/pages/sign_up.dart';
@@ -92,8 +96,9 @@ class AdminApp extends StatelessWidget {
       // },
       // home: const CartPage(title: 'Your Cart'),
       // home: FoodListPage(),
-      home: const OrderPage(),
-      // home: const AdminPage(),
+      // home: const FakeUploader(),
+      // home: const OrderPage(),
+      home: const AdminPage(),
     );
   }
 }

@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/user.dart';
-import 'package:food_shop/pages/views/dashboard.dart';
-import 'package:food_shop/pages/views/downloads.dart';
-import 'package:food_shop/pages/views/orders.dart';
-import 'package:food_shop/pages/views/users.dart';
+import 'package:food_shop/pages/views/dashboard_view.dart';
+import 'package:food_shop/pages/views/downloads_view.dart';
+import 'package:food_shop/pages/views/orders_view.dart';
+import 'package:food_shop/pages/views/users_view.dart';
 import 'package:food_shop/utils/constant.dart';
 import 'package:food_shop/utils/controller.dart';
 
@@ -92,9 +92,17 @@ class _AdminPageState extends State<AdminPage> {
             items: [
               SideMenuItem(
                 priority: 0,
-                title: 'Orders',
+                title: 'Users',
                 onTap: () {
                   Controller.pageController.jumpToPage(0);
+                },
+                icon: Icons.supervisor_account,
+              ),
+              SideMenuItem(
+                priority: 1,
+                title: 'Orders',
+                onTap: () {
+                  Controller.pageController.jumpToPage(1);
                 },
                 icon: Icons.file_copy_rounded,
               ),
@@ -105,14 +113,6 @@ class _AdminPageState extends State<AdminPage> {
                   Controller.pageController.jumpToPage(2);
                 },
                 icon: Icons.home,
-              ),
-              SideMenuItem(
-                priority: 1,
-                title: 'Users',
-                onTap: () {
-                  Controller.pageController.jumpToPage(1);
-                },
-                icon: Icons.supervisor_account,
               ),
               SideMenuItem(
                 priority: 3,
@@ -142,9 +142,9 @@ class _AdminPageState extends State<AdminPage> {
             child: PageView(
               controller: Controller.pageController,
               children: [
+                UsersView(),
                 OrdersView(),
                 DashboardView(),
-                UsersView(),
                 Container(
                   color: Colors.white,
                   child: Center(

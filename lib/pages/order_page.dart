@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_shop/models/food.dart';
 import 'package:food_shop/utils/method.dart';
 
@@ -20,6 +21,15 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
+  var items = [
+    'Canceled',
+    'Confirmed',
+    'Delivery',
+    'Pending',
+    'Received',
+  ];
+  String dropdownValue = 'Pending';
+  String statusImage = 'clock_01_x128.png';
   final List<Map<String, dynamic>> _cartItemList = [
     {"itemIndex": 0, "quantity": 5},
     {"itemIndex": 1, "quantity": 1},
@@ -45,84 +55,84 @@ class _OrderPageState extends State<OrderPage> {
 
   final List<Map<String, dynamic>> _itemList = [
     {
-      "id": 1,
+      "id": "862af8d6-8827-59cc-a0ec-c7d37e53aa02",
       "name": "Apple",
       "image":
           "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png",
       "unitPrice": 74
     },
     {
-      "id": 2,
+      "id": "a36e5a0d-42c5-536c-a9c1-d9bbcb53d21d",
       "name": "Biscuit",
       "image":
           "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
       "unitPrice": 32
     },
     {
-      "id": 3,
+      "id": "d23bfce3-fcaa-5b88-a920-3eca09ba9aa9",
       "name": "Boiled Egg",
       "image":
           "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/boiled-egg.png",
       "unitPrice": 98
     },
     {
-      "id": 1,
+      "id": "b66ea18d-2f43-5b74-a063-1a30607b2cd4",
       "name": "Apple",
       "image":
           "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png",
       "unitPrice": 87
     },
     {
-      "id": 2,
+      "id": "ad57b509-6f56-543a-90e2-b8c26e345614",
       "name": "Biscuit",
       "image":
           "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
       "unitPrice": 21
     },
     {
-      "id": 3,
+      "id": "02c22cdf-299d-5d9e-a124-2658fd7068d9",
       "name": "Boiled Egg",
       "image":
           "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/boiled-egg.png",
       "unitPrice": 32
     },
     {
-      "id": 1,
+      "id": "00d0db5e-240b-57d4-aabd-c244c49a2752",
       "name": "Apple",
       "image":
           "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png",
       "unitPrice": 43
     },
     {
-      "id": 2,
+      "id": "40c1a48d-33cd-5ee6-9933-d8df12067a54",
       "name": "Biscuit",
       "image":
           "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
       "unitPrice": 56
     },
     {
-      "id": 3,
+      "id": "456f400f-9231-573d-add3-e843fd63e70e",
       "name": "Boiled Egg",
       "image":
           "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/boiled-egg.png",
       "unitPrice": 88
     },
     {
-      "id": 1,
+      "id": "2cc4fb3c-4cb1-59ad-922a-d6e568f013e0",
       "name": "Apple",
       "image":
           "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png",
       "unitPrice": 22
     },
     {
-      "id": 2,
+      "id": "2bfeeeab-0c9b-5766-affa-c01b5a3df81c",
       "name": "Biscuit",
       "image":
           "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
       "unitPrice": 43
     },
     {
-      "id": 3,
+      "id": "f6ddec77-26c8-5c76-ac63-c5a4db49bea0",
       "name": "Boiled Egg",
       "image":
           "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/boiled-egg.png",
@@ -247,7 +257,8 @@ class _OrderPageState extends State<OrderPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Card(
-                margin: EdgeInsets.all(12),
+                margin: EdgeInsets.all(20),
+                elevation: 8,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -257,56 +268,108 @@ class _OrderPageState extends State<OrderPage> {
       Order ID: ghhhigjdfkFDfd
                     """),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ElevatedButton.icon(
-                          label: const Text('Make Order'),
-                          icon: const Icon(
-                            CupertinoIcons.text_badge_checkmark,
-                            color: Colors.orange,
+                        Text('Status: ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary)),
+                        DropdownButton(
+                          // Initial Value
+                          value: dropdownValue,
+
+                          // Down Arrow Icon
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          items: [
+                            for (final e in items)
+                              DropdownMenuItem(
+                                value: e,
+                                child: Text(
+                                  e,
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                ),
+                              )
+                          ],
+                          onChanged: dropdownValue == 'Canceled'
+                              ? null
+                              : (String? newValue) {
+                                  if (newValue == 'Canceled') {
+                                    Method.customDialog(
+                                      title: '⚠️  Caution!',
+                                      subtitle:
+                                          'Do you want to cancel this order?',
+                                      context: context,
+                                      primaryButtonText: 'NO',
+                                      primaryButtonFunction: () =>
+                                          Method.navPop(context),
+                                      secondaryButtonText: 'YES',
+                                      secondaryButtonFunction: () {
+                                        Method.navPop(context);
+                                        setState(() {
+                                          dropdownValue = newValue!;
+                                        });
+                                      },
+                                    );
+                                  } else {
+                                    setState(() {
+                                      dropdownValue = newValue!;
+                                    });
+                                  }
+                                },
+                        ),
+                        // ElevatedButton.icon(
+                        //   label: const Text('Make Order'),
+                        //   icon: const Icon(
+                        //     CupertinoIcons.text_badge_checkmark,
+                        //     color: Colors.orange,
+                        //   ),
+                        //   onPressed: () {
+                        //     Method.customDialog(
+                        //       title: 'Order Confirmation',
+                        //       // subtitle: 'Do you want confirm the order?',
+                        //       context: context,
+                        //       primaryButtonText: 'Cancel',
+                        //       primaryButtonFunction: () {
+                        //         if (Navigator.canPop(context)) {
+                        //           Navigator.pop(context);
+                        //         }
+                        //       },
+                        //       secondaryButtonText: 'Confirm',
+                        //       secondaryButtonFunction: () {
+                        //         if (Navigator.canPop(context)) {
+                        //           Navigator.pop(context);
+                        //         }
+                        //       },
+                        //     );
+                        //   },
+                        // ),
+                        // const SizedBox(width: 50),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Total: ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary),
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text:
+                                      '\$${_cartSubTotalList.reduce((v, e) => v + e)}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline5!
+                                      .copyWith(fontWeight: FontWeight.bold))
+                            ],
                           ),
-                          onPressed: () {
-                            Method.customDialog(
-                              title: 'Order Confirmation',
-                              // subtitle: 'Do you want confirm the order?',
-                              context: context,
-                              primaryButtonText: 'Cancel',
-                              primaryButtonFunction: () {
-                                if (Navigator.canPop(context)) {
-                                  Navigator.pop(context);
-                                }
-                              },
-                              secondaryButtonText: 'Confirm',
-                              secondaryButtonFunction: () {
-                                if (Navigator.canPop(context)) {
-                                  Navigator.pop(context);
-                                }
-                              },
-                            );
-                          },
-                        ),
-                        const SizedBox(width: 50),
-                        Text(
-                          'Total: ',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          '\$${_cartSubTotalList.reduce((v, e) => v + e)}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary),
-                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),

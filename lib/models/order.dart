@@ -1,27 +1,27 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:food_shop/models/cart.dart';
+import 'cart.dart';
 
 class Order {
-  final String orderId;
+  final String id;
   final String userId;
-  final int totalPrice;
+  final double totalPrice;
   final List<Cart> cart;
   Order({
-    required this.orderId,
+    required this.id,
     required this.userId,
     required this.totalPrice,
     required this.cart,
   });
 
   Order copyWith({
-    String? orderId,
+    String? id,
     String? userId,
-    int? totalPrice,
+    double? totalPrice,
     List<Cart>? cart,
   }) {
     return Order(
-      orderId: orderId ?? this.orderId,
+      id: id ?? this.id,
       userId: userId ?? this.userId,
       totalPrice: totalPrice ?? this.totalPrice,
       cart: cart ?? this.cart,
@@ -30,7 +30,7 @@ class Order {
 
   Map<String, dynamic> toMap() {
     return {
-      'orderId': orderId,
+      'id': id,
       'userId': userId,
       'totalPrice': totalPrice,
       'cart': cart.map((x) => x.toMap()).toList(),
@@ -39,9 +39,9 @@ class Order {
 
   factory Order.fromMap(Map<String, dynamic> map) {
     return Order(
-      orderId: map['orderId'] ?? '',
+      id: map['id'] ?? '',
       userId: map['userId'] ?? '',
-      totalPrice: map['totalPrice']?.toInt() ?? 0,
+      totalPrice: map['totalPrice']?.toDouble() ?? 0.0,
       cart: List<Cart>.from(map['cart']?.map((x) => Cart.fromMap(x))),
     );
   }
@@ -52,7 +52,7 @@ class Order {
 
   @override
   String toString() {
-    return 'Order(orderId: $orderId, userId: $userId, totalPrice: $totalPrice, cart: $cart)';
+    return 'Order(id: $id, userId: $userId, totalPrice: $totalPrice, cart: $cart)';
   }
 
   @override
@@ -60,7 +60,7 @@ class Order {
     if (identical(this, other)) return true;
 
     return other is Order &&
-        other.orderId == orderId &&
+        other.id == id &&
         other.userId == userId &&
         other.totalPrice == totalPrice &&
         listEquals(other.cart, cart);
@@ -68,9 +68,6 @@ class Order {
 
   @override
   int get hashCode {
-    return orderId.hashCode ^
-        userId.hashCode ^
-        totalPrice.hashCode ^
-        cart.hashCode;
+    return id.hashCode ^ userId.hashCode ^ totalPrice.hashCode ^ cart.hashCode;
   }
 }

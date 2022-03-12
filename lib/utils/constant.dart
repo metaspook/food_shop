@@ -1,10 +1,5 @@
 import 'dart:convert';
 
-import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:food_shop/models/user.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 class Constant {
   static const List<Map<String, dynamic>> userList = [
     {

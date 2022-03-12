@@ -6,6 +6,10 @@ import 'package:food_shop/widgets/custom_divider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Method {
+  static void navPop(BuildContext context) {
+    if (Navigator.canPop(context)) Navigator.pop(context);
+  }
+
   // customDialog 2022-02-15
   static void customDialog({
     required BuildContext context,
@@ -24,7 +28,7 @@ class Method {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           backgroundColor:
-              Theme.of(ctx).scaffoldBackgroundColor.withOpacity(0.80),
+              Theme.of(ctx).scaffoldBackgroundColor.withOpacity(0.75),
           title: title == null
               ? null
               : Column(

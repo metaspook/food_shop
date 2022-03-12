@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart' show Icons;
@@ -22,4 +23,6 @@ class Variable {
     {"title": "Pending", "count": 45, "icon": Icons.access_alarms_sharp},
     {"title": "Confirmed", "count": 36, "icon": Icons.done_outline_rounded}
   ];
+  static final itemPriceList =
+      List<int>.generate(60, (index) => Random().nextInt(10) + 1);
 }

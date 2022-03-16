@@ -19,16 +19,16 @@ class _FakeUploaderState extends State<FakeUploader> {
       body: Row(
         // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           ElevatedButton.icon(
             onPressed: _uploadUser,
-            icon: Icon(Icons.person_add_alt),
+            icon: const Icon(Icons.person_add_alt),
             label: Text('Users'),
           ),
           SizedBox(width: 5),
           ElevatedButton.icon(
             onPressed: () => _uploadOrder(),
-            icon: Icon(Icons.shopping_cart_outlined),
+            icon: const Icon(Icons.shopping_cart_outlined),
             label: Text('Orders'),
           ),
         ],
@@ -126,21 +126,21 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3HvT8BYupaS55n7",
       "status": "Pending",
-      "cart": <Map<String, int>>[
+      "cartList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         }
       ]
     },
@@ -148,31 +148,31 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3HtSRQTFBC492uU",
       "status": "Confirmed",
-      "cart": <Map<String, int>>[
+      "cartList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         }
       ]
     },
@@ -180,26 +180,26 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3HtSRQTFBC492uU",
       "status": "Canceled",
-      "cart": <Map<String, int>>[
+      "cartList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         }
       ]
     },
@@ -207,21 +207,21 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3Hxpg5tWHEmCEsO",
       "status": "Delivery",
-      "cart": <Map<String, int>>[
+      "cartList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         }
       ]
     },
@@ -229,11 +229,11 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3HzHbQxEMo8m52E",
       "status": "Received",
-      "cart": <Map<String, int>>[
+      "cartList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         }
       ]
     },
@@ -241,56 +241,56 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3Hxpg5tWHEmCEsO",
       "status": "Confirmed",
-      "cart": <Map<String, int>>[
+      "cartList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         }
       ]
     },
@@ -298,16 +298,16 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3HzHbQxEMo8m52E",
       "status": "Pending",
-      "cart": <Map<String, int>>[
+      "cartList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         }
       ]
     },
@@ -315,31 +315,31 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3Hxpg5tWHEmCEsO",
       "status": "Received",
-      "cart": <Map<String, int>>[
+      "cartList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         },
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0
+          "unitPrice": 0.0
         }
       ]
     }
@@ -347,12 +347,12 @@ void _uploadOrder() {
 
   for (Map<String, dynamic> e in oderList) {
     final orderRef = Variable.dbRealtime.ref("orders").push();
-    final List<Map<String, int>> cart = e["cart"];
+    final List<Map<String, dynamic>> cartList = e["cartList"];
     e.update("id", (value) => orderRef.key!);
-    for (int i = 0; i < cart.length; i++) {
-      cart[i].update(
+    for (int i = 0; i < cartList.length; i++) {
+      cartList[i].update(
         "unitPrice",
-        (value) => Variable.itemPriceList[cart[i]["itemIndex"]!],
+        (value) => Variable.itemPriceList[cartList[i]["itemIndex"]!],
       );
     }
     // print(e["totalPrice"]);

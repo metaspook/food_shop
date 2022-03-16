@@ -1,11 +1,30 @@
-import 'dart:convert';
-
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/utils/constant.dart';
+import 'package:food_shop/utils/variable.dart';
 import 'package:food_shop/widgets/custom_divider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Method {
+  static void setCounter() async {
+    for (var status in Variable.orderStatusList.keys) {
+      Variable.dbRealtime
+          .ref("orders")
+          .orderByChild("status")
+          .equalTo(status)
+          .onValue
+          .listen((event) {
+        Variable.counterList[status]!["count"] = event.snapshot.children.length;
+      });
+    }
+
+    // for (var status in Variable.orderStatusList.keys) {
+    // final DataSnapshot snapshot = yield  Variable.dbRealtime
+    //     .ref("orders")
+    //     .orderByChild("status")
+    //     .equalTo(status).onValue;
+    // Variable.counterList[status]!["count"] = snapshot.children.length;
+  }
+
   static void navPop(BuildContext context) {
     if (Navigator.canPop(context)) Navigator.pop(context);
   }

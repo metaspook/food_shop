@@ -1,7 +1,17 @@
 import 'dart:convert';
+import 'package:flutter/material.dart' show Colors, Icon, Widget;
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Constant {
-  static const List<Map<String, dynamic>> userList = [
+  static const statusIcons = <String, Widget>{
+    "Confirmed": Icon(FontAwesomeIcons.solidHandshake, color: Colors.blue),
+    "Canceled": Icon(FontAwesomeIcons.solidTimesCircle, color: Colors.red),
+    "Delivery": Icon(FontAwesomeIcons.shippingFast, color: Colors.purple),
+    "Pending": Icon(FontAwesomeIcons.infoCircle, color: Colors.orange),
+    "Received": Icon(FontAwesomeIcons.solidCheckCircle, color: Colors.green),
+  };
+
+  static List<Map<String, dynamic>> userList = [
     {
       "id": 1,
       "fullName": "Mr. User 1",

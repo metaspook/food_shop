@@ -1,14 +1,19 @@
 import 'dart:convert';
 
 import 'package:easy_sidemenu/easy_sidemenu.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/models/order.dart';
 import 'package:food_shop/models/user.dart';
+import 'package:food_shop/pages/fake_uploader.dart';
 import 'package:food_shop/pages/views/dashboard_view.dart';
 import 'package:food_shop/pages/views/downloads_view.dart';
 import 'package:food_shop/pages/views/orders_view.dart';
 import 'package:food_shop/pages/views/users_view.dart';
 import 'package:food_shop/utils/constant.dart';
 import 'package:food_shop/utils/controller.dart';
+import 'package:food_shop/utils/method.dart';
+import 'package:food_shop/utils/variable.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
@@ -31,16 +36,25 @@ class _AdminPageState extends State<AdminPage> {
   @override
   void initState() {
     super.initState();
-    // Constant.prefs.setStringList("userList", ["user1"]);
-    // _userList = (Constant.prefs.getStringList("userList") == null ||
-    //         Constant.prefs.getStringList("userList")!.isEmpty)
-    //     ? []
-    //     : User.fromJsonStringList(Constant.prefs.getStringList("userList")!);
+    Variable.dbRealtime.ref("users").once().then((value) {
+      Variable.userList = [
+        for (var e in value.snapshot.children)
+          User.fromJson(e.value as Map<String, dynamic>)
+      ];
+    });
+    Variable.dbRealtime.ref("orders").once().then((value) {
+      Variable.orderList = [
+        for (var e in value.snapshot.children)
+          Order.fromJson(e.value as Map<String, dynamic>)
+      ];
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    // Method.setCounter();
+
     // List<User> userList =
     //     // User.fromJsonListString(Constant.prefsData["userList"]!);
     //     [
@@ -60,11 +74,13 @@ class _AdminPageState extends State<AdminPage> {
           SideMenu(
             controller: Controller.pageController,
             style: SideMenuStyle(
-              displayMode: SideMenuDisplayMode.auto,
+              displayMode: size.width > 800
+                  ? SideMenuDisplayMode.open
+                  : SideMenuDisplayMode.compact,
               hoverColor:
                   Theme.of(context).colorScheme.secondary.withOpacity(0.25),
               selectedColor: Theme.of(context).colorScheme.secondary,
-              selectedTitleTextStyle: TextStyle(color: Colors.white),
+              selectedTitleTextStyle: const TextStyle(color: Colors.white),
               selectedIconColor: Colors.white,
               // backgroundColor: Colors.amber,
               openSideMenuWidth: 225,
@@ -92,27 +108,27 @@ class _AdminPageState extends State<AdminPage> {
             items: [
               SideMenuItem(
                 priority: 0,
-                title: 'Users',
+                title: 'Dashboard',
                 onTap: () {
                   Controller.pageController.jumpToPage(0);
                 },
-                icon: Icons.supervisor_account,
+                icon: Icons.home,
               ),
               SideMenuItem(
-                priority: 1,
+                priority: 2,
                 title: 'Orders',
                 onTap: () {
-                  Controller.pageController.jumpToPage(1);
+                  Controller.pageController.jumpToPage(2);
                 },
                 icon: Icons.file_copy_rounded,
               ),
               SideMenuItem(
-                priority: 2,
-                title: 'Dashboard',
+                priority: 1,
+                title: 'Users',
                 onTap: () {
-                  Controller.pageController.jumpToPage(2);
+                  Controller.pageController.jumpToPage(1);
                 },
-                icon: Icons.home,
+                icon: Icons.supervisor_account,
               ),
               SideMenuItem(
                 priority: 3,
@@ -131,6 +147,14 @@ class _AdminPageState extends State<AdminPage> {
                 icon: Icons.settings,
               ),
               SideMenuItem(
+                priority: 5,
+                title: 'Fake Uploader',
+                onTap: () {
+                  Controller.pageController.jumpToPage(5);
+                },
+                icon: Icons.settings,
+              ),
+              SideMenuItem(
                 priority: 6,
                 title: 'Exit',
                 onTap: () async {},
@@ -138,35 +162,54 @@ class _AdminPageState extends State<AdminPage> {
               ),
             ],
           ),
-          Expanded(
-            child: PageView(
-              controller: Controller.pageController,
-              children: [
-                UsersView(),
-                OrdersView(),
-                DashboardView(),
-                Container(
-                  color: Colors.white,
+          size.width < 600
+              ? Flexible(
                   child: Center(
-                    child: Text(
-                      'Page\n   3',
-                      style: TextStyle(fontSize: 35),
+                    child: Container(
+                      color: Colors.red,
+                      child: FittedBox(
+                        child: Text(' Unsupported Screen! ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline2!
+                                .copyWith(
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                )),
+                      ),
                     ),
                   ),
-                ),
-                DownloadsView(),
-                Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: Text(
-                      'Page\n   5',
-                      style: TextStyle(fontSize: 35),
-                    ),
+                )
+              : Expanded(
+                  child: PageView(
+                    controller: Controller.pageController,
+                    children: [
+                      DashboardView(),
+                      OrdersView(),
+                      UsersView(),
+                      Container(
+                        color: Colors.white,
+                        child: Center(
+                          child: Text(
+                            'Page\n   3',
+                            style: TextStyle(fontSize: 35),
+                          ),
+                        ),
+                      ),
+                      DownloadsView(),
+                      FakeUploader(),
+                      Container(
+                        color: Colors.white,
+                        child: Center(
+                          child: Text(
+                            'Page\n   5',
+                            style: TextStyle(fontSize: 35),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
         ],
       ),
 
@@ -216,4 +259,21 @@ class _AdminPageState extends State<AdminPage> {
       // body: Container(),
     );
   }
+}
+
+void _fetchE() async {
+  final DataSnapshot ff = await Variable.dbRealtime
+      .ref("orders")
+      .orderByChild("status")
+      .equalTo("Pending")
+      .get();
+  // .then((value) {
+  // for (var e in value.children) {
+  //   print(value.children.length);
+  // }
+  Variable.counterList["Pending"]!["count"] = ff.children.length;
+  print(Variable.counterList["Pending"]!["count"]);
+  // print(value.children);
+  // });
+  // ff.;
 }

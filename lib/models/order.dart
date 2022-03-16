@@ -5,54 +5,73 @@ import 'cart.dart';
 class Order {
   final String id;
   final String userId;
-  final double totalPrice;
-  final List<Cart> cart;
+  final String status;
+  final List<Cart> cartList;
   Order({
     required this.id,
     required this.userId,
-    required this.totalPrice,
-    required this.cart,
+    required this.status,
+    required this.cartList,
   });
 
   Order copyWith({
     String? id,
     String? userId,
-    double? totalPrice,
-    List<Cart>? cart,
+    String? status,
+    List<Cart>? cartList,
   }) {
     return Order(
       id: id ?? this.id,
       userId: userId ?? this.userId,
-      totalPrice: totalPrice ?? this.totalPrice,
-      cart: cart ?? this.cart,
+      status: status ?? this.status,
+      cartList: cartList ?? this.cartList,
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'userId': userId,
-      'totalPrice': totalPrice,
-      'cart': cart.map((x) => x.toMap()).toList(),
+  // create model object from json object.
+  factory Order.fromJson(Map<String, dynamic> json) {
+    return Order(
+      id: json["id"],
+      userId: json["userId"],
+      status: json["status"],
+      cartList: [for (var e in json["cartList"]) Cart.fromJson(e)],
+    );
+  }
+
+  // create json object from model object.
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      "id": id,
+      "userId": userId,
+      "status": status,
+      "cartList": cartList
     };
   }
 
-  factory Order.fromMap(Map<String, dynamic> map) {
-    return Order(
-      id: map['id'] ?? '',
-      userId: map['userId'] ?? '',
-      totalPrice: map['totalPrice']?.toDouble() ?? 0.0,
-      cart: List<Cart>.from(map['cart']?.map((x) => Cart.fromMap(x))),
-    );
-  }
+  // get total price of an order.
+  double get total =>
+      [for (Cart e in cartList) e.subTotal].reduce((v, e) => v + e);
 
-  String toJson() => json.encode(toMap());
+  static List<Order> fromJsonList(List<Map<String, dynamic>> jsonList) =>
+      [for (Map<String, dynamic> e in jsonList) Order.fromJson(e)];
+  static List<Order> fromJsonListString(String listString) => [
+        for (Map<String, dynamic> e in jsonDecode(listString)) Order.fromJson(e)
+      ];
 
-  factory Order.fromJson(String source) => Order.fromMap(json.decode(source));
+  factory Order.fromJsonString(String jsonString) =>
+      Order.fromJson(jsonDecode(jsonString));
+
+  String toJsonString() => jsonEncode(toJson());
+
+  static List<Order> fromJsonStringList(List<String> list) =>
+      [for (String e in list) Order.fromJsonString(e)];
+
+  static List<String> toJsonStringList(List<Order> list) =>
+      [for (Order e in list) e.toJsonString()];
 
   @override
   String toString() {
-    return 'Order(id: $id, userId: $userId, totalPrice: $totalPrice, cart: $cart)';
+    return 'Order(id: $id, userId: $userId, status: $status, cartList: $cartList)';
   }
 
   @override
@@ -62,12 +81,12 @@ class Order {
     return other is Order &&
         other.id == id &&
         other.userId == userId &&
-        other.totalPrice == totalPrice &&
-        listEquals(other.cart, cart);
+        other.status == status &&
+        listEquals(other.cartList, cartList);
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ userId.hashCode ^ totalPrice.hashCode ^ cart.hashCode;
+    return id.hashCode ^ userId.hashCode ^ status.hashCode ^ cartList.hashCode;
   }
 }

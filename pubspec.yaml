@@ -45,6 +45,8 @@ dependencies:
   charts_flutter: ^0.12.0
   font_awesome_flutter: ^9.2.0
   crypto: ^3.0.1
+  image_picker: ^0.8.4+11
+  image_cropper: ^1.5.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +8,7 @@ import 'package:food_shop/pages/views/dashboard_view.dart';
 import 'package:food_shop/pages/views/downloads_view.dart';
 import 'package:food_shop/pages/views/orders_view.dart';
 import 'package:food_shop/pages/views/users_view.dart';
-import 'package:food_shop/utils/constant.dart';
 import 'package:food_shop/utils/controller.dart';
-import 'package:food_shop/utils/method.dart';
 import 'package:food_shop/utils/variable.dart';
 
 class AdminPage extends StatefulWidget {
@@ -53,15 +49,6 @@ class _AdminPageState extends State<AdminPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    // Method.setCounter();
-
-    // List<User> userList =
-    //     // User.fromJsonListString(Constant.prefsData["userList"]!);
-    //     [
-    //   for (Map<String, dynamic> e
-    //       in jsonDecode(Constant.prefsData["userList"]!))
-    //     User.fromJson(e)
-    // ];
     return Scaffold(
       appBar: AppBar(
         // automaticallyImplyLeading: false,
@@ -115,18 +102,18 @@ class _AdminPageState extends State<AdminPage> {
                 icon: Icons.home,
               ),
               SideMenuItem(
-                priority: 2,
+                priority: 1,
                 title: 'Orders',
                 onTap: () {
-                  Controller.pageController.jumpToPage(2);
+                  Controller.pageController.jumpToPage(1);
                 },
                 icon: Icons.file_copy_rounded,
               ),
               SideMenuItem(
-                priority: 1,
+                priority: 2,
                 title: 'Users',
                 onTap: () {
-                  Controller.pageController.jumpToPage(1);
+                  Controller.pageController.jumpToPage(2);
                 },
                 icon: Icons.supervisor_account,
               ),
@@ -212,51 +199,6 @@ class _AdminPageState extends State<AdminPage> {
                 ),
         ],
       ),
-
-      // drawer: Drawer(
-      //   child: Row(
-      //     children: [
-      //       Expanded(
-      //         child: ListView(
-      //           padding: EdgeInsets.zero,
-      //           children: [
-      //             const UserAccountsDrawerHeader(
-      //               accountName: Text('User'),
-      //               accountEmail: Text('user@email.com'),
-      //               currentAccountPicture: CircleAvatar(
-      //                 child: Icon(Icons.android),
-      //               ),
-      //             ),
-      //             ListTile(
-      //               leading: const Icon(Icons.home),
-      //               title: const Text('PageTitles.home'),
-      //               onTap: null,
-      //               // selected: _selectedRoute == RouteNames.home,
-      //             ),
-      //             ListTile(
-      //               leading: const Icon(Icons.photo_library),
-      //               title: const Text('PageTitles.gallery'),
-      //               onTap: null,
-      //             ),
-      //             ListTile(
-      //               leading: const Icon(Icons.slideshow),
-      //               title: const Text('PageTitles.slideshow'),
-      //               onTap: null,
-      //             ),
-      //             const Divider(),
-      //             ListTile(
-      //               leading: const Icon(Icons.settings),
-      //               title: const Text('PageTitles.settings'),
-      //               onTap: null,
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //       const VerticalDivider(width: 3)
-      //     ],
-      //   ),
-      // ),
-      // body: Container(),
     );
   }
 }

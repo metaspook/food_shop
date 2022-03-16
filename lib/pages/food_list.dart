@@ -43,7 +43,7 @@ class _FoodListPageState extends State<FoodListPage> {
         centerTitle: true,
         title: const Text(_title),
         actions: [
-          TextField(),
+          // TextField(),
           // IconButton(
           //   onPressed: () => setState(() {
           //     Methods.prefs.then((db) => db.clear());

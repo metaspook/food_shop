@@ -208,7 +208,7 @@ class _OrderPageState extends State<OrderPage> {
               children: [
                 IconButton(
                   onPressed: () {
-                    Method.customDialog(
+                    Method.customDialogText(
                       title: '⚠️ Caution!',
                       subtitle: 'Do you want to delete this cart?',
                       context: context,
@@ -299,7 +299,7 @@ class _OrderPageState extends State<OrderPage> {
                               ? null
                               : (String? newValue) {
                                   if (newValue == 'Canceled') {
-                                    Method.customDialog(
+                                    Method.customDialogText(
                                       title: '⚠️  Caution!',
                                       subtitle:
                                           'Do you want to cancel this order?',

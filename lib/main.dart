@@ -66,8 +66,8 @@ class MyApp extends StatelessWidget {
       //   '/cart': (context) => CartPage(prefs: prefs),
       // },
       // home: const CartPage(title: 'Your Cart'),
-      home: FoodListPage(),
-      // home: const SignUpPage(),
+      // home: FoodListPage(),
+      home: const SignUpPage(),
     );
   }
 }

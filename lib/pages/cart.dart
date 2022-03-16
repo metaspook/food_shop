@@ -72,7 +72,7 @@ class _CartPageState extends State<CartPage> {
               children: [
                 IconButton(
                   onPressed: () {
-                    Method.customDialog(
+                    Method.customDialogText(
                       title: '⚠️ Caution!',
                       subtitle: 'Do you want to delete this cart?',
                       context: context,
@@ -255,7 +255,7 @@ class _CartPageState extends State<CartPage> {
                         color: Colors.orange,
                       ),
                       onPressed: () {
-                        Method.customDialog(
+                        Method.customDialogText(
                           title: 'Order Confirmation',
                           // subtitle: 'Do you want confirm the order?',
                           context: context,

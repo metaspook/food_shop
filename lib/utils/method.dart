@@ -30,7 +30,7 @@ class Method {
   }
 
   // customDialog 2022-02-15
-  static void customDialog({
+  static void customDialogText({
     required BuildContext context,
     required String primaryButtonText,
     required Function primaryButtonFunction,
@@ -39,8 +39,31 @@ class Method {
     String? title,
     String? subtitle,
   }) {
+    Method.customDialog(
+      context: context,
+      primaryButtonText: primaryButtonText,
+      primaryButtonFunction: primaryButtonFunction,
+      secondaryButtonText: secondaryButtonText,
+      secondaryButtonFunction: secondaryButtonFunction,
+      title: title as Widget,
+      subtitle: subtitle as Widget,
+    );
+  }
+
+  static void customDialog({
+    required BuildContext context,
+    String? primaryButtonText,
+    Function? primaryButtonFunction,
+    String? secondaryButtonText,
+    Function? secondaryButtonFunction,
+    Widget? title,
+    Widget? subtitle,
+  }) {
     showDialog(
-      barrierDismissible: false,
+      barrierDismissible:
+          (primaryButtonText == null && primaryButtonFunction == null)
+              ? true
+              : false,
       context: context,
       builder: (BuildContext ctx) {
         return AlertDialog(
@@ -52,42 +75,31 @@ class Method {
               ? null
               : Column(
                   children: <Widget>[
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 25,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                    title,
                     const SizedBox(height: 5),
                     const CustomDivider(),
                   ],
                 ),
-          content: subtitle == null
-              ? null
-              : Text(
-                  subtitle,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(ctx).textTheme.headline4,
-                ),
+          content: subtitle,
           actionsAlignment:
               secondaryButtonText == null && secondaryButtonFunction == null
                   ? null
                   : MainAxisAlignment.spaceEvenly,
           actions: <Widget>[
-            GestureDetector(
-              onTap: () => primaryButtonFunction(),
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 1),
-                  borderRadius: BorderRadius.circular(10),
+            if (primaryButtonText != null && primaryButtonFunction != null)
+              GestureDetector(
+                onTap: () => primaryButtonFunction(),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(primaryButtonText,
+                      style: const TextStyle(fontSize: 18)),
                 ),
-                child: Text(primaryButtonText,
-                    style: const TextStyle(fontSize: 18)),
               ),
-            ),
             if (secondaryButtonText != null && secondaryButtonFunction != null)
               GestureDetector(
                 onTap: () => secondaryButtonFunction(),

@@ -25,8 +25,8 @@ class _AdminPageState extends State<AdminPage> {
   @override
   void dispose() {
     super.dispose();
-    Controller.pageController.dispose();
-    Controller.scrollController.dispose();
+    Controller.page.dispose();
+    Controller.scroll.dispose();
   }
 
   @override
@@ -59,7 +59,7 @@ class _AdminPageState extends State<AdminPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SideMenu(
-            controller: Controller.pageController,
+            controller: Controller.page,
             style: SideMenuStyle(
               displayMode: size.width > 800
                   ? SideMenuDisplayMode.open
@@ -97,7 +97,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 0,
                 title: 'Dashboard',
                 onTap: () {
-                  Controller.pageController.jumpToPage(0);
+                  Controller.page.jumpToPage(0);
                 },
                 icon: Icons.home,
               ),
@@ -105,7 +105,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 1,
                 title: 'Orders',
                 onTap: () {
-                  Controller.pageController.jumpToPage(1);
+                  Controller.page.jumpToPage(1);
                 },
                 icon: Icons.file_copy_rounded,
               ),
@@ -113,7 +113,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 2,
                 title: 'Users',
                 onTap: () {
-                  Controller.pageController.jumpToPage(2);
+                  Controller.page.jumpToPage(2);
                 },
                 icon: Icons.supervisor_account,
               ),
@@ -121,7 +121,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 3,
                 title: 'Download',
                 onTap: () {
-                  Controller.pageController.jumpToPage(3);
+                  Controller.page.jumpToPage(3);
                 },
                 icon: Icons.download,
               ),
@@ -129,7 +129,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 4,
                 title: 'Settings',
                 onTap: () {
-                  Controller.pageController.jumpToPage(4);
+                  Controller.page.jumpToPage(4);
                 },
                 icon: Icons.settings,
               ),
@@ -137,7 +137,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 5,
                 title: 'Fake Uploader',
                 onTap: () {
-                  Controller.pageController.jumpToPage(5);
+                  Controller.page.jumpToPage(5);
                 },
                 icon: Icons.settings,
               ),
@@ -169,7 +169,7 @@ class _AdminPageState extends State<AdminPage> {
                 )
               : Expanded(
                   child: PageView(
-                    controller: Controller.pageController,
+                    controller: Controller.page,
                     children: [
                       DashboardView(),
                       OrdersView(),

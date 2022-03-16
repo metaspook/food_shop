@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart' show Colors, Icon, Icons;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_shop/models/cart.dart';
@@ -16,6 +17,7 @@ class Variable {
   static final Map<String, String> prefsData = {};
   // static late final FirebaseDatabase dbRealtimeInstance;
   static late final FirebaseDatabase dbRealtime;
+  static late final FirebaseStorage fbStorage;
   static List<User> userList = [];
   static List<Order> orderList = [];
   static List<Cart> cartList = const [];

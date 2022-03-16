@@ -58,7 +58,7 @@ class _OrdersViewState extends State<OrdersView> {
                           style: Theme.of(context).textTheme.headline3,
                         )
                       : GridView.builder(
-                          controller: Controller.scrollController,
+                          controller: Controller.scroll,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: size.width > 1800

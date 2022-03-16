@@ -49,7 +49,7 @@ class _UsersViewState extends State<UsersView> {
                         )
                       : GridView.builder(
                           padding: const EdgeInsets.all(5),
-                          controller: Controller.scrollController,
+                          controller: Controller.scroll,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: size.width > 1900
@@ -183,14 +183,18 @@ class _UsersViewState extends State<UsersView> {
                                 trailing: IconButton(
                                   icon:
                                       const Icon(Icons.delete_forever_outlined),
-                                  onPressed: () {
-                                    print(snapshot.data == null);
+                                  onPressed: () async {
+                                    // print(snapshot.data == null);
                                     // ? setState(() {})
                                     // :
-                                    Variable.dbRealtime
+                                    await Variable.dbRealtime
                                         .ref(
                                             "users/${snapshot.data!.snapshot.children.elementAt(index).key}")
                                         .remove();
+                                    await Variable.fbStorage
+                                        .ref(
+                                            "images/users/${snapshot.data!.snapshot.children.elementAt(index).key}.jpg")
+                                        .delete();
                                   },
                                 ),
                               ),

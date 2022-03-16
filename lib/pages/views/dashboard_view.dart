@@ -45,7 +45,7 @@ class _DashboardViewState extends State<DashboardView> {
                 return LayoutBuilder(builder: (context, constraints) {
                   return ListView(
                     // shrinkWrap: true,
-                    controller: Controller.scrollController,
+                    controller: Controller.scroll,
                     children: [
                       GridView.builder(
                         padding: const EdgeInsets.all(8),

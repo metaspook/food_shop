@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:food_shop/models/user.dart';
-import 'package:food_shop/pages/profile.dart';
-import 'package:food_shop/utils/constant.dart';
 import 'package:food_shop/utils/controller.dart';
+import 'package:food_shop/utils/extension.dart';
 import 'package:food_shop/utils/method.dart';
 import 'package:food_shop/utils/validator.dart';
 import 'package:food_shop/utils/variable.dart';
@@ -21,6 +18,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   File? _imageFile;
+  String? _imageUrl;
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   static const Base64Codec base64 = Base64Codec();
@@ -28,11 +26,11 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   void dispose() {
     super.dispose();
-    Controller.fullNameController.dispose();
-    Controller.emailController.dispose();
-    Controller.passwordController.dispose();
-    Controller.phoneController.dispose();
-    Controller.addressController.dispose();
+    Controller.fullName.dispose();
+    Controller.email.dispose();
+    Controller.password.dispose();
+    Controller.phone.dispose();
+    Controller.address.dispose();
   }
 
   @override
@@ -54,7 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 Flexible(
                   child: TextField(
-                    controller: Controller.emailController,
+                    controller: Controller.email,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       labelText: 'E-mail',
@@ -107,7 +105,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ],
             ),
             TextField(
-              controller: Controller.passwordController,
+              controller: Controller.password,
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecoration(
                 labelText: 'Password',
@@ -115,7 +113,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             TextFormField(
-              controller: Controller.fullNameController,
+              controller: Controller.fullName,
               keyboardType: TextInputType.name,
               // maxLength: 40,
               validator: (value) => Validator.isEmpty(value),
@@ -126,7 +124,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             TextField(
-              controller: Controller.phoneController,
+              controller: Controller.phone,
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 labelText: 'Phone',
@@ -134,7 +132,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             TextField(
-              controller: Controller.addressController,
+              controller: Controller.address,
               keyboardType: TextInputType.streetAddress,
               decoration: InputDecoration(
                 labelText: 'Address',
@@ -143,46 +141,26 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             FittedBox(
               child: ElevatedButton.icon(
-                onPressed: () {
-                  // if (_formKey.currentState!.validate()) {
-                  // Constant.prefsCrypt.setString('test1', 'This is test1');
-                  // Constant.prefsCrypt.setString('test1', 'This is test2');
-                  // Constant.prefsCrypt.setString('test1', 'This is test3');
-                  // Constant.prefsCrypt.setString('test1', 'This is test7');
-                  // Method.setPrefsData("userList", "This is test115");
-                  // "id": 1,
-                  //         "fullName": Controller.fullNameController.text,
-                  //         "email": Controller.emailController.text,
-                  //         "password": Controller.passwordController.text,
-                  //         "phone": Controller.phoneController.text,
-                  //         "address": Controller.addressController.text,
-                  //  id: 1,
-                  //         fullName: Controller.fullNameController.text,
-                  //         email: Controller.emailController.text,
-                  //         password: Controller.passwordController.text,
-                  //         phone: Controller.phoneController.text,
-                  //         address: Controller.addressController.text,
-                  // Method.setPrefsData(
-                  //   "userList",
-                  //   jsonEncode([
-                  //     ...jsonDecode(Variable.prefsData["userList"]!),
-                  //     {
-                  //       "id":
-                  //           jsonDecode(Variable.prefsData["userList"]!).length +
-                  //               1,
-                  //       "fullName": Controller.fullNameController.text,
-                  //       "email": Controller.emailController.text,
-                  //       "password": Controller.passwordController.text,
-                  //       "phone": Controller.phoneController.text,
-                  //       "address": Controller.addressController.text,
-                  //     }
-                  //   ]),
-                  // );
-                  // ScaffoldMessenger.of(context).showSnackBar(
-                  //   const SnackBar(content: Text('Processing Data')),
-                  // );
-                  // }
-
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Processing Data')),
+                    );
+                    final dbRef = Variable.dbRealtime.ref("users").push();
+                    final storageRef =
+                        Variable.fbStorage.ref("images/users/${dbRef.key}.jpg");
+                    await storageRef.putFile(_imageFile!);
+                    _imageUrl = await storageRef.getDownloadURL();
+                    await dbRef.set({
+                      "id": dbRef.key,
+                      "fullName": Controller.fullName.text,
+                      "email": Controller.email.text,
+                      "password": Controller.password.text.hashCrypt,
+                      "phone": Controller.phone.text,
+                      "address": Controller.address.text,
+                      "image": _imageUrl,
+                    });
+                  }
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(
@@ -196,7 +174,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               // label: CircularProgressIndicator()),
             ),
-            Text(Controller.fullNameController.text),
+            Text(Controller.fullName.text),
           ],
         ),
       ),

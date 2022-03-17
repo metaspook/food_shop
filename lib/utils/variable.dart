@@ -2,15 +2,15 @@ import 'dart:math';
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart' show Colors, Icon, Icons;
+import 'package:flutter/material.dart' show Colors, Icons, ValueNotifier;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_shop/models/cart.dart';
 import 'package:food_shop/models/order.dart';
 import 'package:food_shop/models/user.dart';
-import 'package:food_shop/utils/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Variable {
+  static ValueNotifier<int> decoy = ValueNotifier(0);
   // Shared Preferences.
   static late final SharedPreferences prefs;
   static late final EncryptedSharedPreferences prefsCrypt;

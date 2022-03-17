@@ -41,7 +41,7 @@ class _DashboardViewState extends State<DashboardView> {
                 Variable.counterList["Users"]!["count"] =
                     snapshot.data!.snapshot.child("users").children.length;
                 Variable.counterList["Orders"]!["count"] =
-                    snapshot.data!.snapshot.child("users").children.length;
+                    snapshot.data!.snapshot.child("orders").children.length;
                 return LayoutBuilder(builder: (context, constraints) {
                   return ListView(
                     // shrinkWrap: true,

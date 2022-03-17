@@ -46,6 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           itemExtent: 75,
           children: [
+            Text.rich(TextSpan(text: 'ghjhg', children: [])),
             Row(
               // mainAxisAlignment: MainAxisAlignment.end,
               // crossAxisAlignment: CrossAxisAlignment.center,
@@ -84,12 +85,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                 // mainAxisSize: MainAxisSize.min,
                                 children: [
                                   ElevatedButton.icon(
-                                    onPressed: () {},
+                                    onPressed: _getFromCamera,
                                     icon: Icon(Icons.camera),
                                     label: Text('Camera'),
                                   ),
                                   ElevatedButton.icon(
-                                    onPressed: () => _getFromGallery(),
+                                    onPressed: _getFromGallery,
                                     icon: Icon(Icons.image),
                                     label: Text('Gallery'),
                                   ),
@@ -141,34 +142,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             FittedBox(
               child: ElevatedButton.icon(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
-                    );
-                    final dbRef = Variable.dbRealtime.ref("users").push();
-                    final storageRef =
-                        Variable.fbStorage.ref("images/users/${dbRef.key}.jpg");
-                    await storageRef.putFile(_imageFile!);
-                    _imageUrl = await storageRef.getDownloadURL();
-                    await dbRef.set({
-                      "id": dbRef.key,
-                      "fullName": Controller.fullName.text,
-                      "email": Controller.email.text,
-                      "password": Controller.password.text.hashCrypt,
-                      "phone": Controller.phone.text,
-                      "address": Controller.address.text,
-                      "image": _imageUrl,
-                    });
-                  }
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => ProfilePage(),
-                  //   ),
-                  // );
-                  // createData();
-                },
+                onPressed: _userSignUp,
                 icon: Icon(Icons.login),
                 label: Text('Sign up'),
               ),
@@ -179,6 +153,17 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _getFromCamera() async {
+    XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+      maxHeight: 1080,
+      maxWidth: 1080,
+    );
+    // setState(() => imageFile = File(pickedFile!.path));
+    _cropImage(pickedFile!.path);
+    Navigator.pop(context);
   }
 
   Future<void> _getFromGallery() async {
@@ -200,19 +185,50 @@ class _SignUpPageState extends State<SignUpPage> {
     );
     if (croppedImage != null) setState(() => _imageFile = croppedImage);
   }
+
+  Future<void> _userSignUp() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        Method.snackBar(context, 'Processing Data...');
+        final dbRef = Variable.dbRealtime.ref("users").push();
+        final storageRef =
+            Variable.fbStorage.ref("images/users/${dbRef.key}.jpg");
+        await storageRef.putFile(_imageFile!);
+        _imageUrl = await storageRef.getDownloadURL();
+        await dbRef.set({
+          "id": dbRef.key,
+          "fullName": Controller.fullName.text,
+          "email": Controller.email.text,
+          "password": Controller.password.text.hashCrypt,
+          "phone": Controller.phone.text,
+          "address": Controller.address.text,
+          "image": _imageUrl,
+        });
+        Method.snackBar(context, 'Account Created!');
+      } catch (err) {
+        Method.snackBar(context, err.toString());
+      }
+    }
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(farukmarket
+    //     builder: (context) => ProfilePage(),
+    //   ),
+    // );
+    // createData();
+  }
 }
 
 // void createData() {
-  // Variable.dbRealtime.child("users").push().set([
-  //   {'name': 'Yashwant Kumar', 'description': 'Senior Software Engineer'},
-  //   {'name': 'Yashwant Kumar', 'description': 'Senior Software Engineer'},
-  //   {'name': 'Yashwant Kumar', 'description': 'Senior Software Engineer'},
-  // ]);
+// Variable.dbRealtime.child("users").push().set([
+//   {'name': 'Yashwant Kumar', 'description': 'Senior Software Engineer'},
+//   {'name': 'Yashwant Kumar', 'description': 'Senior Software Engineer'},
+//   {'name': 'Yashwant Kumar', 'description': 'Senior Software Engineer'},
+// ]);
 
-  // Variable.dbRealtime.child("categories/").update(
-  //     // "Category One",
-  //     // "Category Two",
-  //     // {"description": "Team Lead", "name": "Deepak Nishad"},
-  //     {"description": "Team Lexxad", "name": "Deepak Nishcccadf"});
+// Variable.dbRealtime.child("categories/").update(
+//     // "Category One",
+//     // "Category Two",
+//     // {"description": "Team Lead", "name": "Deepak Nishad"},
+//     {"description": "Team Lexxad", "name": "Deepak Nishcccadf"});
 // }
-

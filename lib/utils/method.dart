@@ -5,24 +5,12 @@ import 'package:food_shop/widgets/custom_divider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Method {
-  static void setCounter() async {
-    for (var status in Variable.orderStatusList.keys) {
-      Variable.dbRealtime
-          .ref("orders")
-          .orderByChild("status")
-          .equalTo(status)
-          .onValue
-          .listen((event) {
-        Variable.counterList[status]!["count"] = event.snapshot.children.length;
-      });
-    }
-
-    // for (var status in Variable.orderStatusList.keys) {
-    // final DataSnapshot snapshot = yield  Variable.dbRealtime
-    //     .ref("orders")
-    //     .orderByChild("status")
-    //     .equalTo(status).onValue;
-    // Variable.counterList[status]!["count"] = snapshot.children.length;
+  static void snackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+      ),
+    );
   }
 
   static void navPop(BuildContext context) {

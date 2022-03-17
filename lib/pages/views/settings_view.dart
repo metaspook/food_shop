@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/utils/variable.dart';
 
-class DownloadsView extends StatelessWidget {
-  const DownloadsView({Key? key}) : super(key: key);
+class SettingsView extends StatelessWidget {
+  const SettingsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Variable.decoy = "hey boy";
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
       children: [
@@ -15,9 +14,9 @@ class DownloadsView extends StatelessWidget {
           child: Center(
             child: ValueListenableBuilder(
               valueListenable: Variable.decoy,
-              builder: (BuildContext context, int value, Widget? child) {
+              builder: (BuildContext context, dynamic value, Widget? child) {
                 return Text(
-                  'Downloads: ' + value.toString(),
+                  'Settings: ' + Variable.decoy.value.toString(),
                   style: const TextStyle(fontSize: 35),
                 );
               },
@@ -25,13 +24,14 @@ class DownloadsView extends StatelessWidget {
           ),
         ),
         Padding(
-            padding: const EdgeInsets.only(bottom: 75, right: 75),
-            child: FloatingActionButton(
-                child: Icon(
-                  Icons.add,
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                ),
-                onPressed: () => Variable.decoy.value++)),
+          padding: const EdgeInsets.only(bottom: 75, right: 75),
+          child: FloatingActionButton(
+              child: Icon(
+                Icons.add,
+                color: Theme.of(context).scaffoldBackgroundColor,
+              ),
+              onPressed: () => Variable.decoy.value++),
+        )
       ],
     );
   }

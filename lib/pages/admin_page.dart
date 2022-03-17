@@ -7,6 +7,7 @@ import 'package:food_shop/pages/fake_uploader.dart';
 import 'package:food_shop/pages/views/dashboard_view.dart';
 import 'package:food_shop/pages/views/downloads_view.dart';
 import 'package:food_shop/pages/views/orders_view.dart';
+import 'package:food_shop/pages/views/settings_view.dart';
 import 'package:food_shop/pages/views/users_view.dart';
 import 'package:food_shop/utils/controller.dart';
 import 'package:food_shop/utils/variable.dart';
@@ -119,23 +120,23 @@ class _AdminPageState extends State<AdminPage> {
               ),
               SideMenuItem(
                 priority: 3,
-                title: 'Download',
+                title: 'Fake Uploader',
                 onTap: () {
                   Controller.page.jumpToPage(3);
-                },
-                icon: Icons.download,
-              ),
-              SideMenuItem(
-                priority: 4,
-                title: 'Settings',
-                onTap: () {
-                  Controller.page.jumpToPage(4);
                 },
                 icon: Icons.settings,
               ),
               SideMenuItem(
+                priority: 4,
+                title: 'Download',
+                onTap: () {
+                  Controller.page.jumpToPage(4);
+                },
+                icon: Icons.download,
+              ),
+              SideMenuItem(
                 priority: 5,
-                title: 'Fake Uploader',
+                title: 'Settings',
                 onTap: () {
                   Controller.page.jumpToPage(5);
                 },
@@ -174,26 +175,9 @@ class _AdminPageState extends State<AdminPage> {
                       DashboardView(),
                       OrdersView(),
                       UsersView(),
-                      Container(
-                        color: Colors.white,
-                        child: Center(
-                          child: Text(
-                            'Page\n   3',
-                            style: TextStyle(fontSize: 35),
-                          ),
-                        ),
-                      ),
-                      DownloadsView(),
                       FakeUploader(),
-                      Container(
-                        color: Colors.white,
-                        child: Center(
-                          child: Text(
-                            'Page\n   5',
-                            style: TextStyle(fontSize: 35),
-                          ),
-                        ),
-                      ),
+                      DownloadsView(),
+                      SettingsView(),
                     ],
                   ),
                 ),

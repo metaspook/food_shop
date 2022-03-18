@@ -9,4 +9,15 @@ class Controller {
   static final address = TextEditingController();
   static final page = PageController();
   static final scroll = ScrollController();
+
+  static void get signUpDisposer {
+    email.dispose();
+    password.dispose();
+  }
+
+  static void get signInDisposer {
+    fullName.dispose();
+    phone.dispose();
+    address.dispose();
+  }
 }

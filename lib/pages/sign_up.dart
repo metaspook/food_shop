@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/utils/controller.dart';
 import 'package:food_shop/utils/extension.dart';
@@ -24,16 +25,6 @@ class _SignUpPageState extends State<SignUpPage> {
   static const Base64Codec base64 = Base64Codec();
 
   @override
-  void dispose() {
-    super.dispose();
-    Controller.fullName.dispose();
-    Controller.email.dispose();
-    Controller.password.dispose();
-    Controller.phone.dispose();
-    Controller.address.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +37,28 @@ class _SignUpPageState extends State<SignUpPage> {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           itemExtent: 75,
           children: [
-            Text.rich(TextSpan(text: 'ghjhg', children: [])),
+            Text.rich(
+              TextSpan(
+                text: 'Already have an account?',
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold,
+                ),
+                children: [
+                  TextSpan(text: '   '),
+                  TextSpan(
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => Method.navPop(context),
+                      text: "Login",
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        color: Colors.blue.shade300,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ],
+              ),
+              textScaleFactor: 2,
+            ),
             Row(
               // mainAxisAlignment: MainAxisAlignment.end,
               // crossAxisAlignment: CrossAxisAlignment.center,
@@ -143,12 +155,11 @@ class _SignUpPageState extends State<SignUpPage> {
             FittedBox(
               child: ElevatedButton.icon(
                 onPressed: _userSignUp,
-                icon: Icon(Icons.login),
-                label: Text('Sign up'),
+                icon: Icon(Icons.app_registration_rounded),
+                label: Text('Sign Up'),
               ),
               // label: CircularProgressIndicator()),
             ),
-            Text(Controller.fullName.text),
           ],
         ),
       ),
@@ -205,6 +216,7 @@ class _SignUpPageState extends State<SignUpPage> {
           "image": _imageUrl,
         });
         Method.snackBar(context, 'Account Created!');
+        Controller.signUpDisposer;
       } catch (err) {
         Method.snackBar(context, err.toString());
       }

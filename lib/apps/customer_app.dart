@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/pages/product_list_page.dart';
 import 'package:food_shop/pages/sign_in.dart';
 import 'package:food_shop/pages/sign_up.dart';
 
@@ -24,8 +25,8 @@ class CustomerApp extends StatelessWidget {
       //   '/cart': (context) => CartPage(prefs: prefs),
       // },
       // home: const CartPage(title: 'Your Cart'),
-      // home: FoodListPage(),
-      home: const SignInPage(),
+      home: ProductListPage(),
+      // home: const SignInPage(),
       // home: const SignUpPage(),
     );
   }

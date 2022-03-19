@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:food_shop/models/food.dart';
+import 'package:food_shop/models/product.dart';
 import 'package:food_shop/utils/method.dart';
 
 class OrderPage extends StatefulWidget {

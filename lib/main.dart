@@ -7,6 +7,7 @@ import 'package:food_shop/apps/admin_app.dart';
 import 'package:food_shop/apps/customer_app.dart';
 import 'package:food_shop/firebase_options.dart';
 import 'package:food_shop/utils/variable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   // Note that this line is required, otherwise flutter throws an error
@@ -32,6 +33,7 @@ Future<void> main() async {
     Variable.dbRealtime = FirebaseDatabase.instance;
     Variable.dbRealtime.setPersistenceEnabled(true);
     Variable.fbStorage = FirebaseStorage.instance;
+    Variable.prefs = await SharedPreferences.getInstance();
     runApp(const CustomerApp());
   }
 }

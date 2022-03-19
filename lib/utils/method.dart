@@ -33,8 +33,8 @@ class Method {
       primaryButtonFunction: primaryButtonFunction,
       secondaryButtonText: secondaryButtonText,
       secondaryButtonFunction: secondaryButtonFunction,
-      title: title as Widget,
-      subtitle: subtitle as Widget,
+      title: title == null ? null : Text(title),
+      subtitle: subtitle == null ? null : Text(subtitle),
     );
   }
 

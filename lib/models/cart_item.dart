@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-class Cart {
+class CartItem {
   final int itemIndex;
   final int quantity;
   final double unitPrice;
-  Cart({
+  CartItem({
     required this.itemIndex,
     required this.quantity,
     required this.unitPrice,
   });
 
-  Cart copyWith({
+  CartItem copyWith({
     int? itemIndex,
     int? quantity,
     double? unitPrice,
   }) {
-    return Cart(
+    return CartItem(
       itemIndex: itemIndex ?? this.itemIndex,
       quantity: quantity ?? this.quantity,
       unitPrice: unitPrice ?? this.unitPrice,
@@ -23,8 +23,8 @@ class Cart {
   }
 
   // create model object from json object.
-  factory Cart.fromJson(Map<String, dynamic> json) {
-    return Cart(
+  factory CartItem.fromJson(Map<String, dynamic> json) {
+    return CartItem(
         itemIndex: json["itemIndex"],
         quantity: json["quantity"],
         unitPrice: json["unitPrice"]);
@@ -42,31 +42,33 @@ class Cart {
   // get subtotal of a cart items.
   double get subTotal => quantity * unitPrice;
 
-  static List<Cart> fromJsonList(List<Map<String, dynamic>> jsonList) =>
-      [for (Map<String, dynamic> e in jsonList) Cart.fromJson(e)];
-  static List<Cart> fromJsonListString(String listString) =>
-      [for (Map<String, dynamic> e in jsonDecode(listString)) Cart.fromJson(e)];
+  static List<CartItem> fromJsonList(List<Map<String, dynamic>> jsonList) =>
+      [for (Map<String, dynamic> e in jsonList) CartItem.fromJson(e)];
+  static List<CartItem> fromJsonListString(String listString) => [
+        for (Map<String, dynamic> e in jsonDecode(listString))
+          CartItem.fromJson(e)
+      ];
 
-  factory Cart.fromJsonString(String jsonString) =>
-      Cart.fromJson(jsonDecode(jsonString));
+  factory CartItem.fromJsonString(String jsonString) =>
+      CartItem.fromJson(jsonDecode(jsonString));
 
   String toJsonString() => jsonEncode(toJson());
 
-  static List<Cart> fromJsonStringList(List<String> list) =>
-      [for (String e in list) Cart.fromJsonString(e)];
+  static List<CartItem> fromJsonStringList(List<String> list) =>
+      [for (String e in list) CartItem.fromJsonString(e)];
 
-  static List<String> toJsonStringList(List<Cart> list) =>
-      [for (Cart e in list) e.toJsonString()];
+  static List<String> toJsonStringList(List<CartItem> list) =>
+      [for (CartItem e in list) e.toJsonString()];
 
   @override
   String toString() =>
-      'Cart(itemIndex: $itemIndex, quantity: $quantity, unitPrice: $unitPrice)';
+      'CartItem(itemIndex: $itemIndex, quantity: $quantity, unitPrice: $unitPrice)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Cart &&
+    return other is CartItem &&
         other.itemIndex == itemIndex &&
         other.quantity == quantity &&
         other.unitPrice == unitPrice;

@@ -2,7 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/models/food.dart';
+import 'package:food_shop/models/product.dart';
 import 'package:food_shop/utils/method.dart';
 
 class CartPage extends StatefulWidget {
@@ -77,13 +77,10 @@ class _CartPageState extends State<CartPage> {
                       subtitle: 'Do you want to delete this cart?',
                       context: context,
                       primaryButtonText: 'Cancel',
-                      primaryButtonFunction: () {
-                        if (Navigator.canPop(context)) Navigator.pop(context);
-                      },
+                      primaryButtonFunction: () => Method.navPop(context),
                       secondaryButtonText: 'Confirm',
                       secondaryButtonFunction: () {
-                        if (Navigator.canPop(context)) Navigator.pop(context);
-
+                        Method.navPop(context);
                         setState(() {
                           // if (Navigator.canPop(context)) {
                           // int count = 0;
@@ -93,10 +90,7 @@ class _CartPageState extends State<CartPage> {
                           _cartItemPriceList.clear();
                           // }
                         });
-                        if (Navigator.canPop(context)) {
-                          Navigator.pop(context, true);
-                        }
-                        // Navigator.pop(context, true);
+                        Method.navPop(context);
                       },
                     );
                   },
@@ -150,7 +144,7 @@ class _CartPageState extends State<CartPage> {
                               ),
                               CachedNetworkImage(
                                 imageUrl:
-                                    Food.fromJsonString(_cartItemList[index])
+                                    Product.fromJsonString(_cartItemList[index])
                                         .image,
                                 // imageUrl: _cartItemList[index].image,
                                 errorWidget: (context, url, error) =>
@@ -164,7 +158,7 @@ class _CartPageState extends State<CartPage> {
                             ],
                           ),
                           title: Text(
-                            Food.fromJsonString(_cartItemList[index]).name,
+                            Product.fromJsonString(_cartItemList[index]).name,
                             // _cartItemList[index].name,
                             style: Theme.of(context)
                                 .textTheme

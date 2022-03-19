@@ -1,30 +1,30 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'cart.dart';
+import 'cart_item.dart';
 
 class Order {
   final String id;
   final String userId;
   final String status;
-  final List<Cart> cartList;
+  final List<CartItem> cartItemList;
   Order({
     required this.id,
     required this.userId,
     required this.status,
-    required this.cartList,
+    required this.cartItemList,
   });
 
   Order copyWith({
     String? id,
     String? userId,
     String? status,
-    List<Cart>? cartList,
+    List<CartItem>? cartItemList,
   }) {
     return Order(
       id: id ?? this.id,
       userId: userId ?? this.userId,
       status: status ?? this.status,
-      cartList: cartList ?? this.cartList,
+      cartItemList: cartItemList ?? this.cartItemList,
     );
   }
 
@@ -34,7 +34,7 @@ class Order {
       id: json["id"],
       userId: json["userId"],
       status: json["status"],
-      cartList: [for (var e in json["cartList"]) Cart.fromJson(e)],
+      cartItemList: [for (var e in json["cartItemList"]) CartItem.fromJson(e)],
     );
   }
 
@@ -44,13 +44,13 @@ class Order {
       "id": id,
       "userId": userId,
       "status": status,
-      "cartList": cartList
+      "cartItemList": cartItemList
     };
   }
 
   // get total price of an order.
   double get total =>
-      [for (Cart e in cartList) e.subTotal].reduce((v, e) => v + e);
+      [for (CartItem e in cartItemList) e.subTotal].reduce((v, e) => v + e);
 
   static List<Order> fromJsonList(List<Map<String, dynamic>> jsonList) =>
       [for (Map<String, dynamic> e in jsonList) Order.fromJson(e)];
@@ -71,7 +71,7 @@ class Order {
 
   @override
   String toString() {
-    return 'Order(id: $id, userId: $userId, status: $status, cartList: $cartList)';
+    return 'Order(id: $id, userId: $userId, status: $status, cartItemList: $cartItemList)';
   }
 
   @override
@@ -82,11 +82,14 @@ class Order {
         other.id == id &&
         other.userId == userId &&
         other.status == status &&
-        listEquals(other.cartList, cartList);
+        listEquals(other.cartItemList, cartItemList);
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ userId.hashCode ^ status.hashCode ^ cartList.hashCode;
+    return id.hashCode ^
+        userId.hashCode ^
+        status.hashCode ^
+        cartItemList.hashCode;
   }
 }

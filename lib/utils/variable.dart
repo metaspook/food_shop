@@ -29,7 +29,7 @@ class Variable {
   static final itemPriceList =
       List<int>.generate(60, (index) => Random().nextInt(10) + 1);
 
-  static final orderStatusList = <String, Map<String, dynamic>>{
+  static final orderBoardItems = <String, Map<String, dynamic>>{
     "Pending": {
       "count": 0,
       "icon": FontAwesomeIcons.infoCircle,
@@ -57,22 +57,21 @@ class Variable {
     },
   };
 
-  static final counterList = <String, Map<String, dynamic>>{
+  static final mainBoardItems = <String, Map<String, dynamic>>{
     "Users": {
       "count": 0,
       "icon": Icons.supervised_user_circle_sharp,
-      "color": Colors.orange,
+      "color": Colors.pink,
     },
     "Orders": {
       "count": 0,
       "icon": Icons.file_copy,
-      "color": Colors.orange,
+      "color": Colors.pink,
     },
     "Products": {
       "count": 0,
       "icon": Icons.shopping_bag_rounded,
-      "color": Colors.orange,
+      "color": Colors.pink,
     },
-    // ...Variable.orderStatusList
   };
 }

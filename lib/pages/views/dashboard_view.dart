@@ -16,14 +16,15 @@ class _DashboardViewState extends State<DashboardView> {
   void initState() {
     super.initState();
     // Order status count stream.
-    for (var status in Variable.orderStatusList.keys) {
+    for (var status in Variable.orderBoardItems.keys) {
       Variable.dbRealtime
           .ref("orders")
           .orderByChild("status")
           .equalTo(status)
           .onValue
           .listen((event) {
-        Variable.counterList[status]!["count"] = event.snapshot.children.length;
+        Variable.orderBoardItems[status]!["count"] =
+            event.snapshot.children.length;
       });
     }
   }
@@ -39,17 +40,17 @@ class _DashboardViewState extends State<DashboardView> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 // Order and Users count stream.
-                Variable.counterList["Users"]!["count"] =
+                Variable.mainBoardItems["Users"]!["count"] =
                     snapshot.data!.snapshot.child("users").children.length;
-                Variable.counterList["Orders"]!["count"] =
+                Variable.mainBoardItems["Orders"]!["count"] =
                     snapshot.data!.snapshot.child("orders").children.length;
                 return LayoutBuilder(builder: (context, constraints) {
                   return ListView(
                     // shrinkWrap: true,
                     controller: Controller.scroll,
                     children: [
-                      DashGrid("Main Board", items: Variable.counterList),
-                      DashGrid("Order Board", items: Variable.orderStatusList),
+                      DashGrid("Main Board", items: Variable.mainBoardItems),
+                      DashGrid("Order Board", items: Variable.orderBoardItems),
                       Card(
                         elevation: 5,
                         // shadowColor: Colors.black,

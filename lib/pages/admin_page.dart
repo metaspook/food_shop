@@ -7,6 +7,7 @@ import 'package:food_shop/pages/fake_uploader.dart';
 import 'package:food_shop/pages/views/dashboard_view.dart';
 import 'package:food_shop/pages/views/downloads_view.dart';
 import 'package:food_shop/pages/views/orders_view.dart';
+import 'package:food_shop/pages/views/products_view.dart';
 import 'package:food_shop/pages/views/settings_view.dart';
 import 'package:food_shop/pages/views/users_view.dart';
 import 'package:food_shop/utils/controller.dart';
@@ -96,9 +97,17 @@ class _AdminPageState extends State<AdminPage> {
             items: [
               SideMenuItem(
                 priority: 0,
-                title: 'Dashboard',
+                title: 'Products',
                 onTap: () {
                   Controller.page.jumpToPage(0);
+                },
+                icon: Icons.home,
+              ),
+              SideMenuItem(
+                priority: 7,
+                title: 'Dashboard',
+                onTap: () {
+                  Controller.page.jumpToPage(7);
                 },
                 icon: Icons.home,
               ),
@@ -172,12 +181,13 @@ class _AdminPageState extends State<AdminPage> {
                   child: PageView(
                     controller: Controller.page,
                     children: [
-                      DashboardView(),
+                      ProductsView(),
                       OrdersView(),
                       UsersView(),
                       FakeUploader(),
                       DownloadsView(),
                       SettingsView(),
+                      DashboardView(),
                     ],
                   ),
                 ),
@@ -185,21 +195,4 @@ class _AdminPageState extends State<AdminPage> {
       ),
     );
   }
-}
-
-void _fetchE() async {
-  final DataSnapshot ff = await Variable.dbRealtime
-      .ref("orders")
-      .orderByChild("status")
-      .equalTo("Pending")
-      .get();
-  // .then((value) {
-  // for (var e in value.children) {
-  //   print(value.children.length);
-  // }
-  Variable.counterList["Pending"]!["count"] = ff.children.length;
-  print(Variable.counterList["Pending"]!["count"]);
-  // print(value.children);
-  // });
-  // ff.;
 }

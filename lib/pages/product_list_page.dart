@@ -209,7 +209,8 @@ class _ProductListPageState extends State<ProductListPage> {
                           children: [
                             // SizedBox(width: 5),
                             Text(
-                              "\$" + Constant.unitPriceList[index].toString(),
+                              "\$" +
+                                  Constant.productPriceList[index].toString(),
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
@@ -227,8 +228,8 @@ class _ProductListPageState extends State<ProductListPage> {
                                 return value.contains(CartItem(
                                   itemIndex: index,
                                   quantity: 1,
-                                  unitPrice:
-                                      Constant.unitPriceList[index].toDouble(),
+                                  unitPrice: Constant.productPriceList[index]
+                                      .toDouble(),
                                 ))
                                     ? IconButton(
                                         icon: const Icon(
@@ -243,7 +244,7 @@ class _ProductListPageState extends State<ProductListPage> {
                                                   itemIndex: index,
                                                   quantity: 1,
                                                   unitPrice: Constant
-                                                      .unitPriceList[index]
+                                                      .productPriceList[index]
                                                       .toDouble())),
                                           ];
                                         },
@@ -260,7 +261,7 @@ class _ProductListPageState extends State<ProductListPage> {
                                                   itemIndex: index,
                                                   quantity: 1,
                                                   unitPrice: Constant
-                                                      .unitPriceList[index]
+                                                      .productPriceList[index]
                                                       .toDouble()))
                                           ];
                                         },

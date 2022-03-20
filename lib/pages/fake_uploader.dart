@@ -132,7 +132,7 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3HvT8BYupaS55n7",
       "status": "Pending",
-      "cartList": <Map<String, dynamic>>[
+      "cartItemList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
@@ -154,7 +154,7 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3HtSRQTFBC492uU",
       "status": "Confirmed",
-      "cartList": <Map<String, dynamic>>[
+      "cartItemList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
@@ -186,7 +186,7 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3HtSRQTFBC492uU",
       "status": "Canceled",
-      "cartList": <Map<String, dynamic>>[
+      "cartItemList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
@@ -213,7 +213,7 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3Hxpg5tWHEmCEsO",
       "status": "Delivery",
-      "cartList": <Map<String, dynamic>>[
+      "cartItemList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
@@ -235,7 +235,7 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3HzHbQxEMo8m52E",
       "status": "Received",
-      "cartList": <Map<String, dynamic>>[
+      "cartItemList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
@@ -247,7 +247,7 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3Hxpg5tWHEmCEsO",
       "status": "Confirmed",
-      "cartList": <Map<String, dynamic>>[
+      "cartItemList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
@@ -304,7 +304,7 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3HzHbQxEMo8m52E",
       "status": "Pending",
-      "cartList": <Map<String, dynamic>>[
+      "cartItemList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
@@ -321,7 +321,7 @@ void _uploadOrder() {
       "id": "",
       "userId": "-MxyK3Hxpg5tWHEmCEsO",
       "status": "Received",
-      "cartList": <Map<String, dynamic>>[
+      "cartItemList": <Map<String, dynamic>>[
         {
           "itemIndex": Random().nextInt(60),
           "quantity": Random().nextInt(20) + 1,
@@ -353,12 +353,12 @@ void _uploadOrder() {
 
   for (Map<String, dynamic> e in oderList) {
     final orderRef = Variable.dbRealtime.ref("orders").push();
-    final List<Map<String, dynamic>> cartList = e["cartList"];
+    final List<Map<String, dynamic>> cartItemList = e["cartItemList"];
     e.update("id", (value) => orderRef.key!);
-    for (int i = 0; i < cartList.length; i++) {
-      cartList[i].update(
+    for (int i = 0; i < cartItemList.length; i++) {
+      cartItemList[i].update(
         "unitPrice",
-        (value) => Variable.itemPriceList[cartList[i]["itemIndex"]!],
+        (value) => Variable.itemPriceList[cartItemList[i]["itemIndex"]!],
       );
     }
     // print(e["totalPrice"]);

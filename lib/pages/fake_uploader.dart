@@ -31,6 +31,12 @@ class _FakeUploaderState extends State<FakeUploader> {
             icon: const Icon(Icons.shopping_cart_outlined),
             label: Text('Orders'),
           ),
+          SizedBox(width: 5),
+          ElevatedButton.icon(
+            onPressed: () => _uploadOrder(),
+            icon: const Icon(Icons.shopping_cart_outlined),
+            label: Text('Products'),
+          ),
         ],
       ),
     );

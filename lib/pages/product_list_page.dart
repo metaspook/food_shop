@@ -8,6 +8,7 @@ import 'package:food_shop/models/cart_item.dart';
 import 'package:food_shop/pages/cart_page.dart';
 import 'package:food_shop/utils/constant.dart';
 import 'package:food_shop/utils/notifier.dart';
+import 'package:food_shop/utils/variable.dart';
 import 'package:http/http.dart' as http;
 import 'package:food_shop/models/product.dart';
 
@@ -23,12 +24,12 @@ class _ProductListPageState extends State<ProductListPage> {
   final List<int> _itemPriceList = [];
   // final List<String> _cartItemList = [];
   // List<CartItem> cartItemList = [];
-  late final Future<List<Product>> _futureFood;
+  // late final Future<List<Product>> _futureFood;
 
   @override
   void initState() {
     super.initState();
-    _futureFood = _fetchFood();
+    Variable.futureProduct = _fetchFood();
     // Method.prefs.then((db) {
     //   if (db.getStringList("cartItemList") != null) {
     //     setState(() {
@@ -146,7 +147,7 @@ class _ProductListPageState extends State<ProductListPage> {
         ],
       ),
       body: FutureBuilder<List<Product>>(
-        future: _futureFood,
+        future: Variable.futureProduct,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             // Variable.unitPriceList
@@ -277,7 +278,7 @@ class _ProductListPageState extends State<ProductListPage> {
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
-          return const Center(child: CircularProgressIndicator());
+          return const CircularProgressIndicator.adaptive();
         },
       ),
     );

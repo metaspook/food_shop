@@ -5,10 +5,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart' show Colors, Icons, ValueNotifier;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_shop/models/order.dart';
+import 'package:food_shop/models/product.dart';
 import 'package:food_shop/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Variable {
+  static late final Future<List<Product>> futureProduct;
   // static final unitPriceList = List<double>.generate(
   //     60,
   //     (index) => double.tryParse((Random().nextInt(20) + 1).toString() +
@@ -66,6 +68,11 @@ class Variable {
       "icon": Icons.file_copy,
       "color": Colors.orange,
     },
-    ...Variable.orderStatusList
+    "Products": {
+      "count": 0,
+      "icon": Icons.shopping_bag_rounded,
+      "color": Colors.orange,
+    },
+    // ...Variable.orderStatusList
   };
 }

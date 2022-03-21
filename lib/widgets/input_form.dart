@@ -54,4 +54,30 @@ abstract class InputForm {
       border: OutlineInputBorder(),
     ),
   );
+
+  /// Price input form.
+  static TextFormField price([double previousPrice = 0]) {
+    return TextFormField(
+      controller: Controller.price,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        hintText: '$previousPrice',
+        labelText: 'Price',
+        border: const OutlineInputBorder(),
+      ),
+    );
+  }
+
+  /// Stock input form.
+  static TextFormField stock([int previousStock = 0]) {
+    return TextFormField(
+      controller: Controller.stock,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        hintText: '$previousStock',
+        labelText: 'Stock',
+        border: const OutlineInputBorder(),
+      ),
+    );
+  }
 }

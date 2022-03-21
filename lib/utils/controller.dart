@@ -9,6 +9,8 @@ class Controller {
   static final address = TextEditingController();
   static final page = PageController();
   static final scroll = ScrollController();
+  static final price = TextEditingController();
+  static final stock = TextEditingController();
 
   static void get signUpDisposer {
     email.dispose();

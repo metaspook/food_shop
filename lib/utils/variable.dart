@@ -26,6 +26,7 @@ class Variable {
   static late final FirebaseStorage fbStorage;
   static List<User> userList = [];
   static List<Order> orderList = [];
+  static List<Product> productList = [];
   static final itemPriceList =
       List<int>.generate(60, (index) => Random().nextInt(10) + 1);
 

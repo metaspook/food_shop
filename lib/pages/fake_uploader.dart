@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:food_shop/utils/constant.dart';
 import 'package:food_shop/utils/extension.dart';
 import 'package:food_shop/utils/variable.dart';
 
@@ -33,7 +34,7 @@ class _FakeUploaderState extends State<FakeUploader> {
           ),
           SizedBox(width: 5),
           ElevatedButton.icon(
-            onPressed: () => _uploadOrder(),
+            onPressed: _uploadProduct,
             icon: const Icon(Icons.shopping_cart_outlined),
             label: Text('Products'),
           ),
@@ -130,6 +131,8 @@ void _uploadOrder() {
   final oderList = [
     {
       "id": "",
+      "price": 0.0,
+      "stock": 0,
       "userId": "-MxyK3HvT8BYupaS55n7",
       "status": "Pending",
       "cartItemList": <Map<String, dynamic>>[
@@ -152,6 +155,8 @@ void _uploadOrder() {
     },
     {
       "id": "",
+      "price": 0.0,
+      "stock": 0,
       "userId": "-MxyK3HtSRQTFBC492uU",
       "status": "Confirmed",
       "cartItemList": <Map<String, dynamic>>[
@@ -184,6 +189,8 @@ void _uploadOrder() {
     },
     {
       "id": "",
+      "price": 0.0,
+      "stock": 0,
       "userId": "-MxyK3HtSRQTFBC492uU",
       "status": "Canceled",
       "cartItemList": <Map<String, dynamic>>[
@@ -211,6 +218,8 @@ void _uploadOrder() {
     },
     {
       "id": "",
+      "price": 0.0,
+      "stock": 0,
       "userId": "-MxyK3Hxpg5tWHEmCEsO",
       "status": "Delivery",
       "cartItemList": <Map<String, dynamic>>[
@@ -233,6 +242,8 @@ void _uploadOrder() {
     },
     {
       "id": "",
+      "price": 0.0,
+      "stock": 0,
       "userId": "-MxyK3HzHbQxEMo8m52E",
       "status": "Received",
       "cartItemList": <Map<String, dynamic>>[
@@ -245,6 +256,8 @@ void _uploadOrder() {
     },
     {
       "id": "",
+      "price": 0.0,
+      "stock": 0,
       "userId": "-MxyK3Hxpg5tWHEmCEsO",
       "status": "Confirmed",
       "cartItemList": <Map<String, dynamic>>[
@@ -302,6 +315,8 @@ void _uploadOrder() {
     },
     {
       "id": "",
+      "price": 0.0,
+      "stock": 0,
       "userId": "-MxyK3HzHbQxEMo8m52E",
       "status": "Pending",
       "cartItemList": <Map<String, dynamic>>[
@@ -319,6 +334,8 @@ void _uploadOrder() {
     },
     {
       "id": "",
+      "price": 0.0,
+      "stock": 0,
       "userId": "-MxyK3Hxpg5tWHEmCEsO",
       "status": "Received",
       "cartItemList": <Map<String, dynamic>>[
@@ -363,6 +380,510 @@ void _uploadOrder() {
     }
     // print(e["totalPrice"]);
     orderRef.set(e);
+  }
+  // print(oderList); 19/02/2022 11:46:44
+}
+
+void _uploadProduct() {
+  final productList = <Map<String, dynamic>>[
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Apple",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Biscuit",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Boiled Egg",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/boiled-egg.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Bread",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/bread.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Breadsticks",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/breadsticks.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Breakfast Sandwich",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/breakfast-sandwich.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Burger",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/burger.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Butter",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/butter.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Candies",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/candies.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Cheese",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/cheese.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Cheeseburger",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/cheeseburger.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Chips",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/chips.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Chocolate Milk",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/chocolate-milk.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Chocolate",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/chocolate.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Coconut Milk",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/coconut-milk.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Coffee",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/coffee.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Cookies",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/cookies.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Croissant",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/croissant.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Donut",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/donut.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Fish",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/fish.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "French Bread",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/french-bread.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Fried Chicken",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/fried-chicken.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Fries",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/fries.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Fruit Juice",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/fruit-juice.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Fruits",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/fruits.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Grapes",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/grapes.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Green Tea",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/green-tea.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Honey",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/honey.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Hot Chocolate",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/hot-chocolate.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Hot Dog",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/hot-dog.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Ice Cream",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/ice-cream.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Jam",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/jam.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Kebab",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/kebab.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Lemonade",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/lemonade.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Meat",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/meat.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Milk",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/milk.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Milkshake",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/milkshake.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Muffins",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/muffins.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Noodle",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/noodle.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Omelet",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/omelet.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Orange Juice",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/orange-juice.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Pancakes",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/pancakes.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Pasta",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/pasta.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Pizza",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/pizza.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Rice",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/rice.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Roast Chicken",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/roast-chicken.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Roll",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/roll.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Salad",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/salad.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Sandwich",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/sandwich.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Sausages",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/sausages.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Seafood",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/seafood.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Soft Drink",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/soft-drink.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Soup",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/soup.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Steak",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/steak.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Taco",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/taco.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Tea",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/tea.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Vegetables",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/vegetables.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Water",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/water.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Watermelon",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/watermelon.png"
+    },
+    {
+      "id": "",
+      "price": 0.0,
+      "stock": 0,
+      "name": "Yogurt",
+      "image":
+          "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/yogurt.png"
+    }
+  ];
+
+  for (Map<String, dynamic> e in productList) {
+    final productRef = Variable.dbRealtime.ref("products").push();
+    // final List<Map<String, dynamic>> cartItemList = e["cartItemList"];
+    e.update("id", (value) => productRef.key);
+    e.update(
+        "price", (value) => Constant.productPriceList[productList.indexOf(e)]);
+    e.update("stock",
+        (value) => Constant.productQuantityList[productList.indexOf(e)]);
+    // for (int i = 0; i < cartItemList.length; i++) {
+    //   cartItemList[i].update(
+    //     "unitPrice",
+    //     (value) => Variable.itemPriceList[cartItemList[i]["itemIndex"]!],
+    //   );
+    // }
+    // print(e["totalPrice"]);
+    productRef.set(e);
   }
   // print(oderList); 19/02/2022 11:46:44
 }

@@ -5,6 +5,13 @@ import 'package:food_shop/widgets/custom_divider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Method {
+  static Map<String, dynamic> objectToMap(Object? obj) {
+    obj as Map;
+    final Map<String, dynamic> objMap = {};
+    obj.forEach((k, v) => objMap[k] = v);
+    return objMap;
+  }
+
   static void snackBar(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

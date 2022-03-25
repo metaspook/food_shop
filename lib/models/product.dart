@@ -13,17 +13,23 @@ class Product {
   final String id;
   final String name;
   final String image;
-  final double price;
+  final num price;
   final int stock;
 
   // create model object from json object.
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-        id: json['id'],
-        name: json['name'],
-        image: json['image'],
-        price: json['price'],
-        stock: json['stock']);
+      id: json['id'] ?? '',
+      price: json['price']?.toInt() ?? 0,
+      stock: json['stock']?.toInt() ?? 0,
+      name: json['name'] ?? '',
+      image: json['image'] ?? '',
+      // id: json['id'],
+      // name: json['name'],
+      // image: json['image'],
+      // price: json['price'],
+      // stock: json['stock'],
+    );
   }
 
   // create json object from model object.

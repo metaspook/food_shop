@@ -1,12 +1,11 @@
-import 'dart:convert';
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:food_shop/models/cart_item.dart';
 import 'package:food_shop/pages/cart_page.dart';
-import 'package:food_shop/utils/constant.dart';
+import 'package:food_shop/utils/method.dart';
 import 'package:food_shop/utils/notifier.dart';
 import 'package:food_shop/utils/variable.dart';
 import 'package:http/http.dart' as http;
@@ -29,7 +28,7 @@ class _ProductListPageState extends State<ProductListPage> {
   @override
   void initState() {
     super.initState();
-    Variable.futureProduct = _fetchFood();
+    // Variable.futureProduct = _fetchFood();
     // Method.prefs.then((db) {
     //   if (db.getStringList("cartItemList") != null) {
     //     setState(() {
@@ -146,136 +145,151 @@ class _ProductListPageState extends State<ProductListPage> {
           ),
         ],
       ),
-      body: FutureBuilder<List<Product>>(
-        future: Variable.futureProduct,
+      body: StreamBuilder<DatabaseEvent>(
+        stream: Variable.dbRealtime.ref("products").onValue,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            // Variable.unitPriceList
-            // _itemPriceList.addAll(
-            //   List<int>.generate(
-            //     snapshot.data!.length,
-            //     (i) => 10 + Random().nextInt(100 - 10),
-            //     growable: false,
-            //   ),
-            // );
-
-            return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  elevation: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          '${snapshot.data![index].id}. ${snapshot.data![index].name}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.secondary,
-                              ),
-                        ),
-                        Flexible(
-                            child: CachedNetworkImage(
-                          imageUrl: snapshot.data![index].image,
-                          // placeholder: (context, url) =>
-                          //     CircularProgressIndicator(),
-                          // progressIndicatorBuilder:
-                          //     (context, url, downloadProgress) =>
-                          //         CircularProgressIndicator(
-                          //             value: downloadProgress.progress),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                          // fit: BoxFit.cover,
-                        )
-                            // Image(
-                            //     image: CachedNetworkImageProvider(
-                            //         snapshot.data![index].image))
-                            // CachedNetworkImage(
-                            //   imageUrl: ,
-                            //   child: Image.network(
-                            //     snapshot.data![index].image,
-                            //     fit: BoxFit.cover,
-                            //   ),
-                            // ),
-                            ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            // SizedBox(width: 5),
-                            Text(
-                              "\$" +
-                                  Constant.productPriceList[index].toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                            ),
-                            const SizedBox(width: 50),
-                            ValueListenableBuilder(
-                              valueListenable: Notifier.cartItemList,
-                              builder: (BuildContext context,
-                                  List<CartItem> value, Widget? child) {
-                                return value.contains(CartItem(
-                                  itemIndex: index,
-                                  quantity: 1,
-                                  unitPrice: Constant.productPriceList[index]
-                                      .toDouble(),
-                                ))
-                                    ? IconButton(
-                                        icon: const Icon(
-                                          CupertinoIcons.cart_badge_minus,
-                                          color: Colors.orange,
-                                        ),
-                                        onPressed: () {
-                                          Notifier.cartItemList.value =
-                                              Notifier.cartItemList.value = [
-                                            ...Notifier.cartItemList.value
-                                              ..remove(CartItem(
-                                                  itemIndex: index,
-                                                  quantity: 1,
-                                                  unitPrice: Constant
-                                                      .productPriceList[index]
-                                                      .toDouble())),
-                                          ];
-                                        },
-                                      )
-                                    : IconButton(
-                                        icon: const Icon(
-                                          CupertinoIcons.cart_badge_plus,
-                                          color: Colors.cyan,
-                                        ),
-                                        onPressed: () {
-                                          Notifier.cartItemList.value = [
-                                            ...Notifier.cartItemList.value
-                                              ..add(CartItem(
-                                                  itemIndex: index,
-                                                  quantity: 1,
-                                                  unitPrice: Constant
-                                                      .productPriceList[index]
-                                                      .toDouble()))
-                                          ];
-                                        },
-                                      );
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+            Variable.productList = List.generate(
+              snapshot.data!.snapshot.children.length,
+              (index) {
+                return Product.fromJson(Method.objectToMap(
+                  snapshot.data!.snapshot.children.elementAt(index).value,
+                ));
               },
             );
+
+            return snapshot.data!.snapshot.value == null
+                ? Text(
+                    'No Products!',
+                    style: Theme.of(context).textTheme.headline3,
+                  )
+                : GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2),
+                    itemCount: Variable.productList.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        elevation: 5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                '$index. ${Variable.productList[index].name}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                    ),
+                              ),
+                              Flexible(
+                                  child: CachedNetworkImage(
+                                imageUrl: Variable.productList[index].image,
+                                // placeholder: (context, url) =>
+                                //     CircularProgressIndicator(),
+                                // progressIndicatorBuilder:
+                                //     (context, url, downloadProgress) =>
+                                //         CircularProgressIndicator(
+                                //             value: downloadProgress.progress),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                                // fit: BoxFit.cover,
+                              )
+                                  // Image(
+                                  //     image: CachedNetworkImageProvider(
+                                  //         snapshot.data![index].image))
+                                  // CachedNetworkImage(
+                                  //   imageUrl: ,
+                                  //   child: Image.network(
+                                  //     snapshot.data![index].image,
+                                  //     fit: BoxFit.cover,
+                                  //   ),
+                                  // ),
+                                  ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  // SizedBox(width: 5),
+                                  Text(
+                                    "\$" +
+                                        Variable.productList[index].price
+                                            .toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                  ),
+                                  const SizedBox(width: 50),
+                                  ValueListenableBuilder(
+                                    valueListenable: Notifier.cartItemList,
+                                    builder: (BuildContext context,
+                                        List<CartItem> value, Widget? child) {
+                                      return value.contains(CartItem(
+                                        itemIndex: index,
+                                        quantity: 1,
+                                        unitPrice: Variable
+                                            .productList[index].price
+                                            .toDouble(),
+                                      ))
+                                          ? IconButton(
+                                              icon: const Icon(
+                                                CupertinoIcons.cart_badge_minus,
+                                                color: Colors.orange,
+                                              ),
+                                              onPressed: () {
+                                                Notifier.cartItemList.value =
+                                                    Notifier
+                                                        .cartItemList.value = [
+                                                  ...Notifier.cartItemList.value
+                                                    ..remove(CartItem(
+                                                        itemIndex: index,
+                                                        quantity: 1,
+                                                        unitPrice: Variable
+                                                            .productList[index]
+                                                            .price
+                                                            .toDouble())),
+                                                ];
+                                              },
+                                            )
+                                          : IconButton(
+                                              icon: const Icon(
+                                                CupertinoIcons.cart_badge_plus,
+                                                color: Colors.cyan,
+                                              ),
+                                              onPressed: () {
+                                                Notifier.cartItemList.value = [
+                                                  ...Notifier.cartItemList.value
+                                                    ..add(CartItem(
+                                                        itemIndex: index,
+                                                        quantity: 1,
+                                                        unitPrice: Variable
+                                                            .productList[index]
+                                                            .price
+                                                            .toDouble()))
+                                                ];
+                                              },
+                                            );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
@@ -287,16 +301,16 @@ class _ProductListPageState extends State<ProductListPage> {
 }
 
 // 'https://raw.githubusercontent.com/metaspook/json_api/main/json/foods.json'
-Future<List<Product>> _fetchFood() async {
-  final response = await http.get(Uri.parse(
-      'https://raw.githubusercontent.com/metaspook/json_api/main/json/foods.json'));
+// Future<List<Product>> _fetchFood() async {
+//   final response = await http.get(Uri.parse(
+//       'https://raw.githubusercontent.com/metaspook/json_api/main/json/foods.json'));
 
-  if (response.statusCode == 200) {
-    return [
-      for (Map<String, dynamic> i in jsonDecode(response.body))
-        Product.fromJson(i)
-    ];
-  } else {
-    throw Exception('Failed to fetch data!');
-  }
-}
+//   if (response.statusCode == 200) {
+//     return [
+//       for (Map<String, dynamic> i in jsonDecode(response.body))
+//         Product.fromJson(i)
+//     ];
+//   } else {
+//     throw Exception('Failed to fetch data!');
+//   }
+// }

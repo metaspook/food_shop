@@ -1,6 +1,8 @@
 // MODEL CLASS
 import 'dart:convert';
 
+import 'package:firebase_database/firebase_database.dart';
+
 class User {
   User({
     required this.id,
@@ -45,6 +47,18 @@ class User {
       "image": image
     };
   }
+
+  factory User.fromSnapshot(Object? object) {
+    object as Map;
+    final Map<String, dynamic> objectMap = {};
+    object.forEach((k, v) => objectMap[k] = v);
+    return User.fromJson(objectMap);
+  }
+
+  static List<User> fromSnapshotChildren(Iterable<DataSnapshot> list) =>
+      // List.generate(list.length,
+      //     (index) => Product.fromDataSnapshot(list.elementAt(index).value));
+      [for (DataSnapshot e in list) User.fromSnapshot(e.value)];
 
   static List<User> fromJsonList(List<Map<String, dynamic>> jsonList) =>
       [for (Map<String, dynamic> e in jsonList) User.fromJson(e)];

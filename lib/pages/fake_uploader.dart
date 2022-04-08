@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:food_shop/services/database.dart';
 import 'package:food_shop/utils/constant.dart';
 import 'package:food_shop/utils/extension.dart';
 import 'package:food_shop/utils/variable.dart';
@@ -24,19 +25,19 @@ class _FakeUploaderState extends State<FakeUploader> {
           ElevatedButton.icon(
             onPressed: _uploadUser,
             icon: const Icon(Icons.person_add_alt),
-            label: Text('Users'),
+            label: const Text('Users'),
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           ElevatedButton.icon(
             onPressed: () => _uploadOrder(),
             icon: const Icon(Icons.shopping_cart_outlined),
-            label: Text('Orders'),
+            label: const Text('Orders'),
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           ElevatedButton.icon(
             onPressed: _uploadProduct,
             icon: const Icon(Icons.shopping_cart_outlined),
-            label: Text('Products'),
+            label: const Text('Products'),
           ),
         ],
       ),
@@ -131,253 +132,286 @@ void _uploadOrder() {
   final oderList = [
     {
       "id": "",
-      "price": 0.0,
-      "stock": 0,
-      "userId": "-MxyK3HvT8BYupaS55n7",
+      "total": 0.0,
+      "userId": "-My3v8wHLGHpsFkmPUHn",
       "status": "Pending",
-      "cartItemList": <Map<String, dynamic>>[
+      "cartProductList": <Map<String, dynamic>>[
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FjxUyXLU4ADepk",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8Fk8ClEgux7f1O-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         }
       ]
     },
     {
       "id": "",
-      "price": 0.0,
-      "stock": 0,
-      "userId": "-MxyK3HtSRQTFBC492uU",
+      "total": 0.0,
+      "userId": "-My3v8wIMUPYTrICbxRY",
       "status": "Confirmed",
-      "cartItemList": <Map<String, dynamic>>[
+      "cartProductList": <Map<String, dynamic>>[
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FjxUyXLU4ADepk",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8Fk8ClEgux7f1O-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         }
       ]
     },
     {
       "id": "",
-      "price": 0.0,
-      "stock": 0,
-      "userId": "-MxyK3HtSRQTFBC492uU",
+      "total": 0.0,
+      "userId": "-My3v8wIMUPYTrICbxRZ",
       "status": "Canceled",
-      "cartItemList": <Map<String, dynamic>>[
+      "cartProductList": <Map<String, dynamic>>[
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FjxUyXLU4ADepk",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8Fk8ClEgux7f1O-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
-        }
+          "unitPrice": 0.0,
+          "subTotal": 0.0
+        },
       ]
     },
     {
       "id": "",
-      "price": 0.0,
-      "stock": 0,
-      "userId": "-MxyK3Hxpg5tWHEmCEsO",
+      "total": 0.0,
+      "userId": "-My3v8wKVbvZYMxqL-u9",
       "status": "Delivery",
-      "cartItemList": <Map<String, dynamic>>[
+      "cartProductList": <Map<String, dynamic>>[
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FjxUyXLU4ADepk",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8Fk8ClEgux7f1O-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
-        }
+          "unitPrice": 0.0,
+          "subTotal": 0.0
+        },
       ]
     },
     {
       "id": "",
-      "price": 0.0,
-      "stock": 0,
-      "userId": "-MxyK3HzHbQxEMo8m52E",
+      "total": 0.0,
+      "userId": "-My3v8wLCIIRGxE4oSHt",
       "status": "Received",
-      "cartItemList": <Map<String, dynamic>>[
+      "cartProductList": <Map<String, dynamic>>[
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
-        }
+          "unitPrice": 0.0,
+          "subTotal": 0.0
+        },
       ]
     },
     {
       "id": "",
-      "price": 0.0,
-      "stock": 0,
-      "userId": "-MxyK3Hxpg5tWHEmCEsO",
+      "total": 0.0,
+      "userId": "-My3v8wLCIIRGxE4oSHu",
       "status": "Confirmed",
-      "cartItemList": <Map<String, dynamic>>[
+      "cartProductList": <Map<String, dynamic>>[
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FjxUyXLU4ADepk",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8Fk8ClEgux7f1O-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FjxUyXLU4ADepk",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8Fk8ClEgux7f1O-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
-        {
-          "itemIndex": Random().nextInt(60),
-          "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
-        },
-        {
-          "itemIndex": Random().nextInt(60),
-          "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
-        }
       ]
     },
     {
       "id": "",
-      "price": 0.0,
-      "stock": 0,
-      "userId": "-MxyK3HzHbQxEMo8m52E",
+      "total": 0.0,
+      "userId": "-My3v8wMBoVFx-P0aI8d",
       "status": "Pending",
-      "cartItemList": <Map<String, dynamic>>[
+      "cartProductList": <Map<String, dynamic>>[
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FjxUyXLU4ADepk",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         }
       ]
     },
     {
       "id": "",
-      "price": 0.0,
-      "stock": 0,
-      "userId": "-MxyK3Hxpg5tWHEmCEsO",
+      "total": 0.0,
+      "userId": "-MyHsLlgar-_gLP6NhZ4",
       "status": "Received",
-      "cartItemList": <Map<String, dynamic>>[
+      "cartProductList": <Map<String, dynamic>>[
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FjxUyXLU4ADepk",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8Fk8ClEgux7f1O-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         },
         {
-          "itemIndex": Random().nextInt(60),
+          "productId": "-MygM8FiMclKR6Q0dLM-",
           "quantity": Random().nextInt(20) + 1,
-          "unitPrice": 0.0
+          "unitPrice": 0.0,
+          "subTotal": 0.0
         }
       ]
     }
   ];
-
   for (Map<String, dynamic> e in oderList) {
-    final orderRef = Variable.dbRealtime.ref("orders").push();
-    final List<Map<String, dynamic>> cartItemList = e["cartItemList"];
-    e.update("id", (value) => orderRef.key!);
-    for (int i = 0; i < cartItemList.length; i++) {
-      cartItemList[i].update(
-        "unitPrice",
-        (value) => Variable.itemPriceList[cartItemList[i]["itemIndex"]!],
-      );
+    final orderRef = Database.dbRealtime.ref("orders").push();
+    // final List<Map<String, dynamic>> cartProductList = e["cartProductList"];
+
+    final unitPrice = num.tryParse((Random().nextInt(20) + 1).toString() +
+        "." +
+        (25 * Random().nextInt(4)).toString());
+
+    for (int i = 0; i < e["cartProductList"].length; i++) {
+      e["cartProductList"][i]["unitPrice"] = unitPrice;
+      e["cartProductList"][i]["subTotal"] = e["cartProductList"][i]
+              ["quantity"] *
+          e["cartProductList"][i]["unitPrice"];
+      // print(e["cartProductList"][i]["subTotal"]);
     }
+
+    // e["cartProductList"][0]["unitPrice"] = unitPrice;
+
+    e["total"] = [
+      for (Map<String, dynamic> e in e["cartProductList"]) e["subTotal"]
+    ].reduce((v, e) => v + e);
+    e["id"] = orderRef.key!;
+
+    // print("Total here");
+    // print(e["total"]);
+    // for (int i = 0; i < cartProductList.length; i++) {
+    //   cartProductList[i].update(
+    //     "unitPrice",
+    //     (value) => Variable.itemPriceList[cartProductList[i]["itemIndex"]!],
+    //   );
+    // }
     // print(e["totalPrice"]);
     orderRef.set(e);
   }

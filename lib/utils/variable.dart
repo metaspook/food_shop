@@ -22,8 +22,8 @@ class Variable {
   static late final EncryptedSharedPreferences prefsCrypt;
   static final Map<String, String> prefsData = {};
   // static late final FirebaseDatabase dbRealtimeInstance;
-  static late final FirebaseDatabase dbRealtime;
-  static late final FirebaseStorage fbStorage;
+  static final dbRealtime = FirebaseDatabase.instance;
+  static final fbStorage = FirebaseStorage.instance;
   static List<User> userList = [];
   static List<Order> orderList = [];
   static List<Product> productList = [];

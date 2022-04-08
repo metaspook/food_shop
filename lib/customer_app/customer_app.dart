@@ -3,6 +3,7 @@ import 'package:food_shop/pages/product_list_page.dart';
 import 'package:food_shop/pages/products_page.dart';
 import 'package:food_shop/pages/sign_in.dart';
 import 'package:food_shop/pages/sign_up.dart';
+import 'package:food_shop/pages/stream_page1.dart';
 
 class CustomerApp extends StatelessWidget {
   /// Customer app is a Mobile (Android, iOS) app.
@@ -26,6 +27,7 @@ class CustomerApp extends StatelessWidget {
       //   '/cart': (context) => CartPage(prefs: prefs),
       // },
       // home: const CartPage(title: 'Your Cart'),
+      // home: StreamPage1(),
       home: ProductListPage(),
       // home: const SignInPage(),
       // home: const SignUpPage(),

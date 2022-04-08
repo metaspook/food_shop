@@ -1,6 +1,4 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/utils/variable.dart';
 import 'package:food_shop/widgets/custom_divider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

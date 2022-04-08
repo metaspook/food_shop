@@ -1,7 +1,5 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/models/order.dart';
 import 'package:food_shop/models/user.dart';
 import 'package:food_shop/pages/fake_uploader.dart';
 import 'package:food_shop/pages/views/dashboard_view.dart';
@@ -40,12 +38,12 @@ class _AdminPageState extends State<AdminPage> {
           User.fromJson(e.value as Map<String, dynamic>)
       ];
     });
-    Variable.dbRealtime.ref("orders").once().then((value) {
-      Variable.orderList = [
-        for (var e in value.snapshot.children)
-          Order.fromJson(e.value as Map<String, dynamic>)
-      ];
-    });
+    // Variable.dbRealtime.ref("orders").once().then((value) {
+    //   Variable.orderList = [
+    //     for (var e in value.snapshot.children)
+    //       Order.fromJson(e.value as Map<String, dynamic>)
+    //   ];
+    // });
   }
 
   @override
@@ -180,7 +178,7 @@ class _AdminPageState extends State<AdminPage> {
               : Expanded(
                   child: PageView(
                     controller: Controller.page,
-                    children: [
+                    children: const [
                       ProductsView(),
                       OrdersView(),
                       UsersView(),

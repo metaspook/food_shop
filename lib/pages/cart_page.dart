@@ -1,11 +1,10 @@
-import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/controllers/cart_provider.dart';
 import 'package:food_shop/models/product.dart';
 import 'package:food_shop/utils/method.dart';
-import 'package:food_shop/utils/notifier.dart';
-import 'package:food_shop/utils/variable.dart';
+import 'package:provider/provider.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({
@@ -19,25 +18,25 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  final List<String> _cartItemList = [];
-  late List<int> _cartItemQuantityList;
-  late List<int> _cartItemPriceList;
+  // final List<String> _cartItemList = [];
+  // late List<int> _cartItemQuantityList;
+  // late List<int> _cartItemPriceList;
   static const _title = 'Your Cart';
-  bool updateDB = false;
+  // bool updateDB = false;
 
   @override
   void initState() {
     super.initState();
-    _cartItemPriceList = [...?widget.itemPriceList];
-    Method.prefs.then((db) {
-      if (db.getStringList("cartItemList") != null) {
-        setState(() {
-          _cartItemList.addAll(db.getStringList("cartItemList")!);
-          _cartItemQuantityList =
-              List<int>.generate(_cartItemList.length, (i) => 1);
-        });
-      }
-    });
+    // _cartItemPriceList = [...?widget.itemPriceList];
+    // Method.prefs.then((db) {
+    //   if (db.getStringList("cartItemList") != null) {
+    //     setState(() {
+    //       _cartItemList.addAll(db.getStringList("cartItemList")!);
+    //       _cartItemQuantityList =
+    //           List<int>.generate(_cartItemList.length, (i) => 1);
+    //     });
+    //   }
+    // });
   }
 
   @override
@@ -45,7 +44,7 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(_title),
+        title: const Text(_title),
         // automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
@@ -57,58 +56,34 @@ class _CartPageState extends State<CartPage> {
           ),
         ),
         actions: [
-          Badge(
-            showBadge: _cartItemList.isEmpty ? false : true,
-            badgeColor: Theme.of(context).colorScheme.secondary,
-            shape: BadgeShape.square,
-            borderRadius: BorderRadius.circular(20),
-            position: BadgePosition.topEnd(top: 2.5, end: 5),
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
-            badgeContent: Text(
-              '${_cartItemList.length}',
-              style:
-                  TextStyle(color: Theme.of(context).scaffoldBackgroundColor),
-              // style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          IconButton(
+            onPressed: () {
+              // final ff = Provider.of<ProductProvider>(context, listen: false);
+              print(context.read<List<Product>>()[4].name.toString());
+              // print(Provider.of<List<Product>>(context, listen: false));
+
+              // Method.customDialogText(
+              //   title: '⚠️ Caution!',
+              //   subtitle: 'Do you want to delete this cart?',
+              //   context: context,
+              //   primaryButtonText: 'Cancel',
+              //   primaryButtonFunction: () => Method.navPop(context),
+              //   secondaryButtonText: 'Confirm',
+              //   secondaryButtonFunction: () {
+              //     Method.navPop(context);
+              //     context.read<Cart>().removeCart();
+              //     Method.navPop(context);
+              //   },
+              // );
+            },
+            icon: Icon(
+              CupertinoIcons.delete,
+              color: Theme.of(context).scaffoldBackgroundColor,
             ),
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Method.customDialogText(
-                      title: '⚠️ Caution!',
-                      subtitle: 'Do you want to delete this cart?',
-                      context: context,
-                      primaryButtonText: 'Cancel',
-                      primaryButtonFunction: () => Method.navPop(context),
-                      secondaryButtonText: 'Confirm',
-                      secondaryButtonFunction: () {
-                        Method.navPop(context);
-                        setState(() {
-                          // if (Navigator.canPop(context)) {
-                          // int count = 0;
-                          // Navigator.of(context).popUntil((_) => count++ >= 2);
-                          Method.prefs.then((db) => db.clear());
-                          _cartItemList.clear();
-                          _cartItemPriceList.clear();
-                          // }
-                        });
-                        Method.navPop(context);
-                      },
-                    );
-                  },
-                  icon: Icon(
-                    CupertinoIcons.delete,
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                  ),
-                ),
-                if (_cartItemList.isNotEmpty)
-                  SizedBox(width: 7.5 * _cartItemList.length.toString().length),
-              ],
-            ),
-          )
+          ),
         ],
       ),
-      body: _cartItemList.isEmpty
+      body: context.watch<Cart>().itemList.isEmpty
           ? Center(
               child: Text(
                 'No item!',
@@ -120,160 +95,20 @@ class _CartPageState extends State<CartPage> {
               padding:
                   const EdgeInsets.only(top: 5, bottom: 25, left: 5, right: 5),
               children: <Widget>[
-                FutureBuilder<List<Product>>(
-                    future: Variable.futureProduct,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        ValueListenableBuilder(
-                          valueListenable: Notifier.cartItemList,
-                          builder: (BuildContext context, dynamic value,
-                              Widget? child) {
-                            return ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: value.length,
-                                // itemCount: _cartItemList.length,
-                                itemBuilder: (context, index) {
-                                  return Card(
-                                    child: ListTile(
-                                      leading: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          IconButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                _cartItemList.removeAt(index);
-                                                Method.prefs.then((db) =>
-                                                    db.setStringList(
-                                                        "cartItemList",
-                                                        _cartItemList));
-                                                _cartItemPriceList
-                                                    .removeAt(index);
-                                              });
-                                            },
-                                            icon: const Icon(
-                                              CupertinoIcons.cart_badge_minus,
-                                              color: Colors.orange,
-                                            ),
-                                          ),
-                                          CachedNetworkImage(
-                                            imageUrl: snapshot
-                                                .data![Notifier.cartItemList
-                                                    .value[index].itemIndex]
-                                                .image,
-                                            // imageUrl: _cartItemList[index].image,
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    const Icon(Icons.error),
-                                            // fit: BoxFit.cover,
-                                          ),
-                                          // Image.network(
-                                          //   widget.cartItemList[index].image,
-                                          //   fit: BoxFit.fill,
-                                          // ),
-                                        ],
-                                      ),
-                                      title: Text(
-                                        snapshot
-                                            .data![Notifier.cartItemList
-                                                .value[index].itemIndex]
-                                            .name,
-                                        // _cartItemList[index].name,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge!
-                                            .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.grey.shade600),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      subtitle: Text(
-                                        '\$${_cartItemPriceList[index]}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6!
-                                            .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .secondary),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      trailing: FittedBox(
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              "${_cartItemQuantityList[index]}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline4!
-                                                  .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .secondary),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              // mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                IconButton(
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      if (_cartItemQuantityList[
-                                                              index] >
-                                                          1) {
-                                                        _cartItemQuantityList[
-                                                            index]--;
-                                                        _cartItemPriceList[
-                                                            index] -= widget
-                                                                .itemPriceList![
-                                                            index];
-                                                      }
-                                                    });
-                                                  },
-                                                  icon: const Icon(
-                                                    CupertinoIcons.minus_square,
-                                                    color: Colors.orange,
-                                                    size: 40,
-                                                  ),
-                                                ),
-                                                IconButton(
-                                                  // padding: EdgeInsets.all(1),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      _cartItemQuantityList[
-                                                          index]++;
-                                                      _cartItemPriceList[
-                                                              index] +=
-                                                          widget.itemPriceList![
-                                                              index];
-                                                    });
-                                                  },
-                                                  icon: const Icon(
-                                                    CupertinoIcons.plus_square,
-                                                    color: Colors.orange,
-                                                    size: 40,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                });
-                          },
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text('${snapshot.error}');
-                      }
-                      return const CircularProgressIndicator.adaptive();
-                    }),
+                // FutureBuilder<List<Product>>(
+                //     future: Variable.futureProduct,
+                //     builder: (context, snapshot) {
+                //       if (snapshot.hasData) {
+                //         return
+
+                const CartItemListView(),
+                // ;
+
+                //   } else if (snapshot.hasError) {
+                //     return Text('${snapshot.error}');
+                //   }
+                //   return const CircularProgressIndicator.adaptive();
+                // }),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -312,9 +147,11 @@ class _CartPageState extends State<CartPage> {
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      _cartItemPriceList.isEmpty
-                          ? '\$0'
-                          : '\$${_cartItemPriceList.reduce((value, element) => value + element)}',
+                      '0',
+                      // _cartItemPriceList.isEmpty
+                      //     ? '\$0'
+                      //     : '\$${_cartItemPriceList.reduce((value, element) => value + element)}',
+
                       style: Theme.of(context).textTheme.headline4!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.secondary),
@@ -324,6 +161,142 @@ class _CartPageState extends State<CartPage> {
                 ),
               ],
             ),
+    );
+  }
+}
+
+/// Cart Item ListView.
+class CartItemListView extends StatelessWidget {
+  const CartItemListView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        // itemCount: 0,
+        itemCount: context.watch<List<Product>>().length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+                leading: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        // setState(() {
+                        //   _cartItemList.removeAt(index);
+                        //   Method.prefs.then((db) =>
+                        //       db.setStringList(
+                        //           "cartItemList",
+                        //           _cartItemList));
+                        //   _cartItemPriceList
+                        //       .removeAt(index);
+                        // });
+                      },
+                      icon: const Icon(
+                        CupertinoIcons.cart_badge_minus,
+                        color: Colors.orange,
+                      ),
+                    ),
+                    CachedNetworkImage(
+                      // context.watch<List<Product>>()[index]
+                      // imageUrl: Variable.dbRealtime.ref("products/${context.watch<Cart>().itemList[index].itemId}").get(),
+                      imageUrl: context.watch<List<Product>>()[index].image,
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                      // fit: BoxFit.cover,
+                    ),
+                    // Image.network(
+                    //   widget.cartItemList[index].image,
+                    //   fit: BoxFit.fill,
+                    // ),
+                  ],
+                ),
+                title: Text(
+                  context.watch<List<Product>>()[index].name,
+                  // _cartItemList[index].name,
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      fontWeight: FontWeight.bold, color: Colors.grey.shade600),
+                  textAlign: TextAlign.center,
+                ),
+                subtitle: Text(
+                  '\$${context.watch<List<Product>>()[index].price}',
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.secondary),
+                  textAlign: TextAlign.center,
+                ),
+                trailing: CartItemQuantityUpdater(index: index)),
+          );
+        });
+  }
+}
+
+/// Cart Item Quantity Updater.
+class CartItemQuantityUpdater extends StatelessWidget {
+  const CartItemQuantityUpdater({Key? key, required this.index})
+      : super(key: key);
+  final int index;
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(
+      child: Row(
+        children: [
+          Text(
+            context.watch<Cart>().itemList[index].quantity.toString(),
+            style: Theme.of(context).textTheme.headline4!.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.secondary),
+            textAlign: TextAlign.center,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                onPressed: () {
+                  // setState(() {
+                  //   if (_cartItemQuantityList[
+                  //           index] >
+                  //       1) {
+                  //     _cartItemQuantityList[
+                  //         index]--;
+                  //     _cartItemPriceList[
+                  //         index] -= widget
+                  //             .itemPriceList![
+                  //         index];
+                  //   }
+                  // });
+                },
+                icon: const Icon(
+                  CupertinoIcons.minus_square,
+                  color: Colors.orange,
+                  size: 40,
+                ),
+              ),
+              IconButton(
+                // padding: EdgeInsets.all(1),
+                onPressed: () {
+                  // setState(() {
+                  //   _cartItemQuantityList[
+                  //       index]++;
+                  //   _cartItemPriceList[
+                  //           index] +=
+                  //       widget.itemPriceList![
+                  //           index];
+                  // });
+                },
+                icon: const Icon(
+                  CupertinoIcons.plus_square,
+                  color: Colors.orange,
+                  size: 40,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

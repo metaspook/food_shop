@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/pages/admin_page.dart';
+import 'package:food_shop/admin_app/pages/admin_page.dart';
 
 class AdminApp extends StatelessWidget {
   /// Admin app is a Web app.

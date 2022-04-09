@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/counter_provider.dart';
-import 'package:food_shop/pages/stream_page2.dart';
+import 'package:food_shop/customer_app/pages/stream_page2.dart';
 import 'package:provider/provider.dart';
 
 class StreamPage1 extends StatelessWidget {

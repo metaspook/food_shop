@@ -1,16 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/pages/sign_up.dart';
+import 'package:food_shop/customer_app/pages/pages.dart';
 import 'package:food_shop/utils/controller.dart';
 import 'package:food_shop/utils/extension.dart';
 import 'package:food_shop/utils/method.dart';
-import 'package:food_shop/utils/validator.dart';
 import 'package:food_shop/utils/variable.dart';
 import 'package:food_shop/widgets/input_form.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -23,7 +21,7 @@ class _SignInPageState extends State<SignInPage> {
   File? _imageFile;
   String? _imageUrl;
   final _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
+  final bool _isLoading = false;
   static const Base64Codec base64 = Base64Codec();
   bool isAuthenticated = false;
 
@@ -55,12 +53,12 @@ class _SignInPageState extends State<SignInPage> {
                   Text.rich(
                     TextSpan(
                       text: "Don't have an account?",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black54,
                         fontWeight: FontWeight.bold,
                       ),
                       children: [
-                        TextSpan(text: '   '),
+                        const TextSpan(text: '   '),
                         TextSpan(
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => Navigator.push(
@@ -81,8 +79,8 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   ElevatedButton.icon(
                     onPressed: _userSignIn,
-                    icon: Icon(Icons.login),
-                    label: Text('Sign In'),
+                    icon: const Icon(Icons.login),
+                    label: const Text('Sign In'),
                   ),
                 ],
               ),

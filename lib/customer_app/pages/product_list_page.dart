@@ -3,9 +3,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/cart_provider.dart';
+import 'package:food_shop/customer_app/pages/pages.dart';
 import 'package:food_shop/models/cart_product.dart';
 import 'package:food_shop/models/product.dart';
-import 'package:food_shop/pages/cart_page.dart';
 import 'package:food_shop/services/database.dart';
 import 'package:provider/provider.dart';
 

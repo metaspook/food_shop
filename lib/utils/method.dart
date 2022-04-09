@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/widgets/custom_divider.dart';
+import 'package:food_shop/widgets/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Method {

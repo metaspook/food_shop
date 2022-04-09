@@ -1,15 +1,8 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/models/user.dart';
-import 'package:food_shop/pages/fake_uploader.dart';
-import 'package:food_shop/pages/views/dashboard_view.dart';
-import 'package:food_shop/pages/views/downloads_view.dart';
-import 'package:food_shop/pages/views/orders_view.dart';
-import 'package:food_shop/pages/views/products_view.dart';
-import 'package:food_shop/pages/views/settings_view.dart';
-import 'package:food_shop/pages/views/users_view.dart';
+import 'package:food_shop/admin_app/pages/views/views.dart';
+import 'package:food_shop/customer_app/pages/pages.dart';
 import 'package:food_shop/utils/controller.dart';
-import 'package:food_shop/utils/variable.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
@@ -32,12 +25,12 @@ class _AdminPageState extends State<AdminPage> {
   @override
   void initState() {
     super.initState();
-    Variable.dbRealtime.ref("users").once().then((value) {
-      Variable.userList = [
-        for (var e in value.snapshot.children)
-          User.fromJson(e.value as Map<String, dynamic>)
-      ];
-    });
+    // Variable.dbRealtime.ref("users").once().then((value) {
+    //   Variable.userList = [
+    //     for (var e in value.snapshot.children)
+    //       User.fromJson(e.value as Map<String, dynamic>)
+    //   ];
+    // });
     // Variable.dbRealtime.ref("orders").once().then((value) {
     //   Variable.orderList = [
     //     for (var e in value.snapshot.children)

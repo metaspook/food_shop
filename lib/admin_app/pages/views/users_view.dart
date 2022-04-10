@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/controllers/user_controller.dart';
+import 'package:food_shop/controllers/users_controller.dart';
 import 'package:food_shop/models/user.dart';
 import 'package:food_shop/utils/controller.dart';
 import 'package:provider/provider.dart';
@@ -149,7 +149,7 @@ class _UsersViewState extends State<UsersView> {
                               trailing: IconButton(
                                 icon: const Icon(Icons.delete_forever_outlined),
                                 onPressed: () async =>
-                                    UserController.remove(userList[index].id),
+                                    UsersController.remove(userList[index].id),
                               ),
                             ),
                           );

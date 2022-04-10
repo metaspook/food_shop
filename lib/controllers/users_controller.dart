@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:food_shop/services/database.dart';
 import 'package:food_shop/utils/utils.dart';
 
-class UserController {
+class UsersController {
   static Future<void> remove(String userId) async {
     await Database.dbRealtime.ref("users/$userId").remove();
     await Variable.fbStorage.ref("images/users/$userId.jpg").delete();

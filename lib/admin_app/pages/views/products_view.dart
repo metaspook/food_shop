@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:food_shop/controllers/product_controller.dart';
+import 'package:food_shop/controllers/products_controller.dart';
 import 'package:food_shop/models/product.dart';
 import 'package:food_shop/utils/controller.dart';
 import 'package:food_shop/widgets/widgets.dart';
@@ -23,8 +23,14 @@ class ProductsView extends StatelessWidget {
           ),
         );
       }
-      context.read<ProductController>().editModes =
+      context.read<ProductsController>().editModes =
           List.generate(productList.length, (i) => false, growable: false);
+      ProductsController.updatePrices = List.generate(
+          productList.length, (i) => TextEditingController(),
+          growable: false);
+      ProductsController.updateStocks = List.generate(
+          productList.length, (i) => TextEditingController(),
+          growable: false);
       return Center(
         child: GridView.builder(
           padding: const EdgeInsets.all(8),
@@ -79,7 +85,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final editMode = context.watch<ProductController>().editModes[index];
+    final editMode = context.watch<ProductsController>().editModes[index];
     return Card(
       shadowColor: editMode
           ? Theme.of(context).colorScheme.secondary
@@ -119,30 +125,8 @@ class ProductCard extends StatelessWidget {
                         ),
                         onPressed: () {
                           context
-                              .read<ProductController>()
-                              .editModeChange(index, !editMode);
-                          // context
-                          //     .read<ProductController>()
-                          //     .editModeChange(!editMode);
-                          // if (Controller.price.text.isNotEmpty) {
-                          //   Variable.dbRealtime
-                          //       .ref(
-                          //           "products/${snapshot.data!.snapshot.children.elementAt(index).key}/price")
-                          //       .set(double.tryParse(
-                          //           Controller.price.text));
-                          // }
-                          // if (Controller.stock.text.isNotEmpty) {
-                          //   Variable.dbRealtime
-                          //       .ref(
-                          //           "products/${snapshot.data!.snapshot.children.elementAt(index).key}/stock")
-                          //       .set(int.tryParse(
-                          //           Controller.stock.text));
-                          // }
-                          // _editModeNotifier.value = [
-                          //   ..._editModeNotifier.value
-                          //     ..removeAt(index)
-                          //     ..insert(index, false)
-                          // ];
+                              .read<ProductsController>()
+                              .editModeOff(index, id);
                         },
                       )
                     : IconButton(
@@ -151,16 +135,7 @@ class ProductCard extends StatelessWidget {
                           color: Colors.cyan,
                         ),
                         onPressed: () {
-                          // editMode = true;
-                          // print(editMode);
-                          context
-                              .read<ProductController>()
-                              .editModeChange(index, !editMode);
-                          // _editModeNotifier.value = [
-                          //   ..._editModeNotifier.value
-                          //     ..removeAt(index)
-                          //     ..insert(index, true)
-                          // ];
+                          context.read<ProductsController>().editModeOn(index);
                         },
                       ),
               ],
@@ -195,9 +170,9 @@ class ProductCard extends StatelessWidget {
             editMode
                 ? Row(
                     children: [
-                      Flexible(child: InputForm.price(price as double)),
+                      Flexible(child: InputForm.price(index, price)),
                       const SizedBox(width: 10),
-                      Flexible(child: InputForm.stock(stock)),
+                      Flexible(child: InputForm.stock(index, stock)),
                     ],
                   )
                 : Row(

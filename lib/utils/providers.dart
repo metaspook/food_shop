@@ -7,8 +7,8 @@ class Providers {
   Providers._();
   static final adminProviders = [
     // ChangeNotifierProvider<UserController>(create: (_) => UserController()),
-    ChangeNotifierProvider<ProductController>(
-        create: (_) => ProductController()),
+    ChangeNotifierProvider<ProductsController>(
+        create: (_) => ProductsController()),
 
     StreamProvider<List<Order>?>.value(
       value: Database.orders,

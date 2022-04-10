@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/controllers/controllers.dart';
 import 'package:food_shop/utils/controller.dart';
 import 'package:food_shop/utils/validator.dart';
 
 abstract class InputForm {
+  InputForm._();
+
   /// E-mail input form.
   static final TextFormField email = TextFormField(
     controller: Controller.email,
@@ -56,9 +59,10 @@ abstract class InputForm {
   );
 
   /// Price input form.
-  static TextFormField price([double previousPrice = 0]) {
+  static TextFormField price(int index, num previousPrice) {
+    // static TextFormField price({int index = 0, num previousPrice = 0}) {
     return TextFormField(
-      controller: Controller.price,
+      controller: ProductsController.updatePrices[index],
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         hintText: '$previousPrice',
@@ -69,9 +73,10 @@ abstract class InputForm {
   }
 
   /// Stock input form.
-  static TextFormField stock([int previousStock = 0]) {
+  static TextFormField stock(int index, int previousStock) {
+    // static TextFormField stock({int index = 0, int previousStock = 0}) {
     return TextFormField(
-      controller: Controller.stock,
+      controller: ProductsController.updateStocks[index],
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         hintText: '$previousStock',

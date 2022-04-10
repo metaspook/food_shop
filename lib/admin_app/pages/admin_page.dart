@@ -171,14 +171,14 @@ class _AdminPageState extends State<AdminPage> {
               : Expanded(
                   child: PageView(
                     controller: Controller.page,
-                    children: const [
+                    children: [
                       ProductsView(),
-                      OrdersView(),
-                      UsersView(),
-                      FakeUploader(),
-                      DownloadsView(),
-                      SettingsView(),
-                      DashboardView(),
+                      const OrdersView(),
+                      const UsersView(),
+                      const FakeUploader(),
+                      const DownloadsView(),
+                      const SettingsView(),
+                      const DashboardView(),
                     ],
                   ),
                 ),

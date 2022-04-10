@@ -7,6 +7,8 @@ class Providers {
   Providers._();
   static final adminProviders = [
     // ChangeNotifierProvider<UserController>(create: (_) => UserController()),
+    ChangeNotifierProvider<ProductController>(
+        create: (_) => ProductController()),
 
     StreamProvider<List<Order>?>.value(
       value: Database.orders,
@@ -18,6 +20,14 @@ class Providers {
     ),
     StreamProvider<List<User>?>.value(
       value: Database.users,
+      initialData: null,
+      catchError: (context, object) {
+        throw (object.toString());
+      },
+      // child: const OrdersView(),
+    ),
+    StreamProvider<List<Product>?>.value(
+      value: Database.products,
       initialData: null,
       catchError: (context, object) {
         throw (object.toString());

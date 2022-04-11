@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/users_controller.dart';
+import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/models/user.dart';
-import 'package:food_shop/utils/controllers.dart';
 import 'package:provider/provider.dart';
 
 class UsersView extends StatelessWidget {
@@ -12,7 +12,6 @@ class UsersView extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final userList = context.watch<List<User>?>();
-    // print(provider?.first.fullName);
 
     return userList == null
         ? const Center(child: CircularProgressIndicator.adaptive())
@@ -27,7 +26,7 @@ class UsersView extends StatelessWidget {
                       )
                     : GridView.builder(
                         padding: const EdgeInsets.all(5),
-                        controller: Controllers.scroll,
+                        controller: XController.scroll,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: size.width > 1900
                               ? 4

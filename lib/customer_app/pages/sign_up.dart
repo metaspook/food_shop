@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/utils/controllers.dart';
+import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/utils/extension.dart';
 import 'package:food_shop/utils/method.dart';
 import 'package:food_shop/utils/validator.dart';
@@ -66,7 +66,7 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 Flexible(
                   child: TextField(
-                    controller: Controllers.email,
+                    controller: XController.email,
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       labelText: 'E-mail',
@@ -119,7 +119,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ],
             ),
             TextField(
-              controller: Controllers.password,
+              controller: XController.password,
               keyboardType: TextInputType.visiblePassword,
               decoration: const InputDecoration(
                 labelText: 'Password',
@@ -127,7 +127,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             TextFormField(
-              controller: Controllers.fullName,
+              controller: XController.fullName,
               keyboardType: TextInputType.name,
               // maxLength: 40,
               validator: (value) => Validator.isEmpty(value),
@@ -138,7 +138,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             TextField(
-              controller: Controllers.phone,
+              controller: XController.phone,
               keyboardType: TextInputType.phone,
               decoration: const InputDecoration(
                 labelText: 'Phone',
@@ -146,7 +146,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             TextField(
-              controller: Controllers.address,
+              controller: XController.address,
               keyboardType: TextInputType.streetAddress,
               decoration: const InputDecoration(
                 labelText: 'Address',
@@ -209,15 +209,15 @@ class _SignUpPageState extends State<SignUpPage> {
         _imageUrl = await storageRef.getDownloadURL();
         await dbRef.set({
           "id": dbRef.key,
-          "fullName": Controllers.fullName.text,
-          "email": Controllers.email.text,
-          "password": Controllers.password.text.hashCrypt,
-          "phone": Controllers.phone.text,
-          "address": Controllers.address.text,
+          "fullName": XController.fullName.text,
+          "email": XController.email.text,
+          "password": XController.password.text.hashCrypt,
+          "phone": XController.phone.text,
+          "address": XController.address.text,
           "image": _imageUrl,
         });
         Method.snackBar(context, 'Account Created!');
-        Controllers.signUpDisposer;
+        XController.signUpDisposer;
       } catch (err) {
         Method.snackBar(context, err.toString());
       }

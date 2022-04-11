@@ -1,8 +1,8 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/admin_app/pages/views/views.dart';
+import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/customer_app/pages/pages.dart';
-import 'package:food_shop/utils/controllers.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
@@ -15,8 +15,8 @@ class _AdminPageState extends State<AdminPage> {
   @override
   void dispose() {
     super.dispose();
-    Controllers.page.dispose();
-    Controllers.scroll.dispose();
+    XController.page.dispose();
+    XController.scroll.dispose();
   }
 
   @override
@@ -32,7 +32,7 @@ class _AdminPageState extends State<AdminPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SideMenu(
-            controller: Controllers.page,
+            controller: XController.page,
             style: SideMenuStyle(
               displayMode: size.width > 800
                   ? SideMenuDisplayMode.open
@@ -70,7 +70,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 0,
                 title: 'Products',
                 onTap: () {
-                  Controllers.page.jumpToPage(0);
+                  XController.page.jumpToPage(0);
                 },
                 icon: Icons.home,
               ),
@@ -78,7 +78,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 7,
                 title: 'Dashboard',
                 onTap: () {
-                  Controllers.page.jumpToPage(7);
+                  XController.page.jumpToPage(7);
                 },
                 icon: Icons.home,
               ),
@@ -86,7 +86,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 1,
                 title: 'Orders',
                 onTap: () {
-                  Controllers.page.jumpToPage(1);
+                  XController.page.jumpToPage(1);
                 },
                 icon: Icons.file_copy_rounded,
               ),
@@ -94,7 +94,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 2,
                 title: 'Users',
                 onTap: () {
-                  Controllers.page.jumpToPage(2);
+                  XController.page.jumpToPage(2);
                 },
                 icon: Icons.supervisor_account,
               ),
@@ -102,7 +102,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 3,
                 title: 'Fake Uploader',
                 onTap: () {
-                  Controllers.page.jumpToPage(3);
+                  XController.page.jumpToPage(3);
                 },
                 icon: Icons.settings,
               ),
@@ -110,7 +110,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 4,
                 title: 'Download',
                 onTap: () {
-                  Controllers.page.jumpToPage(4);
+                  XController.page.jumpToPage(4);
                 },
                 icon: Icons.download,
               ),
@@ -118,7 +118,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 5,
                 title: 'Settings',
                 onTap: () {
-                  Controllers.page.jumpToPage(5);
+                  XController.page.jumpToPage(5);
                 },
                 icon: Icons.settings,
               ),
@@ -150,7 +150,7 @@ class _AdminPageState extends State<AdminPage> {
                 )
               : Expanded(
                   child: PageView(
-                    controller: Controllers.page,
+                    controller: XController.page,
                     children: const [
                       ProductsView(),
                       OrdersView(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/admin_app/widgets/product_card.dart';
+import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/models/product.dart';
-import 'package:food_shop/utils/controllers.dart';
 import 'package:provider/provider.dart';
 
 class ProductsView extends StatelessWidget {
@@ -23,7 +23,7 @@ class ProductsView extends StatelessWidget {
       return Center(
         child: GridView.builder(
           padding: const EdgeInsets.all(8),
-          controller: Controllers.scroll,
+          controller: XController.scroll,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: size.width >= 1920
                 ? 6

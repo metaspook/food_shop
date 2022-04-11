@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/controllers/controllers.dart';
 import 'package:food_shop/customer_app/pages/pages.dart';
 import 'package:food_shop/models/order.dart';
 import 'package:food_shop/utils/constant.dart';
-import 'package:food_shop/utils/controllers.dart';
 import 'package:food_shop/utils/variable.dart';
 import 'package:provider/provider.dart';
 
-class OrdersView extends StatefulWidget {
+class OrdersView extends StatelessWidget {
   const OrdersView({Key? key}) : super(key: key);
 
-  @override
-  State<OrdersView> createState() => _OrdersViewState();
-}
-
-class _OrdersViewState extends State<OrdersView> {
-  var items = [
+  final items = const [
     'Canceled',
     'Confirmed',
     'Delivery',
@@ -22,15 +17,11 @@ class _OrdersViewState extends State<OrdersView> {
     'Received',
   ];
 
-  String dropdownValue = 'Pending';
-  String statusImage = 'clock_01_x128.png';
-  @override
-  void initState() {
-    super.initState();
-  }
+  // String dropdownValue = 'Pending';
 
   @override
   Widget build(BuildContext context) {
+    String statusImage = 'clock_01_x128.png';
     final size = MediaQuery.of(context).size;
     final provider = context.watch<List<Order>?>();
 
@@ -70,7 +61,7 @@ class _OrdersViewState extends State<OrdersView> {
                         style: Theme.of(context).textTheme.headline3,
                       )
                     : GridView.builder(
-                        controller: Controllers.scroll,
+                        controller: XController.scroll,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: size.width > 1800
                               ? 3

@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/utils/controllers.dart';
+import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/utils/variable.dart';
 import 'package:food_shop/widgets/dash_grid.dart';
 
@@ -47,7 +47,7 @@ class _DashboardViewState extends State<DashboardView> {
                 return LayoutBuilder(builder: (context, constraints) {
                   return ListView(
                     // shrinkWrap: true,
-                    controller: Controllers.scroll,
+                    controller: XController.scroll,
                     children: [
                       DashGrid("Main Board", items: Variable.mainBoardItems),
                       DashGrid("Order Board", items: Variable.orderBoardItems),

@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/services/database.dart';
-import 'package:food_shop/utils/controllers.dart';
 import 'package:food_shop/utils/utils.dart';
 
 class UsersController {
@@ -28,15 +28,15 @@ class UsersController {
         }
         await dbRefPush.set({
           "id": dbRefPush.key,
-          "fullName": Controllers.fullName.text,
-          "email": Controllers.email.text,
-          "password": Controllers.password.text.hashCrypt,
-          "phone": Controllers.phone.text,
-          "address": Controllers.address.text,
+          "fullName": XController.fullName.text,
+          "email": XController.email.text,
+          "password": XController.password.text.hashCrypt,
+          "phone": XController.phone.text,
+          "address": XController.address.text,
           "image": imageUrl,
         });
         Method.snackBar(context, 'Account Created!');
-        Controllers.signUpDisposer;
+        XController.signUpDisposer;
       } catch (err) {
         Method.snackBar(context, err.toString());
       }

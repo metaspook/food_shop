@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/customer_app/pages/pages.dart';
-import 'package:food_shop/utils/controllers.dart';
 import 'package:food_shop/utils/extension.dart';
 import 'package:food_shop/utils/method.dart';
 import 'package:food_shop/utils/variable.dart';
@@ -102,7 +102,7 @@ class _SignInPageState extends State<SignInPage> {
         await Variable.dbRealtime
             .ref("users")
             .orderByChild("email")
-            .equalTo(Controllers.email.text)
+            .equalTo(XController.email.text)
             .once()
             .then((value) {
           if (value.snapshot.value == null) {
@@ -111,7 +111,7 @@ class _SignInPageState extends State<SignInPage> {
             final matchedData = value.snapshot.value as Map;
             for (Map e in matchedData.values) {
               // isAuthenticated =
-              if (e["password"] == Controllers.password.text.hashCrypt) {
+              if (e["password"] == XController.password.text.hashCrypt) {
                 isAuthenticated = true;
                 return Method.snackBar(context, "User authenticated.");
               }

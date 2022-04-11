@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_shop/customer_app/pages/pages.dart';
 import 'package:food_shop/models/order.dart';
 import 'package:food_shop/utils/constant.dart';
-import 'package:food_shop/utils/controller.dart';
+import 'package:food_shop/utils/controllers.dart';
 import 'package:food_shop/utils/variable.dart';
 import 'package:provider/provider.dart';
 
@@ -70,7 +70,7 @@ class _OrdersViewState extends State<OrdersView> {
                         style: Theme.of(context).textTheme.headline3,
                       )
                     : GridView.builder(
-                        controller: Controller.scroll,
+                        controller: Controllers.scroll,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: size.width > 1800
                               ? 3

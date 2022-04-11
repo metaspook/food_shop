@@ -2,9 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:food_shop/services/database.dart';
+import 'package:food_shop/utils/controllers.dart';
 import 'package:food_shop/utils/utils.dart';
 
 class UsersController {
+  UsersController._();
+  factory UsersController() => UsersController._();
   static Future<void> remove(String userId) async {
     await Database.dbRealtime.ref("users/$userId").remove();
     await Variable.fbStorage.ref("images/users/$userId.jpg").delete();
@@ -25,15 +28,15 @@ class UsersController {
         }
         await dbRefPush.set({
           "id": dbRefPush.key,
-          "fullName": Controller.fullName.text,
-          "email": Controller.email.text,
-          "password": Controller.password.text.hashCrypt,
-          "phone": Controller.phone.text,
-          "address": Controller.address.text,
+          "fullName": Controllers.fullName.text,
+          "email": Controllers.email.text,
+          "password": Controllers.password.text.hashCrypt,
+          "phone": Controllers.phone.text,
+          "address": Controllers.address.text,
           "image": imageUrl,
         });
         Method.snackBar(context, 'Account Created!');
-        Controller.signUpDisposer;
+        Controllers.signUpDisposer;
       } catch (err) {
         Method.snackBar(context, err.toString());
       }

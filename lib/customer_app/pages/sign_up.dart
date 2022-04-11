@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/utils/controller.dart';
+import 'package:food_shop/utils/controllers.dart';
 import 'package:food_shop/utils/extension.dart';
 import 'package:food_shop/utils/method.dart';
 import 'package:food_shop/utils/validator.dart';
@@ -21,7 +22,7 @@ class _SignUpPageState extends State<SignUpPage> {
   File? _imageFile;
   String? _imageUrl;
   final _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
+  final bool _isLoading = false;
   static const Base64Codec base64 = Base64Codec();
 
   @override
@@ -40,12 +41,12 @@ class _SignUpPageState extends State<SignUpPage> {
             Text.rich(
               TextSpan(
                 text: 'Already have an account?',
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black54,
                   fontWeight: FontWeight.bold,
                 ),
                 children: [
-                  TextSpan(text: '   '),
+                  const TextSpan(text: '   '),
                   TextSpan(
                       recognizer: TapGestureRecognizer()
                         ..onTap = () => Method.navPop(context),
@@ -65,9 +66,9 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 Flexible(
                   child: TextField(
-                    controller: Controller.email,
+                    controller: Controllers.email,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'E-mail',
                       border: OutlineInputBorder(),
                     ),
@@ -90,7 +91,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         onPressed: () {
                           Method.customDialog(
                               context: context,
-                              title: Text('Please choose an option'),
+                              title: const Text('Please choose an option'),
                               subtitle: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -98,13 +99,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                 children: [
                                   ElevatedButton.icon(
                                     onPressed: _getFromCamera,
-                                    icon: Icon(Icons.camera),
-                                    label: Text('Camera'),
+                                    icon: const Icon(Icons.camera),
+                                    label: const Text('Camera'),
                                   ),
                                   ElevatedButton.icon(
                                     onPressed: _getFromGallery,
-                                    icon: Icon(Icons.image),
-                                    label: Text('Gallery'),
+                                    icon: const Icon(Icons.image),
+                                    label: const Text('Gallery'),
                                   ),
                                 ],
                               ));
@@ -118,36 +119,36 @@ class _SignUpPageState extends State<SignUpPage> {
               ],
             ),
             TextField(
-              controller: Controller.password,
+              controller: Controllers.password,
               keyboardType: TextInputType.visiblePassword,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(),
               ),
             ),
             TextFormField(
-              controller: Controller.fullName,
+              controller: Controllers.fullName,
               keyboardType: TextInputType.name,
               // maxLength: 40,
               validator: (value) => Validator.isEmpty(value),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 // hintText: 'Name',
                 labelText: "Full Name",
                 border: OutlineInputBorder(),
               ),
             ),
             TextField(
-              controller: Controller.phone,
+              controller: Controllers.phone,
               keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Phone',
                 border: OutlineInputBorder(),
               ),
             ),
             TextField(
-              controller: Controller.address,
+              controller: Controllers.address,
               keyboardType: TextInputType.streetAddress,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Address',
                 border: OutlineInputBorder(),
               ),
@@ -155,8 +156,8 @@ class _SignUpPageState extends State<SignUpPage> {
             FittedBox(
               child: ElevatedButton.icon(
                 onPressed: _userSignUp,
-                icon: Icon(Icons.app_registration_rounded),
-                label: Text('Sign Up'),
+                icon: const Icon(Icons.app_registration_rounded),
+                label: const Text('Sign Up'),
               ),
               // label: CircularProgressIndicator()),
             ),
@@ -208,39 +209,18 @@ class _SignUpPageState extends State<SignUpPage> {
         _imageUrl = await storageRef.getDownloadURL();
         await dbRef.set({
           "id": dbRef.key,
-          "fullName": Controller.fullName.text,
-          "email": Controller.email.text,
-          "password": Controller.password.text.hashCrypt,
-          "phone": Controller.phone.text,
-          "address": Controller.address.text,
+          "fullName": Controllers.fullName.text,
+          "email": Controllers.email.text,
+          "password": Controllers.password.text.hashCrypt,
+          "phone": Controllers.phone.text,
+          "address": Controllers.address.text,
           "image": _imageUrl,
         });
         Method.snackBar(context, 'Account Created!');
-        Controller.signUpDisposer;
+        Controllers.signUpDisposer;
       } catch (err) {
         Method.snackBar(context, err.toString());
       }
     }
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(farukmarket
-    //     builder: (context) => ProfilePage(),
-    //   ),
-    // );
-    // createData();
   }
 }
-
-// void createData() {
-// Variable.dbRealtime.child("users").push().set([
-//   {'name': 'Yashwant Kumar', 'description': 'Senior Software Engineer'},
-//   {'name': 'Yashwant Kumar', 'description': 'Senior Software Engineer'},
-//   {'name': 'Yashwant Kumar', 'description': 'Senior Software Engineer'},
-// ]);
-
-// Variable.dbRealtime.child("categories/").update(
-//     // "Category One",
-//     // "Category Two",
-//     // {"description": "Team Lead", "name": "Deepak Nishad"},
-//     {"description": "Team Lexxad", "name": "Deepak Nishcccadf"});
-// }

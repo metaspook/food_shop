@@ -1,6 +1,7 @@
 import 'package:food_shop/controllers/controllers.dart';
 import 'package:food_shop/models/models.dart';
 import 'package:food_shop/services/services.dart';
+import 'package:food_shop/utils/controllers.dart';
 import 'package:provider/provider.dart';
 
 class Providers {
@@ -8,7 +9,7 @@ class Providers {
   static final adminProviders = [
     // ChangeNotifierProvider<UserController>(create: (_) => UserController()),
     ChangeNotifierProvider<ProductsController>(
-        create: (_) => ProductsController()),
+        create: (_) => Controllers.products),
 
     StreamProvider<List<Order>?>.value(
       value: Database.orders,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/controllers.dart';
-import 'package:food_shop/utils/controller.dart';
+import 'package:food_shop/utils/controllers.dart';
 import 'package:food_shop/utils/validator.dart';
 
 abstract class InputForm {
@@ -8,7 +8,7 @@ abstract class InputForm {
 
   /// E-mail input form.
   static final TextFormField email = TextFormField(
-    controller: Controller.email,
+    controller: Controllers.email,
     keyboardType: TextInputType.emailAddress,
     decoration: const InputDecoration(
       labelText: 'E-mail',
@@ -18,7 +18,7 @@ abstract class InputForm {
 
   /// Password input form.
   static final TextFormField password = TextFormField(
-    controller: Controller.password,
+    controller: Controllers.password,
     keyboardType: TextInputType.visiblePassword,
     decoration: const InputDecoration(
       labelText: 'Password',
@@ -28,7 +28,7 @@ abstract class InputForm {
 
   /// Full Name input form.
   static final TextFormField fullName = TextFormField(
-    controller: Controller.fullName,
+    controller: Controllers.fullName,
     keyboardType: TextInputType.name,
     // maxLength: 40,
     validator: (value) => Validator.isEmpty(value),
@@ -40,7 +40,7 @@ abstract class InputForm {
 
   /// Phone input form.
   static final TextFormField phone = TextFormField(
-    controller: Controller.phone,
+    controller: Controllers.phone,
     keyboardType: TextInputType.phone,
     decoration: const InputDecoration(
       labelText: 'Phone',
@@ -50,7 +50,7 @@ abstract class InputForm {
 
   /// Address input form.
   static final TextFormField address = TextFormField(
-    controller: Controller.address,
+    controller: Controllers.address,
     keyboardType: TextInputType.streetAddress,
     decoration: const InputDecoration(
       labelText: 'Address',

@@ -1,14 +1,8 @@
-// Controllers.
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:food_shop/models/cart_product.dart';
-import 'package:food_shop/models/product.dart';
+import 'package:food_shop/controllers/controllers.dart';
 
-class Controller {
-  static final StreamController<List<Product>> productList =
-      StreamController<List<Product>>();
-  static final cartItemList = StreamController<List<CartProduct>>();
+class Controllers {
+  Controllers._();
   static final fullName = TextEditingController();
   static final email = TextEditingController();
   static final password = TextEditingController();
@@ -16,8 +10,8 @@ class Controller {
   static final address = TextEditingController();
   static final page = PageController();
   static final scroll = ScrollController();
-  static final price = TextEditingController();
-  static final stock = TextEditingController();
+  static final products = ProductsController();
+  static const users = UsersController;
 
   static void get signUpDisposer {
     email.dispose();

@@ -2,7 +2,7 @@ import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/admin_app/pages/views/views.dart';
 import 'package:food_shop/customer_app/pages/pages.dart';
-import 'package:food_shop/utils/controller.dart';
+import 'package:food_shop/utils/controllers.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
@@ -12,31 +12,11 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
-  // late final List<User> _userList;
-  // User.fromJsonStringList(Constant.prefs.getStringList("userList")!);
-
   @override
   void dispose() {
     super.dispose();
-    Controller.page.dispose();
-    Controller.scroll.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // Variable.dbRealtime.ref("users").once().then((value) {
-    //   Variable.userList = [
-    //     for (var e in value.snapshot.children)
-    //       User.fromJson(e.value as Map<String, dynamic>)
-    //   ];
-    // });
-    // Variable.dbRealtime.ref("orders").once().then((value) {
-    //   Variable.orderList = [
-    //     for (var e in value.snapshot.children)
-    //       Order.fromJson(e.value as Map<String, dynamic>)
-    //   ];
-    // });
+    Controllers.page.dispose();
+    Controllers.scroll.dispose();
   }
 
   @override
@@ -52,7 +32,7 @@ class _AdminPageState extends State<AdminPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SideMenu(
-            controller: Controller.page,
+            controller: Controllers.page,
             style: SideMenuStyle(
               displayMode: size.width > 800
                   ? SideMenuDisplayMode.open
@@ -90,7 +70,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 0,
                 title: 'Products',
                 onTap: () {
-                  Controller.page.jumpToPage(0);
+                  Controllers.page.jumpToPage(0);
                 },
                 icon: Icons.home,
               ),
@@ -98,7 +78,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 7,
                 title: 'Dashboard',
                 onTap: () {
-                  Controller.page.jumpToPage(7);
+                  Controllers.page.jumpToPage(7);
                 },
                 icon: Icons.home,
               ),
@@ -106,7 +86,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 1,
                 title: 'Orders',
                 onTap: () {
-                  Controller.page.jumpToPage(1);
+                  Controllers.page.jumpToPage(1);
                 },
                 icon: Icons.file_copy_rounded,
               ),
@@ -114,7 +94,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 2,
                 title: 'Users',
                 onTap: () {
-                  Controller.page.jumpToPage(2);
+                  Controllers.page.jumpToPage(2);
                 },
                 icon: Icons.supervisor_account,
               ),
@@ -122,7 +102,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 3,
                 title: 'Fake Uploader',
                 onTap: () {
-                  Controller.page.jumpToPage(3);
+                  Controllers.page.jumpToPage(3);
                 },
                 icon: Icons.settings,
               ),
@@ -130,7 +110,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 4,
                 title: 'Download',
                 onTap: () {
-                  Controller.page.jumpToPage(4);
+                  Controllers.page.jumpToPage(4);
                 },
                 icon: Icons.download,
               ),
@@ -138,7 +118,7 @@ class _AdminPageState extends State<AdminPage> {
                 priority: 5,
                 title: 'Settings',
                 onTap: () {
-                  Controller.page.jumpToPage(5);
+                  Controllers.page.jumpToPage(5);
                 },
                 icon: Icons.settings,
               ),
@@ -170,15 +150,15 @@ class _AdminPageState extends State<AdminPage> {
                 )
               : Expanded(
                   child: PageView(
-                    controller: Controller.page,
-                    children: [
+                    controller: Controllers.page,
+                    children: const [
                       ProductsView(),
-                      const OrdersView(),
-                      const UsersView(),
-                      const FakeUploader(),
-                      const DownloadsView(),
-                      const SettingsView(),
-                      const DashboardView(),
+                      OrdersView(),
+                      UsersView(),
+                      FakeUploader(),
+                      DownloadsView(),
+                      SettingsView(),
+                      DashboardView(),
                     ],
                   ),
                 ),

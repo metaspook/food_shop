@@ -2,21 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/users_controller.dart';
 import 'package:food_shop/models/user.dart';
-import 'package:food_shop/utils/controller.dart';
+import 'package:food_shop/utils/controllers.dart';
 import 'package:provider/provider.dart';
 
-class UsersView extends StatefulWidget {
+class UsersView extends StatelessWidget {
   const UsersView({Key? key}) : super(key: key);
-
-  @override
-  State<UsersView> createState() => _UsersViewState();
-}
-
-class _UsersViewState extends State<UsersView> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +27,7 @@ class _UsersViewState extends State<UsersView> {
                       )
                     : GridView.builder(
                         padding: const EdgeInsets.all(5),
-                        controller: Controller.scroll,
+                        controller: Controllers.scroll,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: size.width > 1900
                               ? 4

@@ -133,7 +133,8 @@ void _uploadOrder() {
     {
       "id": "",
       "total": 0.0,
-      "userId": "-My3v8wHLGHpsFkmPUHn",
+      "customerId": "-My3v8wHLGHpsFkmPUHn",
+      "customerFullName": "Lucinda Curry",
       "status": "Pending",
       "cartProductList": <Map<String, dynamic>>[
         {
@@ -159,7 +160,8 @@ void _uploadOrder() {
     {
       "id": "",
       "total": 0.0,
-      "userId": "-My3v8wIMUPYTrICbxRY",
+      "customerId": "-My3v8wIMUPYTrICbxRY",
+      "customerFullName": "Jeffrey Ellis",
       "status": "Confirmed",
       "cartProductList": <Map<String, dynamic>>[
         {
@@ -197,7 +199,8 @@ void _uploadOrder() {
     {
       "id": "",
       "total": 0.0,
-      "userId": "-My3v8wIMUPYTrICbxRZ",
+      "customerId": "-My3v8wIMUPYTrICbxRZ",
+      "customerFullName": "Olga Montgomery",
       "status": "Canceled",
       "cartProductList": <Map<String, dynamic>>[
         {
@@ -229,7 +232,8 @@ void _uploadOrder() {
     {
       "id": "",
       "total": 0.0,
-      "userId": "-My3v8wKVbvZYMxqL-u9",
+      "customerId": "-My3v8wKVbvZYMxqL-u9",
+      "customerFullName": "Rhoda Logan",
       "status": "Delivery",
       "cartProductList": <Map<String, dynamic>>[
         {
@@ -255,7 +259,8 @@ void _uploadOrder() {
     {
       "id": "",
       "total": 0.0,
-      "userId": "-My3v8wLCIIRGxE4oSHt",
+      "customerId": "-My3v8wLCIIRGxE4oSHt",
+      "customerFullName": "Ollie Warren",
       "status": "Received",
       "cartProductList": <Map<String, dynamic>>[
         {
@@ -269,7 +274,8 @@ void _uploadOrder() {
     {
       "id": "",
       "total": 0.0,
-      "userId": "-My3v8wLCIIRGxE4oSHu",
+      "customerId": "-My3v8wLCIIRGxE4oSHu",
+      "customerFullName": "Agnes Hoffman",
       "status": "Confirmed",
       "cartProductList": <Map<String, dynamic>>[
         {
@@ -325,7 +331,8 @@ void _uploadOrder() {
     {
       "id": "",
       "total": 0.0,
-      "userId": "-My3v8wMBoVFx-P0aI8d",
+      "customerId": "-My3v8wMBoVFx-P0aI8d",
+      "customerFullName": "Miguel Rodgers",
       "status": "Pending",
       "cartProductList": <Map<String, dynamic>>[
         {
@@ -345,7 +352,8 @@ void _uploadOrder() {
     {
       "id": "",
       "total": 0.0,
-      "userId": "-MyHsLlgar-_gLP6NhZ4",
+      "customerId": "-My3v8wMBoVFx-P0aI8d",
+      "customerFullName": "Miguel Rodgers",
       "status": "Received",
       "cartProductList": <Map<String, dynamic>>[
         {
@@ -394,28 +402,14 @@ void _uploadOrder() {
       e["cartProductList"][i]["subTotal"] = e["cartProductList"][i]
               ["quantity"] *
           e["cartProductList"][i]["unitPrice"];
-      // print(e["cartProductList"][i]["subTotal"]);
     }
-
-    // e["cartProductList"][0]["unitPrice"] = unitPrice;
 
     e["total"] = [
       for (Map<String, dynamic> e in e["cartProductList"]) e["subTotal"]
     ].reduce((v, e) => v + e);
     e["id"] = orderRef.key!;
-
-    // print("Total here");
-    // print(e["total"]);
-    // for (int i = 0; i < cartProductList.length; i++) {
-    //   cartProductList[i].update(
-    //     "unitPrice",
-    //     (value) => Variable.itemPriceList[cartProductList[i]["itemIndex"]!],
-    //   );
-    // }
-    // print(e["totalPrice"]);
     orderRef.set(e);
   }
-  // print(oderList); 19/02/2022 11:46:44
 }
 
 void _uploadProduct() {

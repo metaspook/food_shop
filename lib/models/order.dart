@@ -6,14 +6,16 @@ import 'cart_product.dart';
 
 class Order {
   final String id;
-  final String userId;
+  final String customerId;
+  final String customerFullName;
   final String status;
   final num total;
 
   final List<CartProduct> cartProductList;
   Order({
     required this.id,
-    required this.userId,
+    required this.customerId,
+    required this.customerFullName,
     required this.status,
     required this.total,
     required this.cartProductList,
@@ -37,7 +39,8 @@ class Order {
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
       id: json["id"],
-      userId: json["userId"],
+      customerId: json["customerId"],
+      customerFullName: json["customerFullName"],
       status: json["status"],
       total: json["total"],
       cartProductList: [
@@ -50,7 +53,8 @@ class Order {
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       "id": id,
-      "userId": userId,
+      "customerId": customerId,
+      "customerFullName": customerFullName,
       "status": status,
       "total": total,
       "cartProductList": cartProductList

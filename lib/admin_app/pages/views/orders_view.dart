@@ -3,7 +3,6 @@ import 'package:food_shop/controllers/controllers.dart';
 import 'package:food_shop/customer_app/pages/pages.dart';
 import 'package:food_shop/models/order.dart';
 import 'package:food_shop/utils/constant.dart';
-import 'package:food_shop/utils/variable.dart';
 import 'package:provider/provider.dart';
 
 class OrdersView extends StatelessWidget {
@@ -21,41 +20,15 @@ class OrdersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String statusImage = 'clock_01_x128.png';
     final size = MediaQuery.of(context).size;
-    final provider = context.watch<List<Order>?>();
-
-    // Database.orders.listen((event) {
-    //   print(event.first.status);
-    // });
-    print(provider?.first.status);
-
-    return provider == null
+    final orderList = context.watch<List<Order>?>();
+    return orderList == null
         ? const Center(child: CircularProgressIndicator.adaptive())
-        :
-        //     : Container(
-        //         child: const Text('fghgfhfg'),
-        //       );
-
-        Container(
+        : Container(
             color: Colors.white,
             child: Center(
-              child:
-
-                  // StreamBuilder<DatabaseEvent>(
-                  //     stream: Variable.dbRealtime.ref("orders").onValue,
-                  //     builder: (context, snapshot) {
-                  //       if (snapshot.hasData) {
-                  //         provider = List.generate(
-                  //           snapshot.data!.snapshot.children.length,
-                  //           (index) => Order.fromJson(snapshot.data!.snapshot.children
-                  //               .elementAt(index)
-                  //               .value as Map<String, dynamic>),
-                  //         );
-                  //         return
-
-                  LayoutBuilder(builder: (context, constraints) {
-                return provider.isEmpty
+              child: LayoutBuilder(builder: (context, constraints) {
+                return orderList.isEmpty
                     ? Text(
                         'No Orders!',
                         style: Theme.of(context).textTheme.headline3,
@@ -70,40 +43,11 @@ class OrdersView extends StatelessWidget {
                                   : 1,
                           mainAxisExtent: 80,
                         ),
-                        itemCount: provider.length,
+                        itemCount: orderList.length,
                         itemBuilder: (context, index) {
-                          // final bool isPending = Constant.oderList[index]["pending"];
-
-                          // switch (provider[index].status) {
-                          //   case "Confirmed":
-                          //     break;
-                          //   case "Canceled":
-                          //     break;
-                          //   case "Delivery":
-                          //     break;
-                          //   case "Pending":
-                          //     break;
-                          //   case "Received":
-                          //     break;
-                          //   default:
-                          // }
-
-                          // FontAwesomeIcons.timesCircle;
-                          // FontAwesomeIcons.check;
-                          // FontAwesomeIcons.checkCircle;
-                          // FontAwesomeIcons.truck;
-                          // FontAwesomeIcons.truckPickup;
-                          // FontAwesomeIcons.shippingFast;
-                          if (provider[index].status == "Confirmed") {
-                            statusImage = 'check_01_x128.png';
-                          } else if (provider[index].status == "Canceled") {
-                            statusImage = 'cancel_01_x128.png';
-                          }
                           return Card(
                               elevation: 2.5,
                               child: ListTile(
-                                // contentPadding: EdgeInsetsGeometry.infinity,
-                                // visualDensity: VisualDensity.adaptivePlatformDensity,
                                 title: Row(
                                   children: [
                                     RichText(
@@ -116,7 +60,7 @@ class OrdersView extends StatelessWidget {
                                             fontWeight: FontWeight.bold),
                                         children: <TextSpan>[
                                           TextSpan(
-                                              text: provider[index].id,
+                                              text: orderList[index].id,
                                               style:
                                                   DefaultTextStyle.of(context)
                                                       .style),
@@ -132,9 +76,6 @@ class OrdersView extends StatelessWidget {
                                                 .colorScheme
                                                 .secondary,
                                             fontWeight: FontWeight.bold),
-
-                                        // TextStyle(
-                                        //     fontWeight: FontWeight.bold),
                                         children: <TextSpan>[
                                           TextSpan(
                                               text: '\$',
@@ -142,7 +83,7 @@ class OrdersView extends StatelessWidget {
                                                   DefaultTextStyle.of(context)
                                                       .style),
                                           TextSpan(
-                                            text: provider[index]
+                                            text: orderList[index]
                                                 .total
                                                 .toString(),
                                             style: TextStyle(
@@ -151,18 +92,10 @@ class OrdersView extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                    ),
-
-                                    // Text(
-                                    //   "Order ID: \n" +
-                                    //       Constant.oderList[index]["orderId"],
-                                    //   style: Theme.of(context).textTheme.labelLarge,
-                                    // ),
+                                    ), // ),
                                   ],
                                 ),
-
                                 subtitle: Row(
-                                  // mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
                                       "Status: ",
@@ -172,16 +105,13 @@ class OrdersView extends StatelessWidget {
                                               .secondary,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    DropdownButton(
-                                      // Initial Value
-                                      value: provider[index].status,
-
-                                      // Down Arrow Icon
+                                    DropdownButton<String>(
+                                      value: orderList[index].status,
                                       icon:
                                           const Icon(Icons.keyboard_arrow_down),
                                       items: [
                                         for (final e in items)
-                                          DropdownMenuItem(
+                                          DropdownMenuItem<String>(
                                             value: e,
                                             child: Text(
                                               e,
@@ -191,14 +121,12 @@ class OrdersView extends StatelessWidget {
                                             ),
                                           )
                                       ],
-                                      onChanged: (String? newValue) {
-                                        // // setState(() {
-                                        // Database.dbRealtime
-                                        //     .ref(
-                                        //         "orders/${snapshot.data!.snapshot.children.elementAt(index).key}/status")
-                                        //     .set(newValue);
-                                        // // });
-                                      },
+                                      onChanged: (String? newStatus) =>
+                                          newStatus == null
+                                              ? null
+                                              : OrdersController.changeStatus(
+                                                  orderList[index].id,
+                                                  status: newStatus),
                                     ),
                                     const SizedBox(width: 22),
                                     RichText(
@@ -208,8 +136,8 @@ class OrdersView extends StatelessWidget {
                                             fontWeight: FontWeight.bold),
                                         children: <TextSpan>[
                                           TextSpan(
-                                              text: Variable
-                                                  .userList[index].fullName,
+                                              text: orderList[index]
+                                                  .customerFullName,
                                               style:
                                                   DefaultTextStyle.of(context)
                                                       .style),
@@ -224,8 +152,8 @@ class OrdersView extends StatelessWidget {
                                         MainAxisAlignment.spaceEvenly,
                                     // mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Constant
-                                          .statusIcons[provider[index].status]!,
+                                      Constant.statusIcons[
+                                          orderList[index].status]!,
                                       const SizedBox(height: 20),
                                       Text(
                                         "${index + 1}",
@@ -233,18 +161,6 @@ class OrdersView extends StatelessWidget {
                                             .textTheme
                                             .headline6,
                                       ),
-                                      // Icon(FontAwesomeIcons.check),
-                                      // Icon(FontAwesomeIcons.solidWindowClose),
-                                      // Text(
-                                      //   "${index + 1}",
-                                      //   style: Theme.of(context).textTheme.headline1,
-                                      // ),
-                                      // Text(
-                                      //   "✔️",
-                                      //   style: Theme.of(context).textTheme.headline1,
-                                      // ),
-                                      // ❌✔️⏰
-                                      // Image.asset("assets/images/$statusImage"),
                                     ],
                                   ),
                                 ),
@@ -259,12 +175,9 @@ class OrdersView extends StatelessWidget {
                                       IconButton(
                                         icon: const Icon(
                                             Icons.delete_forever_outlined),
-                                        onPressed: () {
-                                          // Variable.dbRealtime
-                                          //     .ref(
-                                          //         "orders/${snapshot.data!.snapshot.children.elementAt(index).key}")
-                                          //     .remove();
-                                        },
+                                        onPressed: () =>
+                                            OrdersController.remove(
+                                                orderList[index].id),
                                       ),
                                     ],
                                   ),
@@ -273,11 +186,6 @@ class OrdersView extends StatelessWidget {
                         },
                       );
               }),
-              //   } else if (snapshot.hasError) {
-              //     return Text('${snapshot.error}');
-              //   }
-              //   return const CircularProgressIndicator.adaptive();
-              // }),
             ),
           );
   }

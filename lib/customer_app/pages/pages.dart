@@ -1,5 +1,4 @@
 export 'cart_page.dart';
-export 'fake_uploader.dart';
 export 'home.dart';
 export 'order_page.dart';
 export 'product_list_page.dart';

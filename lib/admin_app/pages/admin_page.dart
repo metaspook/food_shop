@@ -1,8 +1,8 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/admin_app/pages/views/fake_uploader.dart';
 import 'package:food_shop/admin_app/pages/views/views.dart';
 import 'package:food_shop/controllers/x_controller.dart';
-import 'package:food_shop/customer_app/pages/pages.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);

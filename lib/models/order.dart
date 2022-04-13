@@ -8,6 +8,8 @@ class Order {
   final String id;
   final String customerId;
   final String customerFullName;
+  final String customerPhone;
+  final String deliveryAddress;
   final String status;
   final num total;
 
@@ -16,6 +18,8 @@ class Order {
     required this.id,
     required this.customerId,
     required this.customerFullName,
+    required this.customerPhone,
+    required this.deliveryAddress,
     required this.status,
     required this.total,
     required this.cartProductList,
@@ -41,6 +45,8 @@ class Order {
       id: json["id"],
       customerId: json["customerId"],
       customerFullName: json["customerFullName"],
+      customerPhone: json["customerPhone"],
+      deliveryAddress: json["deliveryAddress"],
       status: json["status"],
       total: json["total"],
       cartProductList: [
@@ -55,6 +61,8 @@ class Order {
       "id": id,
       "customerId": customerId,
       "customerFullName": customerFullName,
+      "customerPhone": customerPhone,
+      "deliveryAddress": deliveryAddress,
       "status": status,
       "total": total,
       "cartProductList": cartProductList

@@ -1,6 +1,6 @@
+export '../../admin_app/pages/order_page.dart';
 export 'cart_page.dart';
 export 'home.dart';
-export 'order_page.dart';
 export 'product_list_page.dart';
 export 'products_page.dart';
 export 'profile.dart';

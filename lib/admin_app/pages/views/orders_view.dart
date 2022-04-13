@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/controllers.dart';
-import 'package:food_shop/customer_app/pages/pages.dart';
-import 'package:food_shop/models/order.dart';
+import 'package:food_shop/models/models.dart';
 import 'package:food_shop/utils/constant.dart';
 import 'package:provider/provider.dart';
 
@@ -164,11 +163,8 @@ class OrdersView extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const OrderPage())),
+                                onTap: () => OrdersController.navigateOrder(
+                                    context, orderList[index]),
                                 trailing: FittedBox(
                                   child: Column(
                                     children: [

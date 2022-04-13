@@ -24,4 +24,10 @@ class Database {
           (event) => User.fromSnapshotChildren(event.snapshot.children),
         );
   }
+
+  static Future<User> user(String userId) {
+    return dbRealtime.ref("users/$userId").get().then(
+          (snap) => User.fromSnapshot(snap.value),
+        );
+  }
 }

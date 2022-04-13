@@ -2,12 +2,16 @@ import 'dart:convert';
 
 class CartProduct {
   final String productId;
+  final String productImage;
+  final String productName;
   final int quantity;
   final num unitPrice;
   final num subTotal;
 
   CartProduct({
     required this.productId,
+    required this.productImage,
+    required this.productName,
     required this.quantity,
     required this.unitPrice,
     required this.subTotal,
@@ -15,12 +19,16 @@ class CartProduct {
 
   CartProduct copyWith({
     String? productId,
+    String? productImage,
+    String? productName,
     int? quantity,
     num? unitPrice,
     num? subTotal,
   }) {
     return CartProduct(
       productId: productId ?? this.productId,
+      productImage: productImage ?? this.productImage,
+      productName: productName ?? this.productName,
       quantity: quantity ?? this.quantity,
       unitPrice: unitPrice ?? this.unitPrice,
       subTotal: subTotal ?? this.subTotal,
@@ -31,6 +39,8 @@ class CartProduct {
   factory CartProduct.fromJson(Map<String, dynamic> json) {
     return CartProduct(
         productId: json["productId"],
+        productImage: json["productImage"],
+        productName: json["productName"],
         quantity: json["quantity"],
         unitPrice: json["unitPrice"],
         subTotal: json["subTotal"]);
@@ -40,6 +50,8 @@ class CartProduct {
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       "productId": productId,
+      "productImage": productImage,
+      "productName": productName,
       "quantity": quantity,
       "unitPrice": unitPrice,
       "subTotal": subTotal
@@ -69,7 +81,7 @@ class CartProduct {
 
   @override
   String toString() =>
-      'CartProduct(productId: $productId, quantity: $quantity, unitPrice: $unitPrice,subTotal: $subTotal)';
+      'CartProduct(productId: $productId, productImage: $productImage,productName: $productName,quantity: $quantity, unitPrice: $unitPrice,subTotal: $subTotal)';
 
   @override
   bool operator ==(Object other) {
@@ -77,6 +89,8 @@ class CartProduct {
 
     return other is CartProduct &&
         other.productId == productId &&
+        other.productImage == productImage &&
+        other.productName == productName &&
         other.quantity == quantity &&
         other.unitPrice == unitPrice &&
         other.subTotal == subTotal;
@@ -85,6 +99,8 @@ class CartProduct {
   @override
   int get hashCode =>
       productId.hashCode ^
+      productImage.hashCode ^
+      productName.hashCode ^
       quantity.hashCode ^
       unitPrice.hashCode ^
       subTotal.hashCode;

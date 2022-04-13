@@ -135,22 +135,33 @@ void _uploadOrder() {
       "total": 0.0,
       "customerId": "-My3v8wHLGHpsFkmPUHn",
       "customerFullName": "Lucinda Curry",
+      "customerPhone": "518-810-8257",
+      "deliveryAddress": "1873 Pasolo Boulevard",
       "status": "Pending",
       "cartProductList": <Map<String, dynamic>>[
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png",
+          "productName": "Apple",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FjxUyXLU4ADepk",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
+          "productName": "Biscuit",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8Fk8ClEgux7f1O-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/boiled-egg.png",
+          "productName": "Boiled Egg",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
@@ -162,34 +173,51 @@ void _uploadOrder() {
       "total": 0.0,
       "customerId": "-My3v8wIMUPYTrICbxRY",
       "customerFullName": "Jeffrey Ellis",
+      "customerPhone": "470-670-2592",
+      "deliveryAddress": "300 Pozved Center",
       "status": "Confirmed",
       "cartProductList": <Map<String, dynamic>>[
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png",
+          "productName": "Apple",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FjxUyXLU4ADepk",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
+          "productName": "Biscuit",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8Fk8ClEgux7f1O-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/boiled-egg.png",
+          "productName": "Boiled Egg",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png",
+          "productName": "Apple",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png",
+          "productName": "Apple",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
@@ -201,28 +229,42 @@ void _uploadOrder() {
       "total": 0.0,
       "customerId": "-My3v8wIMUPYTrICbxRZ",
       "customerFullName": "Olga Montgomery",
+      "customerPhone": "660-713-8144",
+      "deliveryAddress": "422 Livdoh Street",
       "status": "Canceled",
       "cartProductList": <Map<String, dynamic>>[
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png",
+          "productName": "Apple",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FjxUyXLU4ADepk",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/boiled-egg.png",
+          "productName": "Boiled Egg",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8Fk8ClEgux7f1O-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
+          "productName": "Biscuit",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
+          "productName": "Biscuit",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
@@ -234,22 +276,33 @@ void _uploadOrder() {
       "total": 0.0,
       "customerId": "-My3v8wKVbvZYMxqL-u9",
       "customerFullName": "Rhoda Logan",
+      "customerPhone": "533-709-9696",
+      "deliveryAddress": "1478 Amzo Parkway",
       "status": "Delivery",
       "cartProductList": <Map<String, dynamic>>[
         {
           "productId": "-MygM8FjxUyXLU4ADepk",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
+          "productName": "Biscuit",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8Fk8ClEgux7f1O-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
+          "productName": "Biscuit",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
+          "productName": "Biscuit",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
@@ -261,10 +314,15 @@ void _uploadOrder() {
       "total": 0.0,
       "customerId": "-My3v8wLCIIRGxE4oSHt",
       "customerFullName": "Ollie Warren",
+      "customerPhone": "806-659-1453",
+      "deliveryAddress": "719 Culcof Boulevard",
       "status": "Received",
       "cartProductList": <Map<String, dynamic>>[
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
+          "productName": "Biscuit",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
@@ -276,52 +334,78 @@ void _uploadOrder() {
       "total": 0.0,
       "customerId": "-My3v8wLCIIRGxE4oSHu",
       "customerFullName": "Agnes Hoffman",
+      "customerPhone": "424-537-4597",
+      "deliveryAddress": "448 Gobzug Circle",
       "status": "Confirmed",
       "cartProductList": <Map<String, dynamic>>[
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
+          "productName": "Biscuit",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FjxUyXLU4ADepk",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
+          "productName": "Biscuit",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8Fk8ClEgux7f1O-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
+          "productName": "Biscuit",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
+          "productName": "Biscuit",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/biscuit.png",
+          "productName": "Biscuit",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FjxUyXLU4ADepk",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png",
+          "productName": "Apple",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8Fk8ClEgux7f1O-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png",
+          "productName": "Apple",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png",
+          "productName": "Apple",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
@@ -333,16 +417,24 @@ void _uploadOrder() {
       "total": 0.0,
       "customerId": "-My3v8wMBoVFx-P0aI8d",
       "customerFullName": "Miguel Rodgers",
+      "customerPhone": "993-579-3459",
+      "deliveryAddress": "1555 Genigi Loop",
       "status": "Pending",
       "cartProductList": <Map<String, dynamic>>[
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png",
+          "productName": "Apple",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FjxUyXLU4ADepk",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/apple.png",
+          "productName": "Apple",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
@@ -354,34 +446,51 @@ void _uploadOrder() {
       "total": 0.0,
       "customerId": "-My3v8wMBoVFx-P0aI8d",
       "customerFullName": "Miguel Rodgers",
+      "customerPhone": "993-579-3459",
+      "deliveryAddress": "1555 Genigi Loop",
       "status": "Received",
       "cartProductList": <Map<String, dynamic>>[
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/boiled-egg.png",
+          "productName": "Boiled Egg",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FjxUyXLU4ADepk",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/boiled-egg.png",
+          "productName": "Boiled Egg",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8Fk8ClEgux7f1O-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/boiled-egg.png",
+          "productName": "Boiled Egg",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/boiled-egg.png",
+          "productName": "Boiled Egg",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0
         },
         {
           "productId": "-MygM8FiMclKR6Q0dLM-",
+          "productImage":
+              "https://raw.githubusercontent.com/metaspook/json_api/main/images/foods/boiled-egg.png",
+          "productName": "Boiled Egg",
           "quantity": Random().nextInt(20) + 1,
           "unitPrice": 0.0,
           "subTotal": 0.0

@@ -1,34 +1,22 @@
-import 'dart:math';
-
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:food_shop/models/product.dart';
+import 'package:food_shop/models/models.dart';
 import 'package:food_shop/utils/method.dart';
 
-class OrderPage extends StatefulWidget {
-  const OrderPage({
-    Key? key,
-    this.itemPriceList,
-  }) : super(key: key);
-  final List<int>? itemPriceList;
+class OrderPage extends StatelessWidget {
+  OrderPage(this.order, {Key? key}) : super(key: key);
 
-  @override
-  State<OrderPage> createState() => _OrderPageState();
-}
+  final Order order;
 
-class _OrderPageState extends State<OrderPage> {
-  var items = [
+  final items = const [
     'Canceled',
     'Confirmed',
     'Delivery',
     'Pending',
     'Received',
   ];
-  String dropdownValue = 'Pending';
   String statusImage = 'clock_01_x128.png';
   final List<Map<String, dynamic>> _cartItemList = [
     {"itemIndex": 0, "quantity": 5},
@@ -146,40 +134,43 @@ class _OrderPageState extends State<OrderPage> {
   late List<int> _cartItemPriceList;
   late List<int> _cartSubTotalList;
 
-  @override
-  void initState() {
-    super.initState();
-    _cartItemPriceList = [...?widget.itemPriceList];
-    _cartItemQuantityList = List<int>.generate(_cartItemList.length, (i) => 1);
-    _cartItemPriceList = List<int>.generate(
-      _cartItemList.length,
-      (i) => 10 + Random().nextInt(100 - 10),
-      growable: false,
-    );
-    _cartSubTotalList = [
-      for (var i = 0; i < _cartItemList.length; i++)
-        _cartItemList[i]['quantity'] *
-            _itemList[_cartItemList[i]['itemIndex']]['unitPrice']
-    ];
-    // Method.prefs.then((db) {
-    //   if (db.getStringList("cartItemList") != null) {
-    //     setState(() {
-    //       _cartItemList.addAll(db.getStringList("cartItemList")!);
-    //       _cartItemQuantityList =
-    //           List<int>.generate(_cartItemList.length, (i) => 1);
-    //     });
-    //   }
-    // });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _cartItemPriceList = [...?itemPriceList];
+  //   _cartItemQuantityList = List<int>.generate(_cartItemList.length, (i) => 1);
+  //   _cartItemPriceList = List<int>.generate(
+  //     _cartItemList.length,
+  //     (i) => 10 + Random().nextInt(100 - 10),
+  //     growable: false,
+  //   );
+  //   _cartSubTotalList = [
+  //     for (var i = 0; i < _cartItemList.length; i++)
+  //       _cartItemList[i]['quantity'] *
+  //           _itemList[_cartItemList[i]['itemIndex']]['unitPrice']
+  //   ];
+  //   // Method.prefs.then((db) {
+  //   //   if (db.getStringList("cartItemList") != null) {
+  //   //     setState(() {
+  //   //       _cartItemList.addAll(db.getStringList("cartItemList")!);
+  //   //       _cartItemQuantityList =
+  //   //           List<int>.generate(_cartItemList.length, (i) => 1);
+  //   //     });
+  //   //   }
+  //   // });
+  // }
 
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    String dropdownValue = order.status;
+
+    // print(order.cartProductList);
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(_title),
+        title: const Text(_title),
         // automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
@@ -192,14 +183,14 @@ class _OrderPageState extends State<OrderPage> {
         ),
         actions: [
           Badge(
-            showBadge: _cartItemList.isEmpty ? false : true,
+            showBadge: order.cartProductList.isEmpty ? false : true,
             badgeColor: Theme.of(context).colorScheme.secondary,
             shape: BadgeShape.square,
             borderRadius: BorderRadius.circular(20),
             position: BadgePosition.topEnd(top: 2.5, end: 5),
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
             badgeContent: Text(
-              '${_cartItemList.length}',
+              '${order.cartProductList.length}',
               style:
                   TextStyle(color: Theme.of(context).scaffoldBackgroundColor),
               // style: TextStyle(color: Theme.of(context).colorScheme.primary),
@@ -220,15 +211,15 @@ class _OrderPageState extends State<OrderPage> {
                       secondaryButtonFunction: () {
                         if (Navigator.canPop(context)) Navigator.pop(context);
 
-                        setState(() {
-                          // if (Navigator.canPop(context)) {
-                          // int count = 0;
-                          // Navigator.of(context).popUntil((_) => count++ >= 2);
-                          Method.prefs.then((db) => db.clear());
-                          _cartItemList.clear();
-                          _cartItemPriceList.clear();
-                          // }
-                        });
+                        // setState(() {
+                        //   // if (Navigator.canPop(context)) {
+                        //   // int count = 0;
+                        //   // Navigator.of(context).popUntil((_) => count++ >= 2);
+                        //   Method.prefs.then((db) => db.clear());
+                        //   _cartItemList.clear();
+                        //   _cartItemPriceList.clear();
+                        //   // }
+                        // });
                         if (Navigator.canPop(context)) {
                           Navigator.pop(context, true);
                         }
@@ -242,7 +233,9 @@ class _OrderPageState extends State<OrderPage> {
                   ),
                 ),
                 if (_cartItemList.isNotEmpty)
-                  SizedBox(width: 7.5 * _cartItemList.length.toString().length),
+                  SizedBox(
+                      width:
+                          7.5 * order.cartProductList.length.toString().length),
               ],
             ),
           )
@@ -257,16 +250,16 @@ class _OrderPageState extends State<OrderPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Card(
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
                 elevation: 8,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text("""
-      Customer ID: GlfdigjdfkFDfd Customer Name: Javed Hasan
-      Customer Phone: 01356565632
-      Order ID: ghhhigjdfkFDfd
-                    """),
+                    Customer ID: ${order.customerId}, Customer Name: ${order.customerFullName}
+                    Customer Phone: ${order.customerPhone}
+                    Order ID: ${order.id}
+                                  """),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -309,16 +302,16 @@ class _OrderPageState extends State<OrderPage> {
                                           Method.navPop(context),
                                       secondaryButtonText: 'YES',
                                       secondaryButtonFunction: () {
-                                        Method.navPop(context);
-                                        setState(() {
-                                          dropdownValue = newValue!;
-                                        });
+                                        // Method.navPop(context);
+                                        // setState(() {
+                                        //   dropdownValue = newValue!;
+                                        // });
                                       },
                                     );
                                   } else {
-                                    setState(() {
-                                      dropdownValue = newValue!;
-                                    });
+                                    // setState(() {
+                                    //   dropdownValue = newValue!;
+                                    // });
                                   }
                                 },
                         ),
@@ -362,8 +355,7 @@ class _OrderPageState extends State<OrderPage> {
                                         .secondary),
                             children: <TextSpan>[
                               TextSpan(
-                                  text:
-                                      '\$${_cartSubTotalList.reduce((v, e) => v + e)}',
+                                  text: order.total.toString(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline5!
@@ -376,7 +368,7 @@ class _OrderPageState extends State<OrderPage> {
                   ],
                 ),
               ),
-              SizedBox(width: 100),
+              const SizedBox(width: 100),
               Flexible(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -387,8 +379,8 @@ class _OrderPageState extends State<OrderPage> {
                         defaultVerticalAlignment:
                             TableCellVerticalAlignment.middle,
                         defaultColumnWidth: size.width > 1250
-                            ? FixedColumnWidth(200)
-                            : FlexColumnWidth(),
+                            ? const FixedColumnWidth(200)
+                            : const FlexColumnWidth(),
                         // defaultColumnWidth: FlexColumnWidth(),
                         border: TableBorder.all(
                             color: Colors.black,
@@ -441,8 +433,8 @@ class _OrderPageState extends State<OrderPage> {
                             defaultVerticalAlignment:
                                 TableCellVerticalAlignment.middle,
                             defaultColumnWidth: size.width > 1250
-                                ? FixedColumnWidth(200)
-                                : FlexColumnWidth(),
+                                ? const FixedColumnWidth(200)
+                                : const FlexColumnWidth(),
                             // defaultColumnWidth: FlexColumnWidth(),
                             border: TableBorder.all(
                                 color: Colors.black,
@@ -450,7 +442,9 @@ class _OrderPageState extends State<OrderPage> {
                                 width: 2),
                             children: [
                               // for (var j = 0; j < 8; j++)
-                              for (var i = 0; i < _cartItemList.length; i++)
+                              for (var i = 0;
+                                  i < order.cartProductList.length;
+                                  i++)
                                 TableRow(children: [
                                   Row(children: [
                                     Flexible(
@@ -458,8 +452,8 @@ class _OrderPageState extends State<OrderPage> {
                                         imageUrl:
                                             "${_itemList[_cartItemList[i]['itemIndex']]['image']}",
                                         //         // imageUrl: _cartItemList[index].image,
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
+                                        // error (context, url, error) =>
+                                        //     const Icon(Icons.error),
                                         // fit: BoxFit.scaleDown,
                                         height: constraints.maxHeight * 0.05,
                                         width: constraints.maxWidth * 0.05,
@@ -467,19 +461,19 @@ class _OrderPageState extends State<OrderPage> {
                                     ),
                                     // Image.asset(
                                     // '${_itemList[_cartItemList[i]['itemIndex']]['image']}'),
-                                    Text(
-                                        '${_itemList[_cartItemList[i]['itemIndex']]['name']}')
+                                    Text(order.cartProductList[i].productName)
                                   ]),
                                   Column(children: [
-                                    Text(
-                                        "\$${_itemList[_cartItemList[i]['itemIndex']]['unitPrice']}")
+                                    Text(order.cartProductList[i].unitPrice
+                                        .toString())
                                   ]),
                                   Column(children: [
-                                    Text("${_cartItemList[i]['quantity']}")
+                                    Text(order.cartProductList[i].quantity
+                                        .toString())
                                   ]),
                                   Column(children: [
-                                    Text(
-                                        '\$${_cartItemList[i]['quantity'] * _itemList[_cartItemList[i]['itemIndex']]['unitPrice']}')
+                                    Text(order.cartProductList[i].subTotal
+                                        .toString())
                                   ]),
                                 ]),
                               // TableRow(children: [
@@ -516,7 +510,7 @@ class _OrderPageState extends State<OrderPage> {
         //   // shrinkWrap: true,
         //   // padding:
         //   //     const EdgeInsets.only(top: 5, bottom: 25, left: 5, right: 5),
-        //   children: <Widget>[
+        //   children: <[
         //     Text("Product Name" +
         //         " " * (constraints.maxWidth * 0.12).round() +
         //         "Unit Price" +
@@ -540,12 +534,12 @@ class _OrderPageState extends State<OrderPage> {
         //                     imageUrl:
         //                         Food.fromJson(_cartItemList[index]).image,
         //                     // imageUrl: _cartItemList[index].image,
-        //                     errorWidget: (context, url, error) =>
+        //                     error (context, url, error) =>
         //                         const Icon(Icons.error),
         //                     // fit: BoxFit.cover,
         //                   ),
         //                   // Image.network(
-        //                   //   widget.cartItemList[index].image,
+        //                   //   cartItemList[index].image,
         //                   //   fit: BoxFit.fill,
         //                   // ),
         //                   Text(
@@ -593,12 +587,12 @@ class _OrderPageState extends State<OrderPage> {
         //               //         imageUrl:
         //               //             Food.fromJson(_cartItemList[index]).image,
         //               //         // imageUrl: _cartItemList[index].image,
-        //               //         errorWidget: (context, url, error) =>
+        //               //         error (context, url, error) =>
         //               //             const Icon(Icons.error),
         //               //         // fit: BoxFit.cover,
         //               //       ),
         //               //       // Image.network(
-        //               //       //   widget.cartItemList[index].image,
+        //               //       //   cartItemList[index].image,
         //               //       //   fit: BoxFit.fill,
         //               //       // ),
         //               //       Text(
@@ -664,7 +658,7 @@ class _OrderPageState extends State<OrderPage> {
         //               //                       1) {
         //               //                     _cartItemQuantityList[index]--;
         //               //                     _cartItemPriceList[index] -=
-        //               //                         widget.itemPriceList![index];
+        //               //                         itemPriceList![index];
         //               //                   }
         //               //                 });
         //               //               },
@@ -680,7 +674,7 @@ class _OrderPageState extends State<OrderPage> {
         //               //                 setState(() {
         //               //                   _cartItemQuantityList[index]++;
         //               //                   _cartItemPriceList[index] +=
-        //               //                       widget.itemPriceList![index];
+        //               //                       itemPriceList![index];
         //               //                 });
         //               //               },
         //               //               icon: const Icon(

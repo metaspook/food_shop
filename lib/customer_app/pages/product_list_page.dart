@@ -218,6 +218,9 @@ class _ProductListPageState extends State<ProductListPage> {
                                     CartUpdater(
                                       item: CartProduct(
                                         productId: snapshot.data![index].id,
+                                        productImage:
+                                            snapshot.data![index].image,
+                                        productName: snapshot.data![index].name,
                                         quantity: snapshot.data![index].stock,
                                         unitPrice: snapshot.data![index].price,
                                         subTotal: snapshot.data![index].price,

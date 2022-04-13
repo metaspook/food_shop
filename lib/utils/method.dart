@@ -63,7 +63,7 @@ class Method {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           backgroundColor:
-              Theme.of(ctx).scaffoldBackgroundColor.withOpacity(0.75),
+              Theme.of(ctx).scaffoldBackgroundColor.withOpacity(0.85),
           title: title == null
               ? null
               : Column(

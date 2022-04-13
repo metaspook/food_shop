@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/admin_app/widgets/order_status_button.dart';
 import 'package:food_shop/controllers/controllers.dart';
 import 'package:food_shop/models/models.dart';
-import 'package:food_shop/utils/constant.dart';
+import 'package:food_shop/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class OrdersView extends StatelessWidget {
   const OrdersView({Key? key}) : super(key: key);
 
-  final items = const [
-    'Canceled',
-    'Confirmed',
-    'Delivery',
-    'Pending',
-    'Received',
-  ];
+  // final items = const [
+  //   'Canceled',
+  //   'Confirmed',
+  //   'Delivery',
+  //   'Pending',
+  //   'Received',
+  // ];
 
   // String dropdownValue = 'Pending';
 
@@ -104,29 +105,7 @@ class OrdersView extends StatelessWidget {
                                               .secondary,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    DropdownButton<String>(
-                                      value: orderList[index].status,
-                                      icon:
-                                          const Icon(Icons.keyboard_arrow_down),
-                                      items: [
-                                        for (final e in items)
-                                          DropdownMenuItem<String>(
-                                            value: e,
-                                            child: Text(
-                                              e,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelLarge,
-                                            ),
-                                          )
-                                      ],
-                                      onChanged: (String? newStatus) =>
-                                          newStatus == null
-                                              ? null
-                                              : OrdersController.changeStatus(
-                                                  orderList[index].id,
-                                                  status: newStatus),
-                                    ),
+                                    OrderStatusButton(orderList[index]),
                                     const SizedBox(width: 22),
                                     RichText(
                                       text: TextSpan(
@@ -151,8 +130,14 @@ class OrdersView extends StatelessWidget {
                                         MainAxisAlignment.spaceEvenly,
                                     // mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Constant.statusIcons[
-                                          orderList[index].status]!,
+                                      Icon(
+                                          Constants.statusElements[
+                                              orderList[index].status]!["icon"],
+                                          color: Constants.statusElements[
+                                              orderList[index]
+                                                  .status]!["color"]),
+                                      // Constants.statusElements[
+                                      //     orderList[index].status]["icon"]!,
                                       const SizedBox(height: 20),
                                       Text(
                                         "${index + 1}",
@@ -164,7 +149,7 @@ class OrdersView extends StatelessWidget {
                                   ),
                                 ),
                                 onTap: () => OrdersController.navigateOrder(
-                                    context, orderList[index]),
+                                    context, index),
                                 trailing: FittedBox(
                                   child: Column(
                                     children: [

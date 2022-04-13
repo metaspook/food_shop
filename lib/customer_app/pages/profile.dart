@@ -1,13 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/user.dart';
-import 'package:food_shop/utils/constant.dart';
-import 'package:food_shop/utils/method.dart';
 import 'package:food_shop/utils/variable.dart';
 
 class ProfilePage extends StatefulWidget {
-  ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();

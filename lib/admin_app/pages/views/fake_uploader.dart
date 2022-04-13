@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:food_shop/services/database.dart';
-import 'package:food_shop/utils/constant.dart';
+import 'package:food_shop/utils/constants.dart';
 import 'package:food_shop/utils/extension.dart';
 import 'package:food_shop/utils/variable.dart';
 
@@ -1010,9 +1010,9 @@ void _uploadProduct() {
     // final List<Map<String, dynamic>> cartItemList = e["cartItemList"];
     e.update("id", (value) => productRef.key);
     e.update(
-        "price", (value) => Constant.productPriceList[productList.indexOf(e)]);
+        "price", (value) => Constants.productPriceList[productList.indexOf(e)]);
     e.update("stock",
-        (value) => Constant.productQuantityList[productList.indexOf(e)]);
+        (value) => Constants.productQuantityList[productList.indexOf(e)]);
     // for (int i = 0; i < cartItemList.length; i++) {
     //   cartItemList[i].update(
     //     "unitPrice",

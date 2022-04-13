@@ -1,8 +1,10 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart' show Colors, Icon, Widget;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class Constant {
+class Constants {
+  Constants._();
   static const List<int> productQuantityList = [
     18,
     34,
@@ -128,12 +130,27 @@ class Constant {
     5.25
   ];
 
-  static const statusIcons = <String, Widget>{
-    "Confirmed": Icon(FontAwesomeIcons.solidHandshake, color: Colors.blue),
-    "Canceled": Icon(FontAwesomeIcons.solidTimesCircle, color: Colors.red),
-    "Delivery": Icon(FontAwesomeIcons.shippingFast, color: Colors.purple),
-    "Pending": Icon(FontAwesomeIcons.infoCircle, color: Colors.orange),
-    "Received": Icon(FontAwesomeIcons.solidCheckCircle, color: Colors.green),
+  static const statusElements = <String, Map<String, dynamic>>{
+    "Confirmed": {
+      "icon": FontAwesomeIcons.solidHandshake,
+      "color": Colors.blue,
+    },
+    "Canceled": {
+      "icon": FontAwesomeIcons.solidTimesCircle,
+      "color": Colors.red,
+    },
+    "Delivery": {
+      "icon": FontAwesomeIcons.shippingFast,
+      "color": Colors.purple,
+    },
+    "Pending": {
+      "icon": FontAwesomeIcons.infoCircle,
+      "color": Colors.orange,
+    },
+    "Received": {
+      "icon": FontAwesomeIcons.solidCheckCircle,
+      "color": Colors.green,
+    },
   };
 
   static List<Map<String, dynamic>> userList = [

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/admin_app/pages/order_page.dart';
-import 'package:food_shop/models/models.dart';
 import 'package:food_shop/services/database.dart';
 
 class OrdersController {
@@ -15,12 +14,12 @@ class OrdersController {
     await Database.dbRealtime.ref("orders/$orderId/status").set(status);
   }
 
-  static navigateOrder(BuildContext context, Order order) {
+  static navigateOrder(BuildContext context, int orderIndex) {
     // Database.dbRealtime.ref("users/$userId/status")
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OrderPage(order),
+        builder: (context) => OrderPage(orderIndex),
       ),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:food_shop/admin_app/pages/admin_page.dart';
-import 'package:food_shop/admin_app/pages/views/products_view.dart';
+import 'package:food_shop/admin_app/pages/views/products_view_admin.dart';
 
 class Routes {
   Routes._();
@@ -7,6 +7,6 @@ class Routes {
   static final adminRoutes = {
     '/': (_) => const AdminPage(),
     '/home': (_) => const AdminPage(),
-    '/home2': (_) => const ProductsView(),
+    '/home2': (_) => const ProductsViewAdmin(),
   };
 }

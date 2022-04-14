@@ -5,8 +5,8 @@ import 'package:food_shop/controllers/products_controller.dart';
 import 'package:food_shop/widgets/input_form.dart';
 import 'package:provider/provider.dart';
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({
+class ProductCardAdmin extends StatelessWidget {
+  const ProductCardAdmin({
     Key? key,
     required this.id,
     required this.name,

@@ -1,4 +1,3 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/admin_app/widgets/order_detail_card.dart';
@@ -31,67 +30,45 @@ class OrderPage extends StatelessWidget {
                 ),
               ),
               actions: [
-                Badge(
-                  showBadge: order.cartProductList.isEmpty ? false : true,
-                  badgeColor: Theme.of(context).colorScheme.secondary,
-                  shape: BadgeShape.square,
-                  borderRadius: BorderRadius.circular(20),
-                  position: BadgePosition.topEnd(top: 2.5, end: 5),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
-                  badgeContent: Text(
-                    '${order.cartProductList.length}',
-                    style: TextStyle(
-                        color: Theme.of(context).scaffoldBackgroundColor),
-                  ),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Method.customDialogText(
-                            title: '⚠️ Caution!',
-                            subtitle: 'Do you want to delete this cart?',
-                            context: context,
-                            primaryButtonText: 'Cancel',
-                            primaryButtonFunction: () {
-                              if (Navigator.canPop(context)) {
-                                Navigator.pop(context);
-                              }
-                            },
-                            secondaryButtonText: 'Confirm',
-                            secondaryButtonFunction: () {
-                              if (Navigator.canPop(context)) {
-                                Navigator.pop(context);
-                              }
+                IconButton(
+                  onPressed: () {
+                    Method.customDialogText(
+                      title: '⚠️ Caution!',
+                      subtitle: 'Do you want to delete this cart?',
+                      context: context,
+                      primaryButtonText: 'Cancel',
+                      primaryButtonFunction: () {
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(context);
+                        }
+                      },
+                      secondaryButtonText: 'Confirm',
+                      secondaryButtonFunction: () {
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(context);
+                        }
 
-                              // setState(() {
-                              //   // if (Navigator.canPop(context)) {
-                              //   // int count = 0;
-                              //   // Navigator.of(context).popUntil((_) => count++ >= 2);
-                              //   Method.prefs.then((db) => db.clear());
-                              //   _cartItemList.clear();
-                              //   _cartItemPriceList.clear();
-                              //   // }
-                              // });
-                              if (Navigator.canPop(context)) {
-                                Navigator.pop(context, true);
-                              }
-                              // Navigator.pop(context, true);
-                            },
-                          );
-                        },
-                        icon: Icon(
-                          CupertinoIcons.delete,
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                        ),
-                      ),
-                      if (order.cartProductList.isNotEmpty)
-                        SizedBox(
-                            width: 7.5 *
-                                order.cartProductList.length.toString().length),
-                    ],
+                        // setState(() {
+                        //   // if (Navigator.canPop(context)) {
+                        //   // int count = 0;
+                        //   // Navigator.of(context).popUntil((_) => count++ >= 2);
+                        //   Method.prefs.then((db) => db.clear());
+                        //   _cartItemList.clear();
+                        //   _cartItemPriceList.clear();
+                        //   // }
+                        // });
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(context, true);
+                        }
+                        // Navigator.pop(context, true);
+                      },
+                    );
+                  },
+                  icon: Icon(
+                    CupertinoIcons.delete,
+                    color: Theme.of(context).scaffoldBackgroundColor,
                   ),
-                )
+                ),
               ],
             ),
             body: LayoutBuilder(builder: (context, constraints) {

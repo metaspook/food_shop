@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/admin_app/widgets/product_card.dart';
+import 'package:food_shop/admin_app/widgets/product_card_admin.dart';
 import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/models/product.dart';
 import 'package:provider/provider.dart';
 
-class ProductsView extends StatelessWidget {
-  const ProductsView({Key? key}) : super(key: key);
+class ProductsViewAdmin extends StatelessWidget {
+  const ProductsViewAdmin({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class ProductsView extends StatelessWidget {
           ),
           itemCount: productList.length,
           itemBuilder: (context, index) {
-            return ProductCard(
+            return ProductCardAdmin(
               id: productList[index].id,
               name: productList[index].name,
               image: productList[index].image,

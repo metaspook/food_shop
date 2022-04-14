@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 class Providers {
   Providers._();
   static final adminProviders = [
-    // ChangeNotifierProvider<UserController>(create: (_) => UserController()),
     ChangeNotifierProvider<ProductsController>(
         create: (_) => ProductsController()),
 
@@ -16,7 +15,6 @@ class Providers {
       catchError: (context, object) {
         throw (object.toString());
       },
-      // child: const OrdersView(),
     ),
     StreamProvider<List<User>?>.value(
       value: Database.users,
@@ -24,7 +22,6 @@ class Providers {
       catchError: (context, object) {
         throw (object.toString());
       },
-      // child: const OrdersView(),
     ),
     StreamProvider<List<Product>?>.value(
       value: Database.products,
@@ -32,40 +29,21 @@ class Providers {
       catchError: (context, object) {
         throw (object.toString());
       },
-      // child: const OrdersView(),
     ),
-
     // FutureProvider<List<Product>>(
     //   create: (_) async => Cart().productList,
     //   initialData: const [],
     // )
-    // FutureProvider(
-    //   create: (_) => ProductProvider().getCartProducts,
-    //   initialData: const CircularProgressIndicator.adaptive(),
-    // )
   ];
 
   static final customerProviders = [
-    ChangeNotifierProvider(create: (_) => Counter()),
     ChangeNotifierProvider(create: (_) => Cart()),
-    // StreamProvider<List<Order>>.value(
-    //   value: Database.orders,
-    //   initialData: const [],
-    //   child: const OrdersView(),
-    // ),
-    // ChangeNotifierProvider(create: (_) => ProductProvider()),
-    // StreamProvider(
-    //   create: (_) => ProductProvider().getProducts,
-    //   initialData: const CircularProgressIndicator.adaptive(),
-    // ),
-
-    FutureProvider<List<Product>>(
-      create: (_) async => Cart().productList,
-      initialData: const [],
-    )
-    // FutureProvider(
-    //   create: (_) => ProductProvider().getCartProducts,
-    //   initialData: const CircularProgressIndicator.adaptive(),
-    // )
+    StreamProvider<List<Product>?>.value(
+      value: Database.products,
+      initialData: null,
+      catchError: (context, object) {
+        throw (object.toString());
+      },
+    ),
   ];
 }

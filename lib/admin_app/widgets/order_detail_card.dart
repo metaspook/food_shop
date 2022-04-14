@@ -16,9 +16,20 @@ class OrderDetailCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            RichText(
+              text: TextSpan(
+                text: "Customer: ",
+                style: const TextStyle(fontWeight: FontWeight.bold),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: order.customerFullName,
+                      style: DefaultTextStyle.of(context).style),
+                ],
+              ),
+            ),
             Text("""
-Customer ID: ${order.customerId}, Order ID: ${order.id}
-Customer Name: ${order.customerFullName}
+Customer ID: ${order.customerId} || Order ID: ${order.id}
+Customer Name: ${order.customerFullName} || Product Count: ${order.cartProductList.length}
 Customer Phone: ${order.customerPhone}"""),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

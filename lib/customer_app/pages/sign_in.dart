@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/x_controller.dart';
-import 'package:food_shop/customer_app/pages/pages.dart';
+import 'package:food_shop/customer_app/pages/sign_up.dart';
 import 'package:food_shop/utils/extension.dart';
 import 'package:food_shop/utils/method.dart';
 import 'package:food_shop/utils/variable.dart';

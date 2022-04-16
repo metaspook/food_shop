@@ -17,7 +17,7 @@ class UsersController {
       {required GlobalKey<FormState> formKey, File? imageFile}) async {
     if (formKey.currentState!.validate()) {
       try {
-        Method.snackBar(context, 'Processing Data...');
+        Methods.snackBar(context, 'Processing Data...');
         final dbRefPush = Database.dbRealtime.ref("users").push();
         String? imageUrl;
         if (imageFile != null) {
@@ -35,10 +35,10 @@ class UsersController {
           "address": XController.address.text,
           "image": imageUrl,
         });
-        Method.snackBar(context, 'Account Created!');
+        Methods.snackBar(context, 'Account Created!');
         XController.signUpDisposer;
       } catch (err) {
-        Method.snackBar(context, err.toString());
+        Methods.snackBar(context, err.toString());
       }
     }
   }

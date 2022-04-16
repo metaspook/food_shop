@@ -1,6 +1,6 @@
 export 'constants.dart';
 export 'extension.dart';
-export 'method.dart';
+export 'methods.dart';
 export 'notifier.dart';
 export 'routes.dart';
 export 'validator.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/orders_controller.dart';
 import 'package:food_shop/models/order.dart';
 import 'package:food_shop/utils/constants.dart';
-import 'package:food_shop/utils/method.dart';
+import 'package:food_shop/utils/methods.dart';
 
 class OrderStatusButton extends StatelessWidget {
   const OrderStatusButton(this.order, {Key? key}) : super(key: key);
@@ -29,19 +29,19 @@ class OrderStatusButton extends StatelessWidget {
           : (String? newStatus) async {
               if (newStatus != null) {
                 newStatus == "Canceled"
-                    ? Method.customDialogText(
+                    ? Methods.customDialogText(
                         title: '⚠️  Caution!',
                         subtitle: 'Do you want to cancel this order?',
                         context: context,
                         primaryButtonText: 'NO',
-                        primaryButtonFunction: () => Method.navPop(context),
+                        primaryButtonFunction: () => Methods.navPop(context),
                         secondaryButtonText: 'YES',
                         secondaryButtonFunction: () async {
                           await OrdersController.changeStatus(
                             order.id,
                             status: newStatus,
                           );
-                          Method.navPop(context);
+                          Methods.navPop(context);
                         },
                       )
                     : await OrdersController.changeStatus(

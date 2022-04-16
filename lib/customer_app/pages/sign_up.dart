@@ -5,7 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/utils/extension.dart';
-import 'package:food_shop/utils/method.dart';
+import 'package:food_shop/utils/methods.dart';
 import 'package:food_shop/utils/validator.dart';
 import 'package:food_shop/utils/variables.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -49,7 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   const TextSpan(text: '   '),
                   TextSpan(
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () => Method.navPop(context),
+                        ..onTap = () => Methods.navPop(context),
                       text: "Login",
                       style: TextStyle(
                         decoration: TextDecoration.underline,
@@ -89,7 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: IconButton(
                         icon: const Icon(Icons.add_a_photo),
                         onPressed: () {
-                          Method.customDialog(
+                          Methods.customDialog(
                               context: context,
                               title: const Text('Please choose an option'),
                               subtitle: Row(
@@ -201,7 +201,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Future<void> _userSignUp() async {
     if (_formKey.currentState!.validate()) {
       try {
-        Method.snackBar(context, 'Processing Data...');
+        Methods.snackBar(context, 'Processing Data...');
         final dbRef = Variables.dbRealtime.ref("users").push();
         final storageRef =
             Variables.fbStorage.ref("images/users/${dbRef.key}.jpg");
@@ -216,10 +216,10 @@ class _SignUpPageState extends State<SignUpPage> {
           "address": XController.address.text,
           "image": _imageUrl,
         });
-        Method.snackBar(context, 'Account Created!');
+        Methods.snackBar(context, 'Account Created!');
         XController.signUpDisposer;
       } catch (err) {
-        Method.snackBar(context, err.toString());
+        Methods.snackBar(context, err.toString());
       }
     }
   }

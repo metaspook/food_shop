@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_shop/widgets/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Method {
+class Methods {
+  Methods._();
   static Map<String, dynamic> objectToMap(Object? obj) {
     obj as Map;
     final Map<String, dynamic> objMap = {};
@@ -32,7 +33,7 @@ class Method {
     String? title,
     String? subtitle,
   }) {
-    Method.customDialog(
+    Methods.customDialog(
       context: context,
       primaryButtonText: primaryButtonText,
       primaryButtonFunction: primaryButtonFunction,

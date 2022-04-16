@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_shop/admin_app/widgets/order_detail_card.dart';
 import 'package:food_shop/admin_app/widgets/order_table.dart';
 import 'package:food_shop/models/models.dart';
-import 'package:food_shop/utils/method.dart';
+import 'package:food_shop/utils/methods.dart';
 import 'package:provider/provider.dart';
 
 class OrderPage extends StatelessWidget {
@@ -32,7 +32,7 @@ class OrderPage extends StatelessWidget {
               actions: [
                 IconButton(
                   onPressed: () {
-                    Method.customDialogText(
+                    Methods.customDialogText(
                       title: '⚠️ Caution!',
                       subtitle: 'Do you want to delete this cart?',
                       context: context,

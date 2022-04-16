@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/models.dart';
-import 'package:food_shop/utils/constants.dart';
+import 'package:food_shop/services/services.dart';
+import 'package:food_shop/utils/utils.dart';
 
 class CartController extends ChangeNotifier {
   final _cartProducts = Constants.prefs.getStringList("cartProducts") ?? [];
-  num _totalPrice = 0;
 
   /// Get the list of all product definer items in the cart.
   List<CartProduct> get products =>
@@ -43,7 +43,7 @@ class CartController extends ChangeNotifier {
     return cartProduct;
   }
 
-  num get totalPrice => _totalPrice;
+  num get totalPrice => products.map((e) => e.subTotal).reduce((v, e) => v + e);
 
   /// Add an item in the cart.
   Future<void> add(CartProduct product) async {
@@ -62,9 +62,31 @@ class CartController extends ChangeNotifier {
   /// Remove the cart with all items.
   Future<void> removeCart() async {
     await Constants.prefs.remove("cartProducts");
-    _totalPrice = 0;
     _cartProducts.clear();
     notifyListeners();
+  }
+
+  Future<void> makeOrder(BuildContext context) async {
+    try {
+      Methods.snackBar(context, 'Processing Data...');
+      final dbRefPush = Database.dbRealtime.ref("orders").push();
+      await dbRefPush.set({
+        "cartProductList": [for (String e in _cartProducts) jsonDecode(e)],
+        "customerFullName": "Lucinda Curry",
+        "customerId": "-My3v8wHLGHpsFkmPUHn",
+        "customerPhone": "518-810-8257",
+        "deliveryAddress": "1873 Pasolo Boulevard",
+        "id": dbRefPush.key,
+        "status": "Pending",
+        "total": totalPrice,
+      });
+      await removeCart();
+      Methods.snackBar(context, 'Order Placed!');
+      Methods.navPop(context);
+    } catch (err) {
+      Methods.snackBar(context, err.toString());
+    }
+    Methods.navPop(context);
   }
 
   Future<void> quantityIncrement(CartProduct product, int stock) async {
@@ -73,7 +95,6 @@ class CartController extends ChangeNotifier {
       final productMap = product.toJson();
       productMap['quantity']++;
       productMap['subTotal'] += productMap['unitPrice'];
-      _totalPrice += productMap['subTotal'];
       _cartProducts[productIndex] = jsonEncode(productMap);
       await Constants.prefs.setStringList("cartProducts", [..._cartProducts]);
       notifyListeners();
@@ -86,7 +107,6 @@ class CartController extends ChangeNotifier {
       final productMap = product.toJson();
       productMap['quantity']--;
       productMap['subTotal'] -= productMap['unitPrice'];
-      _totalPrice -= productMap['subTotal'];
       _cartProducts[productIndex] = jsonEncode(productMap);
       await Constants.prefs.setStringList("cartProducts", [..._cartProducts]);
       notifyListeners();

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/customer_app/pages/sign_up.dart';
 import 'package:food_shop/utils/extension.dart';
-import 'package:food_shop/utils/method.dart';
+import 'package:food_shop/utils/methods.dart';
 import 'package:food_shop/utils/variables.dart';
 import 'package:food_shop/widgets/input_form.dart';
 
@@ -94,7 +94,7 @@ class _SignInPageState extends State<SignInPage> {
   Future<void> _userSignIn() async {
     if (_formKey.currentState!.validate()) {
       try {
-        Method.snackBar(context, 'Processing Data...');
+        Methods.snackBar(context, 'Processing Data...');
         // final dbRef =
         //     await Variable.dbRealtime.ref("users").get().then((value) {
         //   value.children;
@@ -106,16 +106,16 @@ class _SignInPageState extends State<SignInPage> {
             .once()
             .then((value) {
           if (value.snapshot.value == null) {
-            Method.snackBar(context, "Email doesn't exists!");
+            Methods.snackBar(context, "Email doesn't exists!");
           } else {
             final matchedData = value.snapshot.value as Map;
             for (Map e in matchedData.values) {
               // isAuthenticated =
               if (e["password"] == XController.password.text.hashCrypt) {
                 isAuthenticated = true;
-                return Method.snackBar(context, "User authenticated.");
+                return Methods.snackBar(context, "User authenticated.");
               }
-              return Method.snackBar(context, "Password doesn't match!");
+              return Methods.snackBar(context, "Password doesn't match!");
               // break;
             }
           }
@@ -136,7 +136,7 @@ class _SignInPageState extends State<SignInPage> {
         // });
         // Method.snackBar(context, 'Account Created!');
       } catch (err) {
-        Method.snackBar(context, err.toString());
+        Methods.snackBar(context, err.toString());
       }
     }
   }

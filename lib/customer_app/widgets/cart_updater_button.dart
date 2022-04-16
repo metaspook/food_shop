@@ -11,18 +11,13 @@ class CartUpdaterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartController = context.watch<CartController>();
-
     return cartController.contains(cartProduct.productId)
         ? IconButton(
             icon: const Icon(
               CupertinoIcons.cart_badge_minus,
               color: Colors.orange,
             ),
-            onPressed: () {
-              print(cartProduct);
-
-              context.read<CartController>().remove(cartProduct);
-            },
+            onPressed: () => context.read<CartController>().remove(cartProduct),
           )
         : IconButton(
             icon: const Icon(

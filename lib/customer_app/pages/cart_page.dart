@@ -122,11 +122,10 @@ class CartPage extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      '0',
-                      // _cartItemPriceList.isEmpty
-                      //     ? '\$0'
-                      //     : '\$${_cartItemPriceList.reduce((value, element) => value + element)}',
-
+                      cartController.products
+                          .map((e) => e.subTotal)
+                          .reduce((v, e) => v + e)
+                          .toString(),
                       style: Theme.of(context).textTheme.headline4!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.secondary),

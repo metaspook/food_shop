@@ -45,17 +45,7 @@ class ProductCard extends StatelessWidget {
                       ),
                 ),
                 const SizedBox(width: 50),
-                CartUpdaterButton(
-                  cartController.productById(product.id) ??
-                      CartProduct(
-                        productId: product.id,
-                        productImage: product.image,
-                        productName: product.name,
-                        quantity: 1,
-                        unitPrice: product.price,
-                        subTotal: product.price * 1,
-                      ),
-                ),
+                CartUpdaterButton(cartController.toCartProduct(product)),
               ],
             ),
           ],

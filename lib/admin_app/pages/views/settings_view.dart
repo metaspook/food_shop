@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/utils/variable.dart';
+import 'package:food_shop/utils/variables.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({Key? key}) : super(key: key);
@@ -13,10 +13,10 @@ class SettingsView extends StatelessWidget {
           color: Colors.white,
           child: Center(
             child: ValueListenableBuilder(
-              valueListenable: Variable.decoy,
+              valueListenable: Variables.decoy,
               builder: (BuildContext context, dynamic value, Widget? child) {
                 return Text(
-                  'Settings: ' + Variable.decoy.value.toString(),
+                  'Settings: ' + Variables.decoy.value.toString(),
                   style: const TextStyle(fontSize: 35),
                 );
               },
@@ -30,7 +30,7 @@ class SettingsView extends StatelessWidget {
                 Icons.add,
                 color: Theme.of(context).scaffoldBackgroundColor,
               ),
-              onPressed: () => Variable.decoy.value++),
+              onPressed: () => Variables.decoy.value++),
         )
       ],
     );

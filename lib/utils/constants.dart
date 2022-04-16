@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart' show Colors, Icon, Widget;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Constants {
   Constants._();
+  // Shared Preferences.
+  static late final SharedPreferences prefs;
   static const List<int> productQuantityList = [
     18,
     34,

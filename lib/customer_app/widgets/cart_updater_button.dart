@@ -5,19 +5,23 @@ import 'package:food_shop/models/models.dart';
 import 'package:provider/provider.dart';
 
 class CartUpdaterButton extends StatelessWidget {
-  const CartUpdaterButton({Key? key, required this.item}) : super(key: key);
-  final CartProduct item;
+  const CartUpdaterButton(this.cartProduct, {Key? key}) : super(key: key);
+  final CartProduct cartProduct;
 
   @override
   Widget build(BuildContext context) {
-    return context.watch<Cart>().containItem(item)
+    final cartController = context.watch<CartController>();
+
+    return cartController.contains(cartProduct.productId)
         ? IconButton(
             icon: const Icon(
               CupertinoIcons.cart_badge_minus,
               color: Colors.orange,
             ),
             onPressed: () {
-              context.read<Cart>().removeItem(item);
+              print(cartProduct);
+
+              context.read<CartController>().remove(cartProduct);
             },
           )
         : IconButton(
@@ -25,9 +29,7 @@ class CartUpdaterButton extends StatelessWidget {
               CupertinoIcons.cart_badge_plus,
               color: Colors.cyan,
             ),
-            onPressed: () {
-              context.read<Cart>().addItem(item);
-            },
+            onPressed: () => context.read<CartController>().add(cartProduct),
           );
   }
 }

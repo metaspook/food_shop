@@ -10,9 +10,9 @@ class ProductsViewAdmin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final productList = context.watch<List<Product>?>();
-    if (productList != null) {
-      if (productList.isEmpty) {
+    final products = context.watch<List<Product>?>();
+    if (products != null) {
+      if (products.isEmpty) {
         return Center(
           child: Text(
             'No Products!',
@@ -36,14 +36,14 @@ class ProductsViewAdmin extends StatelessWidget {
                             : 2,
             mainAxisExtent: 250,
           ),
-          itemCount: productList.length,
+          itemCount: products.length,
           itemBuilder: (context, index) {
             return ProductCardAdmin(
-              id: productList[index].id,
-              name: productList[index].name,
-              image: productList[index].image,
-              price: productList[index].price,
-              stock: productList[index].stock,
+              id: products[index].id,
+              name: products[index].name,
+              image: products[index].image,
+              price: products[index].price,
+              stock: products[index].stock,
               index: index,
             );
           },

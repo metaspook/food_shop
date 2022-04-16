@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/customer_app/widgets/product_card.dart';
 import 'package:food_shop/models/product.dart';
+// import 'package:food_shop/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class ProductsView extends StatelessWidget {
@@ -8,9 +9,10 @@ class ProductsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productList = context.watch<List<Product>?>();
-    if (productList != null) {
-      if (productList.isEmpty) {
+    final products = context.watch<List<Product>?>();
+    // Constants.prefs.clear();
+    if (products != null) {
+      if (products.isEmpty) {
         return Center(
           child: Text(
             'No Products!',
@@ -22,9 +24,9 @@ class ProductsView extends StatelessWidget {
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2),
-          itemCount: productList.length,
+          itemCount: products.length,
           itemBuilder: (context, index) =>
-              ProductCard(productList[index], index: index),
+              ProductCard(products[index], index: index),
         ),
       );
     }

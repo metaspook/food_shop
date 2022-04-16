@@ -1,7 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/x_controller.dart';
-import 'package:food_shop/utils/variable.dart';
+import 'package:food_shop/utils/variables.dart';
 import 'package:food_shop/widgets/dash_grid.dart';
 
 class DashboardView extends StatefulWidget {
@@ -16,14 +16,14 @@ class _DashboardViewState extends State<DashboardView> {
   void initState() {
     super.initState();
     // Order status count stream.
-    for (var status in Variable.orderBoardItems.keys) {
-      Variable.dbRealtime
+    for (var status in Variables.orderBoardItems.keys) {
+      Variables.dbRealtime
           .ref("orders")
           .orderByChild("status")
           .equalTo(status)
           .onValue
           .listen((event) {
-        Variable.orderBoardItems[status]!["count"] =
+        Variables.orderBoardItems[status]!["count"] =
             event.snapshot.children.length;
       });
     }
@@ -36,21 +36,21 @@ class _DashboardViewState extends State<DashboardView> {
       color: Colors.white,
       child: Center(
         child: StreamBuilder<DatabaseEvent>(
-            stream: Variable.dbRealtime.ref().onValue,
+            stream: Variables.dbRealtime.ref().onValue,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 // Order and Users count stream.
-                Variable.mainBoardItems["Users"]!["count"] =
+                Variables.mainBoardItems["Users"]!["count"] =
                     snapshot.data!.snapshot.child("users").children.length;
-                Variable.mainBoardItems["Orders"]!["count"] =
+                Variables.mainBoardItems["Orders"]!["count"] =
                     snapshot.data!.snapshot.child("orders").children.length;
                 return LayoutBuilder(builder: (context, constraints) {
                   return ListView(
                     // shrinkWrap: true,
                     controller: XController.scroll,
                     children: [
-                      DashGrid("Main Board", items: Variable.mainBoardItems),
-                      DashGrid("Order Board", items: Variable.orderBoardItems),
+                      DashGrid("Main Board", items: Variables.mainBoardItems),
+                      DashGrid("Order Board", items: Variables.orderBoardItems),
                       Card(
                         elevation: 5,
                         // shadowColor: Colors.black,

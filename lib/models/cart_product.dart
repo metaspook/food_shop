@@ -59,7 +59,7 @@ class CartProduct {
   }
 
   // get subtotal of a cart items.
-  num get getSubTotal => quantity * unitPrice;
+  // num get getSubTotal => quantity * unitPrice;
 
   static List<CartProduct> fromJsonList(List<Map<String, dynamic>> jsonList) =>
       [for (Map<String, dynamic> e in jsonList) CartProduct.fromJson(e)];

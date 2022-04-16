@@ -11,15 +11,15 @@ class UsersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final userList = context.watch<List<User>?>();
+    final users = context.watch<List<User>?>();
 
-    return userList == null
+    return users == null
         ? const Center(child: CircularProgressIndicator.adaptive())
         : Container(
             color: Colors.white,
             child: Center(
               child: LayoutBuilder(builder: (context, constraints) {
-                return userList.isEmpty
+                return users.isEmpty
                     ? Text(
                         'No Users!',
                         style: Theme.of(context).textTheme.headline3,
@@ -37,7 +37,7 @@ class UsersView extends StatelessWidget {
                                       : 1,
                           mainAxisExtent: 125,
                         ),
-                        itemCount: userList.length,
+                        itemCount: users.length,
                         itemBuilder: (context, index) {
                           return Card(
                             margin: const EdgeInsets.all(5),
@@ -45,7 +45,7 @@ class UsersView extends StatelessWidget {
                               visualDensity:
                                   VisualDensity.adaptivePlatformDensity,
                               title: Text(
-                                userList[index].fullName,
+                                users[index].fullName,
                                 style: Theme.of(context).textTheme.headline6,
                               ),
                               subtitle: Column(
@@ -61,7 +61,7 @@ class UsersView extends StatelessWidget {
                                               fontWeight: FontWeight.bold),
                                       children: <TextSpan>[
                                         TextSpan(
-                                            text: userList[index].address,
+                                            text: users[index].address,
                                             style: DefaultTextStyle.of(context)
                                                 .style),
                                       ],
@@ -77,7 +77,7 @@ class UsersView extends StatelessWidget {
                                               fontWeight: FontWeight.bold),
                                       children: <TextSpan>[
                                         TextSpan(
-                                            text: userList[index].phone,
+                                            text: users[index].phone,
                                             style: DefaultTextStyle.of(context)
                                                 .style),
                                       ],
@@ -93,7 +93,7 @@ class UsersView extends StatelessWidget {
                                               fontWeight: FontWeight.bold),
                                       children: <TextSpan>[
                                         TextSpan(
-                                            text: userList[index].email,
+                                            text: users[index].email,
                                             style: DefaultTextStyle.of(context)
                                                 .style),
                                       ],
@@ -109,7 +109,7 @@ class UsersView extends StatelessWidget {
                                               fontWeight: FontWeight.bold),
                                       children: <TextSpan>[
                                         TextSpan(
-                                            text: userList[index].id,
+                                            text: users[index].id,
                                             style: DefaultTextStyle.of(context)
                                                 .style),
                                       ],
@@ -124,7 +124,7 @@ class UsersView extends StatelessWidget {
                                   httpHeaders: const {
                                     "Content-Type": "image/jpeg"
                                   },
-                                  imageUrl: userList[index].image ??
+                                  imageUrl: users[index].image ??
                                       "assets/images/placeholder_user_00.jpg",
                                   progressIndicatorBuilder:
                                       (context, url, downloadProgress) =>
@@ -138,7 +138,7 @@ class UsersView extends StatelessWidget {
                               trailing: IconButton(
                                 icon: const Icon(Icons.delete_forever_outlined),
                                 onPressed: () async =>
-                                    UsersController.remove(userList[index].id),
+                                    UsersController.remove(users[index].id),
                               ),
                             ),
                           );

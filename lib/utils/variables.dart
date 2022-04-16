@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,9 +8,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_shop/models/order.dart';
 import 'package:food_shop/models/product.dart';
 import 'package:food_shop/models/user.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class Variable {
+class Variables {
+  Variables._();
   static late final Future<List<Product>> futureProduct;
   // static final unitPriceList = List<double>.generate(
   //     60,
@@ -17,8 +18,7 @@ class Variable {
   //         "." +
   //         (25 * Random().nextInt(4)).toString())!);
   static ValueNotifier<int> decoy = ValueNotifier(0);
-  // Shared Preferences.
-  static late final SharedPreferences prefs;
+
   static late final EncryptedSharedPreferences prefsCrypt;
   static final Map<String, String> prefsData = {};
   // static late final FirebaseDatabase dbRealtimeInstance;

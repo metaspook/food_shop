@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/admin_app/pages/pages.dart';
 import 'package:food_shop/admin_app/widgets/order_status_button.dart';
 import 'package:food_shop/controllers/orders_controller.dart';
 import 'package:food_shop/models/order.dart';
@@ -94,7 +95,10 @@ class OrderTile extends StatelessWidget {
               ],
             ),
           ),
-          onTap: () => OrdersController.navigateOrder(context, index),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => OrderPage(index)),
+          ),
           trailing: FittedBox(
             child: Column(
               children: [

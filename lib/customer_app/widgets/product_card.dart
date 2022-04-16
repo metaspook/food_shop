@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/controllers/controllers.dart';
 import 'package:food_shop/customer_app/widgets/widgets.dart';
 import 'package:food_shop/models/models.dart';
+import 'package:provider/provider.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard(this.product, {Key? key, required this.index})
@@ -11,6 +13,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartController = context.watch<CartController>();
     return Card(
       elevation: 5,
       child: Padding(
@@ -43,14 +46,15 @@ class ProductCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 50),
                 CartUpdaterButton(
-                  item: CartProduct(
-                    productId: product.id,
-                    productImage: product.image,
-                    productName: product.name,
-                    quantity: product.stock,
-                    unitPrice: product.price,
-                    subTotal: product.price,
-                  ),
+                  cartController.productById(product.id) ??
+                      CartProduct(
+                        productId: product.id,
+                        productImage: product.image,
+                        productName: product.name,
+                        quantity: 1,
+                        unitPrice: product.price,
+                        subTotal: product.price * 1,
+                      ),
                 ),
               ],
             ),

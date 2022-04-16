@@ -7,7 +7,7 @@ import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/customer_app/pages/sign_up.dart';
 import 'package:food_shop/utils/extension.dart';
 import 'package:food_shop/utils/method.dart';
-import 'package:food_shop/utils/variable.dart';
+import 'package:food_shop/utils/variables.dart';
 import 'package:food_shop/widgets/input_form.dart';
 
 class SignInPage extends StatefulWidget {
@@ -99,7 +99,7 @@ class _SignInPageState extends State<SignInPage> {
         //     await Variable.dbRealtime.ref("users").get().then((value) {
         //   value.children;
         // });
-        await Variable.dbRealtime
+        await Variables.dbRealtime
             .ref("users")
             .orderByChild("email")
             .equalTo(XController.email.text)

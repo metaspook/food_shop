@@ -10,14 +10,14 @@ class OrdersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final orderList = context.watch<List<Order>?>();
-    return orderList == null
+    final orders = context.watch<List<Order>?>();
+    return orders == null
         ? const Center(child: CircularProgressIndicator.adaptive())
         : Container(
             color: Colors.white,
             child: Center(
               child: LayoutBuilder(builder: (context, constraints) {
-                return orderList.isEmpty
+                return orders.isEmpty
                     ? Text(
                         'No Orders!',
                         style: Theme.of(context).textTheme.headline3,
@@ -32,9 +32,9 @@ class OrdersView extends StatelessWidget {
                                   : 1,
                           mainAxisExtent: 80,
                         ),
-                        itemCount: orderList.length,
+                        itemCount: orders.length,
                         itemBuilder: (context, index) {
-                          return OrderTile(orderList[index], index: index);
+                          return OrderTile(orders[index], index: index);
                         },
                       );
               }),

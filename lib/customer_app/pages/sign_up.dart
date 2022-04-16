@@ -7,7 +7,7 @@ import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/utils/extension.dart';
 import 'package:food_shop/utils/method.dart';
 import 'package:food_shop/utils/validator.dart';
-import 'package:food_shop/utils/variable.dart';
+import 'package:food_shop/utils/variables.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -202,9 +202,9 @@ class _SignUpPageState extends State<SignUpPage> {
     if (_formKey.currentState!.validate()) {
       try {
         Method.snackBar(context, 'Processing Data...');
-        final dbRef = Variable.dbRealtime.ref("users").push();
+        final dbRef = Variables.dbRealtime.ref("users").push();
         final storageRef =
-            Variable.fbStorage.ref("images/users/${dbRef.key}.jpg");
+            Variables.fbStorage.ref("images/users/${dbRef.key}.jpg");
         await storageRef.putFile(_imageFile!);
         _imageUrl = await storageRef.getDownloadURL();
         await dbRef.set({

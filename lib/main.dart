@@ -5,8 +5,8 @@ import 'package:food_shop/admin_app/admin_app.dart';
 import 'package:food_shop/customer_app/customer_app.dart';
 import 'package:food_shop/firebase_options.dart';
 import 'package:food_shop/services/database.dart';
+import 'package:food_shop/utils/constants.dart';
 import 'package:food_shop/utils/providers.dart';
-import 'package:food_shop/utils/variable.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,7 +23,7 @@ Future<void> main() async {
   } else {
     await Firebase.initializeApp();
     Database.dbRealtime.setPersistenceEnabled(true);
-    Variable.prefs = await SharedPreferences.getInstance();
+    Constants.prefs = await SharedPreferences.getInstance();
     runApp(MultiProvider(
       providers: Providers.customerProviders,
       child: const CustomerApp(),

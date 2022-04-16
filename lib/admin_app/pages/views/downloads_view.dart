@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/utils/variable.dart';
+import 'package:food_shop/utils/variables.dart';
 
 class DownloadsView extends StatelessWidget {
   const DownloadsView({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class DownloadsView extends StatelessWidget {
           color: Colors.white,
           child: Center(
             child: ValueListenableBuilder(
-              valueListenable: Variable.decoy,
+              valueListenable: Variables.decoy,
               builder: (BuildContext context, int value, Widget? child) {
                 return Text(
                   'Downloads: ' + value.toString(),
@@ -31,7 +31,7 @@ class DownloadsView extends StatelessWidget {
                   Icons.add,
                   color: Theme.of(context).scaffoldBackgroundColor,
                 ),
-                onPressed: () => Variable.decoy.value++)),
+                onPressed: () => Variables.decoy.value++)),
       ],
     );
   }

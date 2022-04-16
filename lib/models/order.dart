@@ -82,8 +82,8 @@ class Order {
       [for (DataSnapshot e in list) Order.fromSnapshot(e.value)];
 
   // get total price of an order.
-  num get getTotal => [for (CartProduct e in cartProductList) e.getSubTotal]
-      .reduce((v, e) => v + e);
+  // num get getTotal => [for (CartProduct e in cartProductList) e.getSubTotal]
+  //     .reduce((v, e) => v + e);
 
   static List<Order> fromJsonList(List<Map<String, dynamic>> jsonList) =>
       [for (Map<String, dynamic> e in jsonList) Order.fromJson(e)];

@@ -10,7 +10,7 @@ class UsersController {
   factory UsersController() => UsersController._();
   static Future<void> remove(String userId) async {
     await Database.dbRealtime.ref("users/$userId").remove();
-    await Variable.fbStorage.ref("images/users/$userId.jpg").delete();
+    await Variables.fbStorage.ref("images/users/$userId.jpg").delete();
   }
 
   static Future<void> signUp(BuildContext context,
@@ -22,7 +22,7 @@ class UsersController {
         String? imageUrl;
         if (imageFile != null) {
           final storageRef =
-              Variable.fbStorage.ref("images/users/${dbRefPush.key}.jpg");
+              Variables.fbStorage.ref("images/users/${dbRefPush.key}.jpg");
           await storageRef.putFile(imageFile);
           imageUrl = await storageRef.getDownloadURL();
         }

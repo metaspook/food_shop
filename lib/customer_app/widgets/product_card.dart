@@ -15,9 +15,13 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartController = context.watch<CartController>();
     return Card(
-      elevation: 5,
+      shadowColor: cartController
+              .contains(cartController.toCartProduct(product).productId)
+          ? Theme.of(context).colorScheme.secondary
+          : Theme.of(context).colorScheme.primary,
+      elevation: 7.5,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: <Widget>[
             Text(

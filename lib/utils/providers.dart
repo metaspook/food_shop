@@ -38,6 +38,7 @@ class Providers {
 
   static final customerProviders = [
     ChangeNotifierProvider(create: (_) => CartController()),
+    ChangeNotifierProvider(create: (_) => BottomNavController()),
     StreamProvider<List<Product>?>.value(
       value: Database.products,
       initialData: null,

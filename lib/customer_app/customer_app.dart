@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/customer_app/pages/products_page.dart';
+import 'package:food_shop/customer_app/pages/customer_page.dart';
 
 class CustomerApp extends StatelessWidget {
   /// Customer app is a Mobile (Android, iOS) app.
@@ -24,7 +24,7 @@ class CustomerApp extends StatelessWidget {
       // },
       // home: const CartPage(title: 'Your Cart'),
       // home: StreamPage1(),
-      home: const ProductsPage(),
+      home: const CustomerPage(),
       // home: const SignInPage(),
       // home: const SignUpPage(),
     );

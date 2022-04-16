@@ -22,6 +22,7 @@ class ProductsView extends StatelessWidget {
       }
       return Center(
         child: GridView.builder(
+          padding: const EdgeInsets.all(4),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2),
           itemCount: products.length,

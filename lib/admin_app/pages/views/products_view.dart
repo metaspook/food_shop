@@ -4,8 +4,8 @@ import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/models/product.dart';
 import 'package:provider/provider.dart';
 
-class ProductsViewAdmin extends StatelessWidget {
-  const ProductsViewAdmin({Key? key}) : super(key: key);
+class ProductsView extends StatelessWidget {
+  const ProductsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

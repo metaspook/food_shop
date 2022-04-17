@@ -8,9 +8,8 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bottomNavController = context.watch<BottomNavController>();
     return BottomNavigationBar(
-      currentIndex: bottomNavController.currentIndex,
+      currentIndex: context.watch<BottomNavController>().currentIndex,
       onTap: (newIndex) =>
           context.read<BottomNavController>().setIndex(newIndex),
       type: BottomNavigationBarType.fixed,

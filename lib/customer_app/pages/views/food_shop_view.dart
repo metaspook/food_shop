@@ -4,8 +4,8 @@ import 'package:food_shop/models/product.dart';
 // import 'package:food_shop/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-class ProductsView extends StatelessWidget {
-  const ProductsView({Key? key}) : super(key: key);
+class FoodShopView extends StatelessWidget {
+  const FoodShopView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

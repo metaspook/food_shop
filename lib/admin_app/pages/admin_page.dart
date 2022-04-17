@@ -152,7 +152,7 @@ class _AdminPageState extends State<AdminPage> {
                   child: PageView(
                     controller: XController.page,
                     children: const [
-                      ProductsViewAdmin(),
+                      ProductsView(),
                       OrdersView(),
                       UsersView(),
                       FakeUploader(),

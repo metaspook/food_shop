@@ -8,15 +8,15 @@ class CustomerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bottomNavController = context.watch<BottomNavController>();
+    final controller = context.watch<BottomNavController>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         centerTitle: true,
-        title: const Text('Food Shop'),
+        title: Text(controller.currentAppTitle),
         actions: const [CartBadge()],
       ),
-      body: bottomNavController.currentView,
+      body: controller.currentView,
       bottomNavigationBar: const BottomNavBar(),
     );
   }

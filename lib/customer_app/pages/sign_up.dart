@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/controllers/sign_up_controller.dart';
+import 'package:food_shop/controllers/auth_controller.dart';
 import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/utils/methods.dart';
 import 'package:food_shop/utils/validator.dart';
@@ -73,9 +73,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: [
                     Card(
                       margin: const EdgeInsets.all(9),
-                      child: SignUpController.imageFile == null
+                      child: AuthController.imageFile == null
                           ? Image.asset('assets/images/placeholder_user_00.jpg')
-                          : Image.file(SignUpController.imageFile!),
+                          : Image.file(AuthController.imageFile!),
                     ),
                     Positioned(
                       top: -11,
@@ -93,14 +93,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                 children: [
                                   ElevatedButton.icon(
                                     onPressed: () async =>
-                                        await SignUpController.setImageCamera(
+                                        await AuthController.pickCameraImage(
                                             context),
                                     icon: const Icon(Icons.camera),
                                     label: const Text('Camera'),
                                   ),
                                   ElevatedButton.icon(
                                     onPressed: () async =>
-                                        await SignUpController.setImageGallery(
+                                        await AuthController.pickGalleryImage(
                                             context),
                                     icon: const Icon(Icons.image),
                                     label: const Text('Gallery'),
@@ -153,7 +153,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             FittedBox(
               child: ElevatedButton.icon(
-                onPressed: () async => await SignUpController.submitUser(
+                onPressed: () async => await AuthController.signUp(
                   context,
                   formKey: formKey,
                 ),

@@ -17,7 +17,7 @@ class AuthController {
   static late String _imageUrl;
   static File? get imageFile => _imageFile;
 
-  static Future<void> submitSignOut(BuildContext context) async {
+  static Future<void> signOut(BuildContext context) async {
     try {
       Methods.snackBar(context, 'Processing Data...');
       // Create new user and set UID.
@@ -39,7 +39,7 @@ class AuthController {
     }
   }
 
-  static Future<void> submitSignIn(
+  static Future<void> signIn(
     BuildContext context, {
     required GlobalKey<FormState> formKey,
   }) async {
@@ -71,7 +71,7 @@ class AuthController {
     }
   }
 
-  static Future<void> submitSignUp(
+  static Future<void> signUp(
     BuildContext context, {
     required GlobalKey<FormState> formKey,
   }) async {
@@ -119,7 +119,7 @@ class AuthController {
     }
   }
 
-  static Future<void> setImageCamera(BuildContext context) async {
+  static Future<void> pickCameraImage(BuildContext context) async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.camera,
       maxHeight: 1080,
@@ -129,7 +129,7 @@ class AuthController {
     Methods.navPop(context);
   }
 
-  static Future<void> setImageGallery(BuildContext context) async {
+  static Future<void> pickGalleryImage(BuildContext context) async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
       maxHeight: 1080,

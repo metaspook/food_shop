@@ -16,7 +16,7 @@ class UserSettingsView extends StatelessWidget {
           label: const Text('Reset App'),
         ),
         ElevatedButton.icon(
-          onPressed: () async => await AuthController.submitSignOut(context),
+          onPressed: () async => await AuthController.signOut(context),
           icon: const Icon(Icons.logout),
           label: const Text('Sign Out'),
         ),

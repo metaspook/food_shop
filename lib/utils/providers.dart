@@ -54,5 +54,16 @@ class Providers {
         throw (object.toString());
       },
     ),
+    FutureProvider<AppUser?>.value(
+      value: Database.user(FirebaseAuth.instance.currentUser!.uid),
+      initialData: null,
+      catchError: (context, object) {
+        throw (object.toString());
+      },
+    ),
+    // FutureProvider<List<Product>>(
+    //   create: (_) async => Cart().productList,
+    //   initialData: const [],
+    // )
   ];
 }

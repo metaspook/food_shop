@@ -124,14 +124,22 @@ class UsersView extends StatelessWidget {
                                   httpHeaders: const {
                                     "Content-Type": "image/jpeg"
                                   },
-                                  imageUrl: users[index].image ??
-                                      "assets/images/placeholder_user_00.jpg",
+                                  imageUrl: users[index].image ?? '',
                                   progressIndicatorBuilder:
                                       (context, url, downloadProgress) =>
                                           LinearProgressIndicator(
                                               value: downloadProgress.progress),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error_outline),
+                                  errorWidget: (context, url, error) => Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Image.asset(
+                                          "assets/images/placeholder_user_00.jpg"),
+                                      const Icon(
+                                        Icons.error_outline,
+                                        color: Colors.black54,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               onTap: null,

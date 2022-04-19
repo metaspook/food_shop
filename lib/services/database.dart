@@ -8,25 +8,25 @@ class Database {
   static final dbRealtime = FirebaseDatabase.instance;
 
   static Stream<List<Product>> get products {
-    return dbRealtime.ref('products').onValue.map(
+    return dbRealtime.ref('products').onValue.map<List<Product>>(
           (event) => Product.fromSnapshotChildren(event.snapshot.children),
         );
   }
 
   static Stream<List<Order>> get orders {
-    return dbRealtime.ref('orders').onValue.map(
+    return dbRealtime.ref('orders').onValue.map<List<Order>>(
           (event) => Order.fromSnapshotChildren(event.snapshot.children),
         );
   }
 
   static Stream<List<AppUser>> get users {
-    return dbRealtime.ref('users').onValue.map(
+    return dbRealtime.ref('users').onValue.map<List<AppUser>>(
           (event) => AppUser.fromSnapshotChildren(event.snapshot.children),
         );
   }
 
   static Future<AppUser> user(String userId) {
-    return dbRealtime.ref("users/$userId").get().then(
+    return dbRealtime.ref("users/$userId").get().then<AppUser>(
           (snap) => AppUser.fromSnapshot(snap.value),
         );
   }

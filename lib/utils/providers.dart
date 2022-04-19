@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_shop/controllers/controllers.dart';
 import 'package:food_shop/models/models.dart';
 import 'package:food_shop/services/services.dart';
@@ -16,7 +17,7 @@ class Providers {
         throw (object.toString());
       },
     ),
-    StreamProvider<List<User>?>.value(
+    StreamProvider<List<AppUser>?>.value(
       value: Database.users,
       initialData: null,
       catchError: (context, object) {
@@ -39,6 +40,13 @@ class Providers {
   static final customerProviders = [
     ChangeNotifierProvider(create: (_) => CartController()),
     ChangeNotifierProvider(create: (_) => BottomNavController()),
+    StreamProvider<User?>.value(
+      value: FirebaseAuth.instance.authStateChanges(),
+      initialData: null,
+      catchError: (context, object) {
+        throw (object.toString());
+      },
+    ),
     StreamProvider<List<Product>?>.value(
       value: Database.products,
       initialData: null,

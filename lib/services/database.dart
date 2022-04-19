@@ -1,7 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:food_shop/models/app_user.dart';
 import 'package:food_shop/models/order.dart';
 import 'package:food_shop/models/product.dart';
-import 'package:food_shop/models/user.dart';
 
 class Database {
   Database._();
@@ -19,15 +19,15 @@ class Database {
         );
   }
 
-  static Stream<List<User>> get users {
+  static Stream<List<AppUser>> get users {
     return dbRealtime.ref('users').onValue.map(
-          (event) => User.fromSnapshotChildren(event.snapshot.children),
+          (event) => AppUser.fromSnapshotChildren(event.snapshot.children),
         );
   }
 
-  static Future<User> user(String userId) {
+  static Future<AppUser> user(String userId) {
     return dbRealtime.ref("users/$userId").get().then(
-          (snap) => User.fromSnapshot(snap.value),
+          (snap) => AppUser.fromSnapshot(snap.value),
         );
   }
 }

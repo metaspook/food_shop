@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
 
-class User {
-  User({
+class AppUser {
+  AppUser({
     required this.id,
     required this.fullName,
     required this.email,
@@ -23,8 +23,8 @@ class User {
   final String? image;
 
   // create model object from json object.
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory AppUser.fromJson(Map<String, dynamic> json) {
+    return AppUser(
       id: json["id"],
       fullName: json["fullName"],
       email: json["email"],
@@ -48,31 +48,33 @@ class User {
     };
   }
 
-  factory User.fromSnapshot(Object? object) {
+  factory AppUser.fromSnapshot(Object? object) {
     object as Map;
     final Map<String, dynamic> objectMap = {};
     object.forEach((k, v) => objectMap[k] = v);
-    return User.fromJson(objectMap);
+    return AppUser.fromJson(objectMap);
   }
 
-  static List<User> fromSnapshotChildren(Iterable<DataSnapshot> list) =>
+  static List<AppUser> fromSnapshotChildren(Iterable<DataSnapshot> list) =>
       // List.generate(list.length,
       //     (index) => Product.fromDataSnapshot(list.elementAt(index).value));
-      [for (DataSnapshot e in list) User.fromSnapshot(e.value)];
+      [for (DataSnapshot e in list) AppUser.fromSnapshot(e.value)];
 
-  static List<User> fromJsonList(List<Map<String, dynamic>> jsonList) =>
-      [for (Map<String, dynamic> e in jsonList) User.fromJson(e)];
-  static List<User> fromJsonListString(String listString) =>
-      [for (Map<String, dynamic> e in jsonDecode(listString)) User.fromJson(e)];
+  static List<AppUser> fromJsonList(List<Map<String, dynamic>> jsonList) =>
+      [for (Map<String, dynamic> e in jsonList) AppUser.fromJson(e)];
+  static List<AppUser> fromJsonListString(String listString) => [
+        for (Map<String, dynamic> e in jsonDecode(listString))
+          AppUser.fromJson(e)
+      ];
 
-  factory User.fromJsonString(String jsonString) =>
-      User.fromJson(jsonDecode(jsonString));
+  factory AppUser.fromJsonString(String jsonString) =>
+      AppUser.fromJson(jsonDecode(jsonString));
 
   String toJsonString() => jsonEncode(toJson());
 
-  static List<User> fromJsonStringList(List<String> list) =>
-      [for (String e in list) User.fromJsonString(e)];
+  static List<AppUser> fromJsonStringList(List<String> list) =>
+      [for (String e in list) AppUser.fromJsonString(e)];
 
-  static List<String> toJsonStringList(List<User> list) =>
-      [for (User e in list) e.toJsonString()];
+  static List<String> toJsonStringList(List<AppUser> list) =>
+      [for (AppUser e in list) e.toJsonString()];
 }

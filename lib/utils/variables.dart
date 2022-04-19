@@ -5,9 +5,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart' show Colors, Icons, ValueNotifier;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:food_shop/models/app_user.dart';
 import 'package:food_shop/models/order.dart';
 import 'package:food_shop/models/product.dart';
-import 'package:food_shop/models/user.dart';
 
 class Variables {
   Variables._();
@@ -24,7 +24,7 @@ class Variables {
   // static late final FirebaseDatabase dbRealtimeInstance;
   static final dbRealtime = FirebaseDatabase.instance;
   static final fbStorage = FirebaseStorage.instance;
-  static List<User> userList = [];
+  static List<AppUser> userList = [];
   static List<Order> orderList = [];
   static List<Product> productList = [];
   static final itemPriceList =

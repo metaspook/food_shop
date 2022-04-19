@@ -3,11 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/controllers/x_controller.dart';
+import 'package:food_shop/controllers/auth_controller.dart';
 import 'package:food_shop/customer_app/pages/sign_up.dart';
-import 'package:food_shop/utils/extension.dart';
-import 'package:food_shop/utils/methods.dart';
-import 'package:food_shop/utils/variables.dart';
 import 'package:food_shop/widgets/input_form.dart';
 
 class SignInPage extends StatefulWidget {
@@ -20,7 +17,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   File? _imageFile;
   String? _imageUrl;
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   final bool _isLoading = false;
   static const Base64Codec base64 = Base64Codec();
   bool isAuthenticated = false;
@@ -34,7 +31,7 @@ class _SignInPageState extends State<SignInPage> {
       ),
       body: SafeArea(
         child: Form(
-          key: _formKey,
+          key: formKey,
           child: Column(
             children: [
               ListView(
@@ -78,7 +75,9 @@ class _SignInPageState extends State<SignInPage> {
                     textScaleFactor: 1,
                   ),
                   ElevatedButton.icon(
-                    onPressed: _userSignIn,
+                    onPressed: () async => await AuthController.submitSignIn(
+                        context,
+                        formKey: formKey),
                     icon: const Icon(Icons.login),
                     label: const Text('Sign In'),
                   ),
@@ -90,54 +89,54 @@ class _SignInPageState extends State<SignInPage> {
       ),
     );
   }
-
-  Future<void> _userSignIn() async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        Methods.snackBar(context, 'Processing Data...');
-        // final dbRef =
-        //     await Variable.dbRealtime.ref("users").get().then((value) {
-        //   value.children;
-        // });
-        await Variables.dbRealtime
-            .ref("users")
-            .orderByChild("email")
-            .equalTo(XController.email.text)
-            .once()
-            .then((value) {
-          if (value.snapshot.value == null) {
-            Methods.snackBar(context, "Email doesn't exists!");
-          } else {
-            final matchedData = value.snapshot.value as Map;
-            for (Map e in matchedData.values) {
-              // isAuthenticated =
-              if (e["password"] == XController.password.text.hashCrypt) {
-                isAuthenticated = true;
-                return Methods.snackBar(context, "User authenticated.");
-              }
-              return Methods.snackBar(context, "Password doesn't match!");
-              // break;
-            }
-          }
-        });
-
-        //   .onValue
-        //   .listen((event) {
-        // Variable.counterList[status]!["count"] = event.snapshot.children.length;
-        // });
-        // await dbRef.set({
-        //   "id": dbRef.key,
-        //   "fullName": Controller.fullName.text,
-        //   "email": Controller.email.text,
-        //   "password": Controller.password.text.hashCrypt,
-        //   "phone": Controller.phone.text,
-        //   "address": Controller.address.text,
-        //   "image": _imageUrl,
-        // });
-        // Method.snackBar(context, 'Account Created!');
-      } catch (err) {
-        Methods.snackBar(context, err.toString());
-      }
-    }
-  }
 }
+//   Future<void> _userSignIn() async {
+//     if (_formKey.currentState!.validate()) {
+//       try {
+//         Methods.snackBar(context, 'Processing Data...');
+//         // final dbRef =
+//         //     await Variable.dbRealtime.ref("users").get().then((value) {
+//         //   value.children;
+//         // });
+//         await Variables.dbRealtime
+//             .ref("users")
+//             .orderByChild("email")
+//             .equalTo(XController.email.text)
+//             .once()
+//             .then((value) {
+//           if (value.snapshot.value == null) {
+//             Methods.snackBar(context, "Email doesn't exists!");
+//           } else {
+//             final matchedData = value.snapshot.value as Map;
+//             for (Map e in matchedData.values) {
+//               // isAuthenticated =
+//               if (e["password"] == XController.password.text.hashCrypt) {
+//                 isAuthenticated = true;
+//                 return Methods.snackBar(context, "User authenticated.");
+//               }
+//               return Methods.snackBar(context, "Password doesn't match!");
+//               // break;
+//             }
+//           }
+//         });
+
+//         //   .onValue
+//         //   .listen((event) {
+//         // Variable.counterList[status]!["count"] = event.snapshot.children.length;
+//         // });
+//         // await dbRef.set({
+//         //   "id": dbRef.key,
+//         //   "fullName": Controller.fullName.text,
+//         //   "email": Controller.email.text,
+//         //   "password": Controller.password.text.hashCrypt,
+//         //   "phone": Controller.phone.text,
+//         //   "address": Controller.address.text,
+//         //   "image": _imageUrl,
+//         // });
+//         // Method.snackBar(context, 'Account Created!');
+//       } catch (err) {
+//         Methods.snackBar(context, err.toString());
+//       }
+//     }
+//   }
+

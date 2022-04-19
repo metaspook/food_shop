@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/models/user.dart';
+import 'package:food_shop/models/app_user.dart';
 import 'package:food_shop/utils/variables.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -25,8 +25,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<User> userList =
-        User.fromJsonListString(Variables.prefsData["userList"]!);
+    List<AppUser> userList =
+        AppUser.fromJsonListString(Variables.prefsData["userList"]!);
     return Scaffold(
       appBar: AppBar(),
       body: ListView.builder(

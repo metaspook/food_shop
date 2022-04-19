@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/users_controller.dart';
 import 'package:food_shop/controllers/x_controller.dart';
-import 'package:food_shop/models/user.dart';
+import 'package:food_shop/models/app_user.dart';
 import 'package:provider/provider.dart';
 
 class UsersView extends StatelessWidget {
@@ -11,7 +11,7 @@ class UsersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final users = context.watch<List<User>?>();
+    final users = context.watch<List<AppUser>?>();
 
     return users == null
         ? const Center(child: CircularProgressIndicator.adaptive())

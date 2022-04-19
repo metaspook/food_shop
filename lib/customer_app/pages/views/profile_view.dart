@@ -11,9 +11,11 @@ class ProfileView extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         // shrinkWrap: true,
         // padding: const EdgeInsets.all(8),
         children: [
+          const SizedBox(height: 20),
           CircleAvatar(
             radius: 80,
             child: ClipOval(
@@ -28,58 +30,52 @@ class ProfileView extends StatelessWidget {
                 // errorWidget: (context, url, error) => const Icon(Icons.error_outline),
                 errorWidget: (context, url, error) =>
                     Image.asset("assets/images/placeholder_user_00.jpg"),
-                placeholder: (context, url) => Image.asset(
-                  "assets/images/placeholder_user_00.jpg",
-                  fit: BoxFit.fill,
-                ),
+                placeholder: (context, url) =>
+                    Image.asset("assets/images/placeholder_user_00.jpg"),
               ),
             ),
           ),
-          RichText(
-            text: TextSpan(
-              text: 'Name: ',
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary),
-              children: <TextSpan>[
-                TextSpan(
-                  text: "User Name Here",
-                  style: TextStyle(
-                      color: Colors.grey.shade600, fontWeight: FontWeight.bold),
+          const SizedBox(height: 20),
+          for (var e in {
+            "ID: ": "User Name Here",
+            "Full Name: ": "User Name Here",
+            "Email: ": "User Name Here",
+            "Password: ": "User Name Here",
+            "Phone: ": "User Name Here",
+            "Address: ": "User Name Here",
+          }.entries)
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15, right: 2.5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        text: e.key,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: e.value,
+                            style: TextStyle(
+                                color: Colors.grey.shade600,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                        icon: const Icon(Icons.edit, color: Colors.cyan),
+                        onPressed: () {}),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-          RichText(
-            text: TextSpan(
-              text: 'ID: ',
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary),
-              children: <TextSpan>[
-                TextSpan(
-                  text: "User Name Here",
-                  style: TextStyle(
-                      color: Colors.grey.shade600, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-          RichText(
-            text: TextSpan(
-              text: 'Phone: ',
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary),
-              children: <TextSpan>[
-                TextSpan(
-                  text: "User Name Here",
-                  style: TextStyle(
-                      color: Colors.grey.shade600, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );

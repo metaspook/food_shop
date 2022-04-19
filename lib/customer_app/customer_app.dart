@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart' show User;
 import 'package:flutter/material.dart';
-import 'package:food_shop/customer_app/pages/customer_page.dart';
+import 'package:food_shop/customer_app/pages/pages.dart';
+import 'package:provider/provider.dart';
 
 class CustomerApp extends StatelessWidget {
   /// Customer app is a Mobile (Android, iOS) app.
@@ -7,6 +9,7 @@ class CustomerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authUser = context.watch<User?>();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Food Shop',
@@ -24,7 +27,7 @@ class CustomerApp extends StatelessWidget {
       // },
       // home: const CartPage(title: 'Your Cart'),
       // home: StreamPage1(),
-      home: const CustomerPage(),
+      home: authUser != null ? const CustomerPage() : const SignInPage(),
       // home: const SignInPage(),
       // home: const SignUpPage(),
     );

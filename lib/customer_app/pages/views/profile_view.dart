@@ -33,8 +33,8 @@ class ProfileView extends StatelessWidget {
               child: CircleAvatar(
                 radius: 80,
                 child: CachedNetworkImage(
-                  httpHeaders: const {"Content-Type": "image/jpeg"},
-                  imageUrl: user.image ?? '',
+                  // httpHeaders: const {"Content-Type": "image/jpeg"},
+                  imageUrl: user.image,
                   imageBuilder: (context, imageProvider) => CircleAvatar(
                     radius: double.infinity,
                     backgroundImage: imageProvider,

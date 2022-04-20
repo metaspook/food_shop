@@ -6,9 +6,18 @@ class MyOrdersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        'My Orders',
-        style: Theme.of(context).textTheme.headline3,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'My Orders',
+            style: Theme.of(context).textTheme.headline3,
+          ),
+          Text(
+            "mysterious problem occurs..",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        ],
       ),
     );
   }

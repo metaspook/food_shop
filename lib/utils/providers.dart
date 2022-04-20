@@ -54,6 +54,14 @@ class Providers {
         throw (object.toString());
       },
     ),
+
+    StreamProvider<List<Order>?>.value(
+      value: Database.orders,
+      initialData: null,
+      catchError: (context, object) {
+        throw (object.toString());
+      },
+    ),
     FutureProvider<AppUser?>.value(
       value: Database.user(FirebaseAuth.instance.currentUser!.uid),
       initialData: null,

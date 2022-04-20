@@ -12,8 +12,8 @@ class Order {
   final String deliveryAddress;
   final String status;
   final num total;
-
   final List<CartProduct> cartProductList;
+
   Order({
     required this.id,
     required this.customerId,
@@ -42,13 +42,13 @@ class Order {
   // create model object from json object.
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
-      id: json["id"],
-      customerId: json["customerId"],
-      customerFullName: json["customerFullName"],
-      customerPhone: json["customerPhone"],
-      deliveryAddress: json["deliveryAddress"],
-      status: json["status"],
-      total: json["total"],
+      id: json["id"] ?? '',
+      customerId: json["customerId"] ?? '',
+      customerFullName: json["customerFullName"] ?? '',
+      customerPhone: json["customerPhone"] ?? '',
+      deliveryAddress: json["deliveryAddress"] ?? '',
+      status: json["status"] ?? '',
+      total: json["total"] ?? 0,
       cartProductList: [
         for (var e in json["cartProductList"]) CartProduct.fromJson(e)
       ],

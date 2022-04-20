@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:food_shop/admin_app/admin_app.dart';
 import 'package:food_shop/customer_app/customer_app.dart';
 import 'package:food_shop/firebase_options.dart';
-import 'package:food_shop/services/database.dart';
 import 'package:food_shop/utils/constants.dart';
 import 'package:food_shop/utils/providers.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +21,7 @@ Future<void> main() async {
     ));
   } else {
     await Firebase.initializeApp();
-    Database.dbRealtime.setPersistenceEnabled(true);
+    // Database.dbRealtime.setPersistenceEnabled(true);
     Constants.prefs = await SharedPreferences.getInstance();
     runApp(MultiProvider(
       providers: Providers.customerProviders,

@@ -124,7 +124,7 @@ class UsersView extends StatelessWidget {
                                   httpHeaders: const {
                                     "Content-Type": "image/jpeg"
                                   },
-                                  imageUrl: users[index].image ?? '',
+                                  imageUrl: users[index].image,
                                   progressIndicatorBuilder:
                                       (context, url, downloadProgress) =>
                                           LinearProgressIndicator(

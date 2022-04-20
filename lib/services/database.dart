@@ -30,4 +30,10 @@ class Database {
           (snap) => AppUser.fromSnapshot(snap.value),
         );
   }
+
+  static Future<Order> order(String orderId) {
+    return dbRealtime.ref("orders/$orderId").get().then<Order>(
+          (snap) => Order.fromSnapshot(snap.value),
+        );
+  }
 }

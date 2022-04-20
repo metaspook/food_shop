@@ -11,7 +11,7 @@ class AppUser {
     required this.password,
     required this.phone,
     required this.address,
-    this.image,
+    required this.image,
   });
 
   final String id;
@@ -20,18 +20,18 @@ class AppUser {
   final String password;
   final String phone;
   final String address;
-  final String? image;
+  final String image;
 
   // create model object from json object.
   factory AppUser.fromJson(Map<String, dynamic> json) {
     return AppUser(
-      id: json["id"],
-      fullName: json["fullName"],
-      email: json["email"],
-      password: json["password"],
-      phone: json["phone"],
-      address: json["address"],
-      image: json["image"],
+      id: json["id"] ?? '',
+      fullName: json["fullName"] ?? '',
+      email: json["email"] ?? '',
+      password: json["password"] ?? '',
+      phone: json["phone"] ?? '',
+      address: json["address"] ?? '',
+      image: json['image'] ?? '',
     );
   }
 

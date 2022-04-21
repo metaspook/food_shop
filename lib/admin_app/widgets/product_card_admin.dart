@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_shop/controllers/products_controller_admin.dart';
-import 'package:food_shop/widgets/input_form.dart';
+import 'package:food_shop/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class ProductCardAdmin extends StatelessWidget {

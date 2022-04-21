@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:food_shop/services/database.dart';
 import 'package:food_shop/utils/constants.dart';
 import 'package:food_shop/utils/extension.dart';
-import 'package:food_shop/utils/variables.dart';
 
 class FakeUploader extends StatefulWidget {
   const FakeUploader({Key? key}) : super(key: key);
@@ -122,7 +121,7 @@ void _uploadUser() {
   ];
 
   for (Map<String, String> e in userList) {
-    final userRef = Variables.dbRealtime.ref("users").push();
+    final userRef = Database.dbRealtime.ref("users").push();
     e.update("id", (value) => userRef.key!);
     userRef.set(e);
   }
@@ -1006,7 +1005,7 @@ void _uploadProduct() {
   ];
 
   for (Map<String, dynamic> e in productList) {
-    final productRef = Variables.dbRealtime.ref("products").push();
+    final productRef = Database.dbRealtime.ref("products").push();
     // final List<Map<String, dynamic>> cartItemList = e["cartItemList"];
     e.update("id", (value) => productRef.key);
     e.update(

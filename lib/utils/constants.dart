@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart' show Colors, Icon, Widget;
+import 'package:flutter/material.dart' show Colors, Icon, Icons, Widget;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -133,26 +133,49 @@ class Constants {
     5.25
   ];
 
-  static const statusElements = <String, Map<String, dynamic>>{
+  static final statusElements = <String, Map<String, dynamic>>{
     "Confirmed": {
       "icon": FontAwesomeIcons.solidHandshake,
       "color": Colors.blue,
+      "count": 0,
     },
     "Canceled": {
       "icon": FontAwesomeIcons.solidTimesCircle,
       "color": Colors.red,
+      "count": 0,
     },
     "Delivery": {
       "icon": FontAwesomeIcons.shippingFast,
       "color": Colors.purple,
+      "count": 0,
     },
     "Pending": {
       "icon": FontAwesomeIcons.infoCircle,
       "color": Colors.orange,
+      "count": 0,
     },
     "Received": {
       "icon": FontAwesomeIcons.solidCheckCircle,
       "color": Colors.green,
+      "count": 0,
+    },
+  };
+
+  static final mainBoardElements = <String, Map<String, dynamic>>{
+    "Users": {
+      "icon": Icons.supervised_user_circle_sharp,
+      "color": Colors.pink,
+      "count": 0,
+    },
+    "Orders": {
+      "icon": Icons.file_copy,
+      "color": Colors.pink,
+      "count": 0,
+    },
+    "Products": {
+      "icon": Icons.shopping_bag_rounded,
+      "color": Colors.pink,
+      "count": 0,
     },
   };
 

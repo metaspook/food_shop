@@ -17,6 +17,14 @@ class Providers {
         throw (object.toString());
       },
     ),
+    // StreamProvider<List<Order>?>.value(
+    //   value: Database.ordersByStatus("Pending"),
+    //   initialData: null,
+    //   catchError: (context, object) {
+    //     throw (object.toString());
+    //   },
+    //   child: const DashboardView(),
+    // ),
     StreamProvider<List<AppUser>?>.value(
       value: Database.users,
       initialData: null,

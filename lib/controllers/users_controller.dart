@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:food_shop/controllers/x_controller.dart';
 import 'package:food_shop/services/database.dart';
@@ -10,7 +11,7 @@ class UsersController {
   factory UsersController() => UsersController._();
   static Future<void> remove(String userId) async {
     await Database.dbRealtime.ref("users/$userId").remove();
-    await Variables.fbStorage.ref("images/users/$userId.jpg").delete();
+    await FirebaseStorage.instance.ref("images/users/$userId.jpg").delete();
   }
 
   static Future<void> signUp(BuildContext context,
@@ -22,7 +23,7 @@ class UsersController {
         String? imageUrl;
         if (imageFile != null) {
           final storageRef =
-              Variables.fbStorage.ref("images/users/${dbRefPush.key}.jpg");
+              FirebaseStorage.instance.ref("images/users/${dbRefPush.key}.jpg");
           await storageRef.putFile(imageFile);
           imageUrl = await storageRef.getDownloadURL();
         }

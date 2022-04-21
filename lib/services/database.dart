@@ -43,7 +43,18 @@ class Database {
         .orderByChild("customerId")
         .equalTo(userId)
         .onValue
-        .map(
+        .map<List<Order>>(
+          (event) => Order.fromSnapshotChildren(event.snapshot.children),
+        );
+  }
+
+  static Stream<List<Order>> ordersByStatus(String status) {
+    return dbRealtime
+        .ref("orders")
+        .orderByChild("status")
+        .equalTo(status)
+        .onValue
+        .map<List<Order>>(
           (event) => Order.fromSnapshotChildren(event.snapshot.children),
         );
   }

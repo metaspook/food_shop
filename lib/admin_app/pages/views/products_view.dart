@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/admin_app/widgets/product_card_admin.dart';
-import 'package:food_shop/controllers/x_controller.dart';
+import 'package:food_shop/controllers/controllers.dart';
 import 'package:food_shop/models/product.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +10,6 @@ class ProductsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final products = context.watch<List<Product>?>();
-    print(products);
     final size = MediaQuery.of(context).size;
     if (products != null) {
       if (products.isEmpty) {
@@ -21,6 +20,7 @@ class ProductsView extends StatelessWidget {
           ),
         );
       }
+      ProductsController.initCardAdmin(products.length);
       return Center(
         child: GridView.builder(
           padding: const EdgeInsets.all(8),

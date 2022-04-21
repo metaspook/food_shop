@@ -36,4 +36,15 @@ class Database {
           (snap) => Order.fromSnapshot(snap.value),
         );
   }
+
+  static Stream<List<Order>> ordersByUser(String userId) {
+    return dbRealtime
+        .ref("orders")
+        .orderByChild("customerId")
+        .equalTo(userId)
+        .onValue
+        .map(
+          (event) => Order.fromSnapshotChildren(event.snapshot.children),
+        );
+  }
 }

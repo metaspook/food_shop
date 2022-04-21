@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/models.dart';
+import 'package:food_shop/services/database.dart';
 import 'package:food_shop/services/services.dart';
 import 'package:food_shop/utils/utils.dart';
 
@@ -66,16 +68,19 @@ class CartController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> makeOrder(BuildContext context) async {
+  Future<void> makeOrder(BuildContext context,
+      {String? deliveryAddress}) async {
     try {
+      final customer =
+          await Database.user(FirebaseAuth.instance.currentUser!.uid);
       Methods.snackBar(context, 'Processing Data...');
       final dbRefPush = Database.dbRealtime.ref("orders").push();
       await dbRefPush.set({
         "cartProductList": [for (String e in _cartProducts) jsonDecode(e)],
-        "customerFullName": "Lucinda Curry",
-        "customerId": "-My3v8wHLGHpsFkmPUHn",
-        "customerPhone": "518-810-8257",
-        "deliveryAddress": "1873 Pasolo Boulevard",
+        "customerFullName": customer.fullName,
+        "customerId": customer.id,
+        "customerPhone": customer.phone,
+        "deliveryAddress": deliveryAddress ?? customer.address,
         "id": dbRefPush.key,
         "status": "Pending",
         "total": totalPrice,

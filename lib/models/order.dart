@@ -25,20 +25,6 @@ class Order {
     required this.cartProductList,
   });
 
-  // Order copyWith({
-  //   String? id,
-  //   String? userId,
-  //   String? status,
-  //   List<CartItem>? cartProductList,
-  // }) {
-  //   return Order(
-  //     id: id ?? this.id,
-  //     userId: userId ?? this.userId,
-  //     status: status ?? this.status,
-  //     cartProductList: cartProductList ?? this.cartProductList,
-  //   );
-  // }
-
   // create model object from json object.
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
@@ -50,7 +36,7 @@ class Order {
       status: json["status"] ?? '',
       total: json["total"] ?? 0,
       cartProductList: [
-        for (var e in json["cartProductList"]) CartProduct.fromJson(e)
+        for (var e in json["cartProductList"]) CartProduct.fromSnapshot(e)
       ],
     );
   }
@@ -70,15 +56,12 @@ class Order {
   }
 
   factory Order.fromSnapshot(Object? object) {
-    object as Map;
     final Map<String, dynamic> objectMap = {};
-    object.forEach((k, v) => objectMap[k] = v);
+    (object as Map).forEach((k, v) => objectMap[k] = v);
     return Order.fromJson(objectMap);
   }
 
   static List<Order> fromSnapshotChildren(Iterable<DataSnapshot> list) =>
-      // List.generate(list.length,
-      //     (index) => Product.fromDataSnapshot(list.elementAt(index).value));
       [for (DataSnapshot e in list) Order.fromSnapshot(e.value)];
 
   // get total price of an order.

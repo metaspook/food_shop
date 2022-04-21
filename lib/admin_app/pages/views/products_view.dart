@@ -9,8 +9,9 @@ class ProductsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     final products = context.watch<List<Product>?>();
+    print(products);
+    final size = MediaQuery.of(context).size;
     if (products != null) {
       if (products.isEmpty) {
         return Center(

@@ -17,33 +17,16 @@ class CartProduct {
     required this.subTotal,
   });
 
-  CartProduct copyWith({
-    String? productId,
-    String? productImage,
-    String? productName,
-    int? quantity,
-    num? unitPrice,
-    num? subTotal,
-  }) {
-    return CartProduct(
-      productId: productId ?? this.productId,
-      productImage: productImage ?? this.productImage,
-      productName: productName ?? this.productName,
-      quantity: quantity ?? this.quantity,
-      unitPrice: unitPrice ?? this.unitPrice,
-      subTotal: subTotal ?? this.subTotal,
-    );
-  }
-
   // create model object from json object.
   factory CartProduct.fromJson(Map<String, dynamic> json) {
     return CartProduct(
-        productId: json["productId"],
-        productImage: json["productImage"],
-        productName: json["productName"],
-        quantity: json["quantity"],
-        unitPrice: json["unitPrice"],
-        subTotal: json["subTotal"]);
+      productId: json["productId"] ?? '',
+      productImage: json["productImage"] ?? '',
+      productName: json["productName"] ?? '',
+      quantity: json["quantity"] ?? 0,
+      unitPrice: json["unitPrice"] ?? 0,
+      subTotal: json["subTotal"] ?? 0,
+    );
   }
 
   // create json object from model object.
@@ -60,6 +43,12 @@ class CartProduct {
 
   // get subtotal of a cart items.
   // num get getSubTotal => quantity * unitPrice;
+
+  factory CartProduct.fromSnapshot(Object? object) {
+    final objectMap = <String, dynamic>{};
+    (object as Map).forEach((k, v) => objectMap[k] = v);
+    return CartProduct.fromJson(objectMap);
+  }
 
   static List<CartProduct> fromJsonList(List<Map<String, dynamic>> jsonList) =>
       [for (Map<String, dynamic> e in jsonList) CartProduct.fromJson(e)];

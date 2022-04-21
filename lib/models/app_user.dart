@@ -49,15 +49,12 @@ class AppUser {
   }
 
   factory AppUser.fromSnapshot(Object? object) {
-    object as Map;
     final Map<String, dynamic> objectMap = {};
-    object.forEach((k, v) => objectMap[k] = v);
+    (object as Map).forEach((k, v) => objectMap[k] = v);
     return AppUser.fromJson(objectMap);
   }
 
   static List<AppUser> fromSnapshotChildren(Iterable<DataSnapshot> list) =>
-      // List.generate(list.length,
-      //     (index) => Product.fromDataSnapshot(list.elementAt(index).value));
       [for (DataSnapshot e in list) AppUser.fromSnapshot(e.value)];
 
   static List<AppUser> fromJsonList(List<Map<String, dynamic>> jsonList) =>

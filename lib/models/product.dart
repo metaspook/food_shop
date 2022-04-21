@@ -21,17 +21,16 @@ class Product {
   // create model object from json object.
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'] ?? '',
-      price: json['price'] ?? 0,
-      stock: json['stock'] ?? 0,
-      name: json['name'] ?? '',
-      image: json['image'] ?? '',
-      // stock: json['stock']?.toInt() ?? 0,
-      // id: json['id'],
-      // name: json['name'],
-      // image: json['image'],
-      // price: json['price'],
-      // stock: json['stock'],
+      id: json['id'],
+      name: json['name'],
+      image: json['image'],
+      price: json['price'],
+      stock: json['stock'],
+      // id: json['id'] ?? '',
+      // name: json['name'] ?? '',
+      // image: json['image'] ?? '',
+      // price: json['price'] ?? 0,
+      // stock: json['stock'] ?? 0,
     );
   }
 
@@ -47,15 +46,12 @@ class Product {
   }
 
   factory Product.fromSnapshot(Object? object) {
-    object as Map;
     final Map<String, dynamic> objectMap = {};
-    object.forEach((k, v) => objectMap[k] = v);
+    (object as Map).forEach((k, v) => objectMap[k] = v);
     return Product.fromJson(objectMap);
   }
 
   static List<Product> fromSnapshotChildren(Iterable<DataSnapshot> list) =>
-      // List.generate(list.length,
-      //     (index) => Product.fromDataSnapshot(list.elementAt(index).value));
       [for (DataSnapshot e in list) Product.fromSnapshot(e.value)];
 
   factory Product.fromJsonString(String jsonString) =>

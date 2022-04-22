@@ -1,6 +1,6 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/admin_app/pages/views/fake_uploader.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_shop/admin_app/pages/views/views.dart';
 import 'package:food_shop/controllers/x_controller.dart';
 
@@ -68,65 +68,33 @@ class _AdminPageState extends State<AdminPage> {
             items: [
               SideMenuItem(
                 priority: 0,
-                title: 'Products',
-                onTap: () {
-                  XController.page.jumpToPage(0);
-                },
-                icon: Icons.home,
-              ),
-              SideMenuItem(
-                priority: 7,
                 title: 'Dashboard',
-                onTap: () {
-                  XController.page.jumpToPage(7);
-                },
+                onTap: () => XController.page.jumpToPage(0),
                 icon: Icons.home,
               ),
               SideMenuItem(
                 priority: 1,
                 title: 'Orders',
-                onTap: () {
-                  XController.page.jumpToPage(1);
-                },
+                onTap: () => XController.page.jumpToPage(1),
                 icon: Icons.file_copy_rounded,
               ),
               SideMenuItem(
                 priority: 2,
-                title: 'Users',
-                onTap: () {
-                  XController.page.jumpToPage(2);
-                },
-                icon: Icons.supervisor_account,
+                title: 'Products',
+                onTap: () => XController.page.jumpToPage(2),
+                icon: FontAwesomeIcons.utensils,
               ),
               SideMenuItem(
                 priority: 3,
-                title: 'Fake Uploader',
-                onTap: () {
-                  XController.page.jumpToPage(3);
-                },
-                icon: Icons.settings,
+                title: 'Users',
+                onTap: () => XController.page.jumpToPage(3),
+                icon: Icons.supervisor_account,
               ),
               SideMenuItem(
                 priority: 4,
-                title: 'Download',
-                onTap: () {
-                  XController.page.jumpToPage(4);
-                },
-                icon: Icons.download,
-              ),
-              SideMenuItem(
-                priority: 5,
                 title: 'Settings',
-                onTap: () {
-                  XController.page.jumpToPage(5);
-                },
+                onTap: () => XController.page.jumpToPage(4),
                 icon: Icons.settings,
-              ),
-              SideMenuItem(
-                priority: 6,
-                title: 'Exit',
-                onTap: () async {},
-                icon: Icons.exit_to_app,
               ),
             ],
           ),
@@ -152,13 +120,11 @@ class _AdminPageState extends State<AdminPage> {
                   child: PageView(
                     controller: XController.page,
                     children: const [
-                      ProductsView(),
-                      OrdersView(),
-                      UsersView(),
-                      FakeUploader(),
-                      DownloadsView(),
-                      SettingsView(),
                       DashboardView(),
+                      OrdersView(),
+                      ProductsView(),
+                      UsersView(),
+                      SettingsView(),
                     ],
                   ),
                 ),

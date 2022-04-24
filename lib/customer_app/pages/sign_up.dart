@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/auth_controller.dart';
 import 'package:food_shop/controllers/x_controller.dart';
-import 'package:food_shop/utils/methods.dart';
+import 'package:food_shop/services/services.dart';
 import 'package:food_shop/utils/validator.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -93,15 +93,17 @@ class _SignUpPageState extends State<SignUpPage> {
                                 children: [
                                   ElevatedButton.icon(
                                     onPressed: () async =>
-                                        await AuthController.pickCameraImage(
-                                            context),
+                                        AuthController.setImageFile(
+                                            await Methods.pickCameraImage(
+                                                context)),
                                     icon: const Icon(Icons.camera),
                                     label: const Text('Camera'),
                                   ),
                                   ElevatedButton.icon(
                                     onPressed: () async =>
-                                        await AuthController.pickGalleryImage(
-                                            context),
+                                        AuthController.setImageFile(
+                                            await Methods.pickGalleryImage(
+                                                context)),
                                     icon: const Icon(Icons.image),
                                     label: const Text('Gallery'),
                                   ),

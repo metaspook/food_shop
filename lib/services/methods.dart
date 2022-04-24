@@ -1,9 +1,43 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:food_shop/controllers/controllers.dart';
 import 'package:food_shop/widgets/widgets.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Methods {
   Methods._();
+
+  static Future<File?> pickCameraImage(BuildContext context) async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+      maxHeight: 1080,
+      maxWidth: 1080,
+    );
+    Methods.navPop(context);
+    return await cropImage(pickedFile!.path);
+  }
+
+  static Future<File?> pickGalleryImage(BuildContext context) async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxHeight: 1080,
+      maxWidth: 1080,
+    );
+    Methods.navPop(context);
+    return await cropImage(pickedFile!.path);
+  }
+
+  static Future<File?> cropImage(String path) async {
+    return await ImageCropper().cropImage(
+      sourcePath: path,
+      maxHeight: 1080,
+      maxWidth: 1080,
+    );
+  }
+
   static Map<String, dynamic> objectToMap(Object? obj) {
     obj as Map;
     final Map<String, dynamic> objMap = {};
@@ -21,6 +55,62 @@ class Methods {
 
   static void navPop(BuildContext context) {
     if (Navigator.canPop(context)) Navigator.pop(context);
+  }
+
+  static void signUpImagePickerDialog(BuildContext context) {
+    customDialog(
+      context: context,
+      title: const Text('Please choose an option'),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisSize: MainAxisSize.min,
+        children: [
+          ElevatedButton.icon(
+            onPressed: () async =>
+                AuthController.setImageFile(await pickCameraImage(context)),
+            icon: const Icon(Icons.camera),
+            label: const Text('Camera'),
+          ),
+          ElevatedButton.icon(
+            onPressed: () async =>
+                AuthController.setImageFile(await pickGalleryImage(context)),
+            icon: const Icon(Icons.image),
+            label: const Text('Gallery'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static void orderDeleteDialog(BuildContext context, String orderId) {
+    customDialogText(
+      title: '⚠️  Caution!',
+      subtitle: 'Do you want to delete this Order?',
+      context: context,
+      primaryButtonText: 'Cancel',
+      primaryButtonFunction: () => Methods.navPop(context),
+      secondaryButtonText: 'Confirm',
+      secondaryButtonFunction: () {
+        Methods.navPop(context);
+        OrdersController.remove(orderId);
+        Methods.navPop(context);
+      },
+    );
+  }
+
+  static void userDeleteDialog(BuildContext context, String userId) {
+    customDialogText(
+      title: '⚠️  Caution!',
+      subtitle: 'Do you want to delete this User?',
+      context: context,
+      primaryButtonText: 'Cancel',
+      primaryButtonFunction: () => Methods.navPop(context),
+      secondaryButtonText: 'Confirm',
+      secondaryButtonFunction: () {
+        UsersController.remove(userId);
+        Methods.navPop(context);
+      },
+    );
   }
 
   // customDialog 2022-02-15
@@ -116,28 +206,4 @@ class Methods {
 
   static Future<SharedPreferences> get prefs async =>
       await SharedPreferences.getInstance();
-
-  // static void initPrefsData() async {
-  //   await Constant.prefsCrypt.getString(key).then((value) {
-  //     Constant.prefsData = value;
-  //   });
-  // }
-
-  /// Load data on "Constant.prefsData" global variable.
-  // static void loadPrefsData(String key) async {
-  //   Variable.prefsData[key] = await Variable.prefsCrypt.getString(key);
-  // }
-
-  // static void setPrefsData(String key, String value) {
-  //   Variable.prefsData[key] = value;
-  //   Variable.prefsCrypt.setString(key, value);
-  // }
-
-  // static String base64Encode(String str) {
-  //   return base64.encode(utf8.encode('I like dogs'));
-  // }
-
-  // static String base64Decode() {
-
-  // }
 }

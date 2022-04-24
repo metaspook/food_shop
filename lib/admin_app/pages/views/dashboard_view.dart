@@ -38,8 +38,8 @@ class _DashboardViewState extends State<DashboardView> {
       }
       // Main board counts from stream.
       Constants.mainBoardElements["Users"]!["count"] = users.length;
-      Constants.mainBoardElements["Orders"]!["count"] = products.length;
-      Constants.mainBoardElements["Products"]!["count"] = orders.length;
+      Constants.mainBoardElements["Orders"]!["count"] = orders.length;
+      Constants.mainBoardElements["Products"]!["count"] = products.length;
       return Container(
         color: Colors.white,
         child: Center(

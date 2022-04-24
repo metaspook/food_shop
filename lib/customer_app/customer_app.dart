@@ -27,7 +27,8 @@ class CustomerApp extends StatelessWidget {
       // },
       // home: const CartPage(title: 'Your Cart'),
       // home: StreamPage1(),
-      home: authUser != null ? const CustomerPage() : const SignInPage(),
+      home: const SearchList(),
+      // home: authUser != null ? const CustomerPage() : const SignInPage(),
       // home: const SignInPage(),
       // home: const SignUpPage(),
     );

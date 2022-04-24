@@ -25,11 +25,16 @@ class Database {
         );
   }
 
-  static Future<AppUser> user(String userId) {
-    return dbRealtime.ref("users/$userId").get().then<AppUser>(
-          (snap) => AppUser.fromSnapshot(snap.value),
+  static Stream<AppUser?> user(String userId) {
+    return dbRealtime.ref("users/$userId").onValue.map<AppUser?>(
+          (event) => AppUser.fromSnapshot(event.snapshot.value),
         );
   }
+  // static Future<AppUser> user(String userId) {
+  //   return dbRealtime.ref("users/$userId").get().then<AppUser>(
+  //         (snap) => AppUser.fromSnapshot(snap.value),
+  //       );
+  // }
 
   static Future<Order> order(String orderId) {
     return dbRealtime.ref("orders/$orderId").get().then<Order>(

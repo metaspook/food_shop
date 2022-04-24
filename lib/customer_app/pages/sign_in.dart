@@ -32,8 +32,8 @@ class _SignInPageState extends State<SignInPage> {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 itemExtent: 75,
                 children: [
-                  InputForm.email,
-                  InputForm.password,
+                  InputForm.email(),
+                  InputForm.password(),
                 ],
               ),
               Row(

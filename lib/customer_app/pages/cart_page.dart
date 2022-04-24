@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/cart_controller.dart';
 import 'package:food_shop/customer_app/widgets/widgets.dart';
-import 'package:food_shop/utils/methods.dart';
+import 'package:food_shop/services/services.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {

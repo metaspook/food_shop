@@ -1,6 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/controllers/controllers.dart';
+import 'package:food_shop/customer_app/widgets/profile_field.dart';
 import 'package:food_shop/models/models.dart';
+import 'package:food_shop/services/services.dart';
+import 'package:food_shop/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class ProfileView extends StatelessWidget {
@@ -9,93 +13,153 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<AppUser?>();
+    // final editModePicture = context.watch<ProfileController>().editModePicture
     if (user != null) {
+      final profileElements = <String, Map<String, dynamic>>{
+        "Name: ": {
+          "value": user.fullName,
+          "editField": InputForm.fullName(user.fullName)
+        },
+        "Email: ": {
+          "value": user.email,
+          "editField": InputForm.email(user.email)
+        },
+        "Phone: ": {
+          "value": user.phone,
+          "editField": InputForm.phone(user.phone)
+        },
+        "Address: ": {
+          "value": user.address,
+          "editField": InputForm.address(user.address)
+        }
+      };
       return SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           // shrinkWrap: true,
           // padding: const EdgeInsets.all(8),
           children: [
-            const SizedBox(height: 20),
+            Align(
+              alignment: Alignment.centerRight,
+              child: context.watch<ProfileController>().editModePicture
+                  ? IconButton(
+                      tooltip: 'Done',
+                      icon: const Icon(Icons.check_circle_outline_rounded,
+                          color: Colors.cyan),
+                      onPressed: () => context
+                          .read<ProfileController>()
+                          .editModePictureOff(user.id),
+                    )
+                  : IconButton(
+                      tooltip: 'Edit',
+                      icon: const Icon(Icons.edit, color: Colors.cyan),
+                      onPressed: () {
+                        Methods.customDialog(
+                          context: context,
+                          title: const Text('Please choose an option'),
+                          subtitle: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            // mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ElevatedButton.icon(
+                                onPressed: () async => context
+                                    .read<ProfileController>()
+                                    .setImageFile(
+                                        await Methods.pickCameraImage(context)),
+                                icon: const Icon(Icons.camera),
+                                label: const Text('Camera'),
+                              ),
+                              ElevatedButton.icon(
+                                onPressed: () async => context
+                                    .read<ProfileController>()
+                                    .setImageFile(
+                                        await Methods.pickGalleryImage(
+                                            context)),
+                                icon: const Icon(Icons.image),
+                                label: const Text('Gallery'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+            ),
             Container(
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.75),
-                    blurRadius: 5,
+                    color: Colors.black.withOpacity(.6),
+                    blurRadius: 6,
                     spreadRadius: 5,
-                  )
+                  ),
                 ],
                 shape: BoxShape.circle,
               ),
               child: CircleAvatar(
                 radius: 80,
-                child: CachedNetworkImage(
-                  // httpHeaders: const {"Content-Type": "image/jpeg"},
-                  imageUrl: user.image,
-                  imageBuilder: (context, imageProvider) => CircleAvatar(
-                    radius: double.infinity,
-                    backgroundImage: imageProvider,
-                  ),
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      CircularProgressIndicator(
-                          value: downloadProgress.progress),
-                  errorWidget: (context, url, error) => ClipOval(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Image.asset("assets/images/placeholder_user_00.jpg"),
-                        const Icon(
-                          Icons.error_outline,
-                          color: Colors.black54,
+                backgroundImage: context.watch<ProfileController>().imageFile ==
+                        null
+                    ? null
+                    : FileImage(context.watch<ProfileController>().imageFile!),
+                child: context.watch<ProfileController>().imageFile != null
+                    ? null
+                    : CachedNetworkImage(
+                        // httpHeaders: const {"Content-Type": "image/jpeg"},
+                        imageUrl: user.image,
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                          radius: double.infinity,
+                          backgroundImage: imageProvider,
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-            for (var e in {
-              "Full Name: ": user.fullName,
-              "Email: ": user.email,
-              "Phone: ": user.phone,
-              "Address: ": user.address,
-            }.entries) ...[
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 2.5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          text: e.key,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.primary),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: e.value,
-                              style: TextStyle(
-                                  color: Colors.grey.shade600,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) =>
+                                CircularProgressIndicator(
+                                    value: downloadProgress.progress),
+                        errorWidget: (context, url, error) => ClipOval(
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Image.asset(
+                                  "assets/images/placeholder_user_00.jpg"),
+                              const Icon(
+                                Icons.error_outline,
+                                color: Colors.black54,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      IconButton(
-                          icon: const Icon(Icons.edit, color: Colors.cyan),
-                          onPressed: () {}),
-                    ],
-                  ),
-                ),
               ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: context.watch<ProfileController>().editModeField
+                  ? IconButton(
+                      tooltip: 'Done',
+                      icon: const Icon(Icons.check_circle_outline_rounded,
+                          color: Colors.cyan),
+                      onPressed: () => context
+                          .read<ProfileController>()
+                          .editModeFieldOff(user.id),
+                    )
+                  : IconButton(
+                      tooltip: 'Edit',
+                      icon: const Icon(Icons.edit, color: Colors.cyan),
+                      onPressed: () =>
+                          context.read<ProfileController>().editModeFieldOn(),
+                    ),
+            ),
+            for (int i = 0; i < profileElements.entries.length; i++) ...[
+              context.watch<ProfileController>().editModeField
+                  ? profileElements.values.elementAt(i)["editField"]
+                  : Card(
+                      elevation: 5,
+                      child: ProfileField(
+                        title: profileElements.keys.elementAt(i),
+                        subtitle: profileElements.values.elementAt(i)["value"],
+                      ),
+                    ),
               const SizedBox(height: 15),
             ]
           ],

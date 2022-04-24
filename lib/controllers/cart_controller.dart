@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/models.dart';
-import 'package:food_shop/services/database.dart';
 import 'package:food_shop/services/services.dart';
 import 'package:food_shop/utils/utils.dart';
 
@@ -71,23 +70,28 @@ class CartController extends ChangeNotifier {
   Future<void> makeOrder(BuildContext context,
       {String? deliveryAddress}) async {
     try {
-      final customer =
-          await Database.user(FirebaseAuth.instance.currentUser!.uid);
-      Methods.snackBar(context, 'Processing Data...');
-      final dbRefPush = Database.dbRealtime.ref("orders").push();
-      await dbRefPush.set({
-        "cartProductList": [for (String e in _cartProducts) jsonDecode(e)],
-        "customerFullName": customer.fullName,
-        "customerId": customer.id,
-        "customerPhone": customer.phone,
-        "deliveryAddress": deliveryAddress ?? customer.address,
-        "id": dbRefPush.key,
-        "status": "Pending",
-        "total": totalPrice,
+      AppUser? customer;
+      Database.user(FirebaseAuth.instance.currentUser!.uid)
+          .listen((event) async {
+        Methods.snackBar(context, 'Processing Data...');
+        if (event != null) {
+          customer = event;
+          final dbRefPush = Database.dbRealtime.ref("orders").push();
+          await dbRefPush.set({
+            "cartProductList": [for (String e in _cartProducts) jsonDecode(e)],
+            "customerFullName": customer!.fullName,
+            "customerId": customer!.id,
+            "customerPhone": customer!.phone,
+            "deliveryAddress": deliveryAddress ?? customer!.address,
+            "id": dbRefPush.key,
+            "status": "Pending",
+            "total": totalPrice,
+          });
+          Methods.navPop(context);
+          await removeCart();
+          Methods.snackBar(context, 'Order Placed!');
+        }
       });
-      await removeCart();
-      Methods.snackBar(context, 'Order Placed!');
-      Methods.navPop(context);
     } catch (err) {
       Methods.snackBar(context, err.toString());
     }

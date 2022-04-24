@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_shop/admin_app/widgets/order_detail_card.dart';
 import 'package:food_shop/admin_app/widgets/order_table.dart';
 import 'package:food_shop/models/models.dart';
-import 'package:food_shop/utils/methods.dart';
+import 'package:food_shop/services/services.dart';
 import 'package:provider/provider.dart';
 
 class OrderPage extends StatelessWidget {
@@ -21,9 +21,7 @@ class OrderPage extends StatelessWidget {
               centerTitle: true,
               title: const Text('Order Page'),
               leading: IconButton(
-                onPressed: () {
-                  if (Navigator.canPop(context)) Navigator.pop(context, true);
-                },
+                onPressed: () => Methods.navPop(context),
                 icon: Icon(
                   Icons.arrow_back_rounded,
                   color: Theme.of(context).scaffoldBackgroundColor,
@@ -31,39 +29,7 @@ class OrderPage extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {
-                    Methods.customDialogText(
-                      title: '⚠️ Caution!',
-                      subtitle: 'Do you want to delete this cart?',
-                      context: context,
-                      primaryButtonText: 'Cancel',
-                      primaryButtonFunction: () {
-                        if (Navigator.canPop(context)) {
-                          Navigator.pop(context);
-                        }
-                      },
-                      secondaryButtonText: 'Confirm',
-                      secondaryButtonFunction: () {
-                        if (Navigator.canPop(context)) {
-                          Navigator.pop(context);
-                        }
-
-                        // setState(() {
-                        //   // if (Navigator.canPop(context)) {
-                        //   // int count = 0;
-                        //   // Navigator.of(context).popUntil((_) => count++ >= 2);
-                        //   Method.prefs.then((db) => db.clear());
-                        //   _cartItemList.clear();
-                        //   _cartItemPriceList.clear();
-                        //   // }
-                        // });
-                        if (Navigator.canPop(context)) {
-                          Navigator.pop(context, true);
-                        }
-                        // Navigator.pop(context, true);
-                      },
-                    );
-                  },
+                  onPressed: () => Methods.orderDeleteDialog(context, order.id),
                   icon: Icon(
                     CupertinoIcons.delete,
                     color: Theme.of(context).scaffoldBackgroundColor,

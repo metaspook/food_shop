@@ -48,6 +48,7 @@ class Providers {
   static final customerProviders = [
     ChangeNotifierProvider(create: (_) => CartController()),
     ChangeNotifierProvider(create: (_) => BottomNavController()),
+    ChangeNotifierProvider(create: (_) => ProfileController()),
     StreamProvider<User?>.value(
       value: FirebaseAuth.instance.authStateChanges(),
       initialData: null,
@@ -63,7 +64,7 @@ class Providers {
       },
     ),
 
-    FutureProvider<AppUser?>.value(
+    StreamProvider<AppUser?>.value(
       value: Database.user(FirebaseAuth.instance.currentUser!.uid),
       initialData: null,
       catchError: (context, object) {

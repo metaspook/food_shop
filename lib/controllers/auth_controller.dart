@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/controllers.dart';
 import 'package:food_shop/services/services.dart';
 import 'package:food_shop/utils/utils.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 
 class AuthController {
   AuthController._();
@@ -16,6 +14,7 @@ class AuthController {
   static File? _imageFile;
   static late String _imageUrl;
   static File? get imageFile => _imageFile;
+  static void setImageFile(File? imageFile) => _imageFile = imageFile;
 
   static Future<void> signOut(BuildContext context) async {
     try {
@@ -117,33 +116,5 @@ class AuthController {
         Methods.snackBar(context, err.toString());
       }
     }
-  }
-
-  static Future<void> pickCameraImage(BuildContext context) async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.camera,
-      maxHeight: 1080,
-      maxWidth: 1080,
-    );
-    _cropImage(pickedFile!.path);
-    Methods.navPop(context);
-  }
-
-  static Future<void> pickGalleryImage(BuildContext context) async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-      maxHeight: 1080,
-      maxWidth: 1080,
-    );
-    _cropImage(pickedFile!.path);
-    Methods.navPop(context);
-  }
-
-  static Future<void> _cropImage(String path) async {
-    _imageFile = await ImageCropper().cropImage(
-      sourcePath: path,
-      maxHeight: 1080,
-      maxWidth: 1080,
-    );
   }
 }

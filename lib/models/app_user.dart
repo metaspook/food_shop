@@ -25,13 +25,13 @@ class AppUser {
   // create model object from json object.
   factory AppUser.fromJson(Map<String, dynamic> json) {
     return AppUser(
-      id: json["id"] ?? '',
-      fullName: json["fullName"] ?? '',
-      email: json["email"] ?? '',
-      password: json["password"] ?? '',
-      phone: json["phone"] ?? '',
-      address: json["address"] ?? '',
-      image: json['image'] ?? '',
+      id: json["id"],
+      fullName: json["fullName"],
+      email: json["email"],
+      password: json["password"],
+      phone: json["phone"],
+      address: json["address"],
+      image: json['image'],
     );
   }
 
@@ -48,14 +48,14 @@ class AppUser {
     };
   }
 
-  factory AppUser.fromSnapshot(Object? object) {
+  factory AppUser.fromSnapshot(Object object) {
     final Map<String, dynamic> objectMap = {};
     (object as Map).forEach((k, v) => objectMap[k] = v);
     return AppUser.fromJson(objectMap);
   }
 
   static List<AppUser> fromSnapshotChildren(Iterable<DataSnapshot> list) =>
-      [for (DataSnapshot e in list) AppUser.fromSnapshot(e.value)];
+      [for (DataSnapshot e in list) AppUser.fromSnapshot(e.value!)];
 
   static List<AppUser> fromJsonList(List<Map<String, dynamic>> jsonList) =>
       [for (Map<String, dynamic> e in jsonList) AppUser.fromJson(e)];

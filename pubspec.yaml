@@ -50,6 +50,7 @@ dependencies:
   firebase_storage: ^10.2.9
   provider: ^6.0.2
   firebase_auth: ^3.3.14
+  validators: ^3.0.0
 
 dev_dependencies:
   flutter_test:

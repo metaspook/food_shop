@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Constants {
   Constants._();
   // Shared Preferences.
+  static String userId = "";
   static late final SharedPreferences prefs;
   static const List<int> productQuantityList = [
     18,

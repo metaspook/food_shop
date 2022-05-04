@@ -49,6 +49,8 @@ class Providers {
     ChangeNotifierProvider(create: (_) => CartController()),
     ChangeNotifierProvider(create: (_) => BottomNavController()),
     ChangeNotifierProvider(create: (_) => ProfileController()),
+    ChangeNotifierProvider(create: (_) => AuthController()),
+    // ChangeNotifierProvider(create: (_) => SearchController()),
     StreamProvider<User?>.value(
       value: FirebaseAuth.instance.authStateChanges(),
       initialData: null,
@@ -56,6 +58,26 @@ class Providers {
         throw (object.toString());
       },
     ),
+    // StreamProvider<AppUser?>.value(
+    //   value: Database.user(FirebaseAuth.instance.currentUser?.uid),
+    //   initialData: null,
+    //   catchError: (context, object) {
+    //     throw (object.toString());
+    //   },
+    // ),
+    // StreamProvider<AppUser?>.value(
+    //   value: FirebaseAuth.instance.authStateChanges().map<AppUser?>((user) {
+    //     AppUser? appUser;
+    //     Database.user(user!.uid).listen((event) {
+    //       appUser = event;
+    //     });
+    //     return appUser;
+    //   }),
+    //   initialData: null,
+    //   catchError: (context, object) {
+    //     throw (object.toString());
+    //   },
+    // ),
     StreamProvider<List<Product>?>.value(
       value: Database.products,
       initialData: null,
@@ -63,21 +85,25 @@ class Providers {
         throw (object.toString());
       },
     ),
-
-    StreamProvider<AppUser?>.value(
-      value: Database.user(FirebaseAuth.instance.currentUser!.uid),
-      initialData: null,
-      catchError: (context, object) {
-        throw (object.toString());
-      },
-    ),
-    StreamProvider<List<Order>?>.value(
-      value: Database.ordersByUser(FirebaseAuth.instance.currentUser!.uid),
-      initialData: null,
-      catchError: (context, object) {
-        throw (object.toString());
-      },
-    ),
+    // if (FirebaseAuth.instance.currentUser?.uid != null)
+    //   StreamProvider<AppUser?>.value(
+    //     // value: Database.user(Constants.userId),
+    //     value: Database.user(FirebaseAuth.instance.currentUser!.uid),
+    //     // value: Database.user(AuthController().uid),
+    //     initialData: null,
+    //     catchError: (context, object) {
+    //       throw (object.toString());
+    //     },
+    //   ),
+    // if (FirebaseAuth.instance.currentUser?.uid != null)
+    //   StreamProvider<List<Order>?>.value(
+    //     // value: Database.ordersByUser(Constants.userId),
+    //     value: Database.ordersByUser(FirebaseAuth.instance.currentUser!.uid),
+    //     initialData: null,
+    //     catchError: (context, object) {
+    //       throw (object.toString());
+    //     },
+    //   ),
     // FutureProvider<List<Product>>(
     //   create: (_) async => Cart().productList,
     //   initialData: const [],

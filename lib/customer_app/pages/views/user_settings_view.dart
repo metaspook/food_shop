@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/controllers/auth_controller.dart';
+import 'package:food_shop/controllers/controllers.dart';
+import 'package:provider/provider.dart';
 
 class UserSettingsView extends StatelessWidget {
   const UserSettingsView({Key? key}) : super(key: key);
@@ -16,7 +17,10 @@ class UserSettingsView extends StatelessWidget {
           label: const Text('Reset App'),
         ),
         ElevatedButton.icon(
-          onPressed: () async => await AuthController.signOut(context),
+          onPressed: () async {
+            await context.read<CartController>().removeCart();
+            await context.read<AuthController>().signOut(context);
+          },
           icon: const Icon(Icons.logout),
           label: const Text('Sign Out'),
         ),

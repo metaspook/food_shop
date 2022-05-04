@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/controllers/controllers.dart';
+import 'package:provider/provider.dart';
 
 class Model {
   String id;
@@ -25,8 +27,14 @@ class _SearchListState extends State<SearchList> {
   );
   final key = GlobalKey<ScaffoldState>();
   final TextEditingController _searchQuery = TextEditingController();
-  List<Model> _list = [];
-  List<Model> _searchList = [];
+  static final List<Model> _list = [
+    Model(id: "1", name: "name 1", title: "a title 1"),
+    Model(id: "2", name: "name 2", title: "a title 2"),
+    Model(id: "3", name: "name 3", title: "b title 3"),
+    Model(id: "4", name: "name 4", title: "b title 4"),
+    Model(id: "5", name: "name 5", title: "b title 5"),
+  ];
+  List<Model> _searchList = _list;
 
   bool _isSearching = false;
   String _searchText = "";
@@ -39,24 +47,6 @@ class _SearchListState extends State<SearchList> {
   }
 
   void init() {
-    _list = [];
-    _list.add(
-      Model(id: "1", name: "name 1", title: "a title 1"),
-    );
-    _list.add(
-      Model(id: "2", name: "name 2", title: "a title 2"),
-    );
-    _list.add(
-      Model(id: "3", name: "name 3", title: "b title 3"),
-    );
-    _list.add(
-      Model(id: "4", name: "name 4", title: "b title 4"),
-    );
-    _list.add(
-      Model(id: "5", name: "name 5", title: "b title 5"),
-    );
-    _searchList = _list;
-
     _searchQuery.addListener(() {
       if (_searchQuery.text.isEmpty) {
         setState(() {
@@ -76,6 +66,7 @@ class _SearchListState extends State<SearchList> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.watch<SearchController>();
     return Scaffold(
         key: key,
         appBar: buildBar(context),
@@ -104,59 +95,40 @@ class _SearchListState extends State<SearchList> {
   }
 
   PreferredSizeWidget buildBar(BuildContext context) {
+    final controller = context.watch<SearchController>();
+
     return AppBar(
         centerTitle: true,
-        title: appBarTitle,
+        title: controller.isSearching
+            ? TextField(
+                controller: _searchQuery,
+                style: const TextStyle(
+                  color: Colors.orange,
+                ),
+                decoration: const InputDecoration(
+                    hintText: "Search here..",
+                    hintStyle: TextStyle(color: Colors.white)),
+              )
+            : const Text(
+                "Search Demo",
+                style: TextStyle(color: Colors.white),
+              ),
         iconTheme: const IconThemeData(color: Colors.orange),
         backgroundColor: Colors.black,
         actions: <Widget>[
           IconButton(
-            icon: actionIcon,
+            icon: Icon(
+              controller.isSearching ? Icons.close : Icons.search,
+              color: Colors.orange,
+            ),
             onPressed: () {
-              setState(() {
-                if (actionIcon.icon == Icons.search) {
-                  actionIcon = const Icon(
-                    Icons.close,
-                    color: Colors.orange,
-                  );
-                  appBarTitle = TextField(
-                    controller: _searchQuery,
-                    style: const TextStyle(
-                      color: Colors.orange,
-                    ),
-                    decoration: const InputDecoration(
-                        hintText: "Search here..",
-                        hintStyle: TextStyle(color: Colors.white)),
-                  );
-                  _handleSearchStart();
-                } else {
-                  _handleSearchEnd();
-                }
-              });
+              if (controller.isSearching) _searchQuery.clear();
+              context
+                  .read<SearchController>()
+                  .setSearching(!controller.isSearching);
             },
           ),
         ]);
-  }
-
-  void _handleSearchStart() {
-    setState(() {
-      _isSearching = true;
-    });
-  }
-
-  void _handleSearchEnd() {
-    setState(() {
-      actionIcon = const Icon(
-        Icons.search,
-        color: Colors.orange,
-      );
-      appBarTitle = const Text(
-        "Search Demo",
-        style: TextStyle(color: Colors.white),
-      );
-      _isSearching = false;
-      _searchQuery.clear();
-    });
   }
 }
 
@@ -177,11 +149,13 @@ class GridItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            AspectRatio(
-              aspectRatio: 18.0 / 11.0,
-              child: Image.network(
-                'https://picsum.photos/250?image=9',
-                fit: BoxFit.scaleDown,
+            Flexible(
+              child: AspectRatio(
+                aspectRatio: 18.0 / 11.0,
+                child: Image.network(
+                  'https://picsum.photos/250?image=9',
+                  fit: BoxFit.scaleDown,
+                ),
               ),
             ),
             Padding(

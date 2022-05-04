@@ -16,7 +16,8 @@ class Methods {
       maxHeight: 1080,
       maxWidth: 1080,
     );
-    Methods.navPop(context);
+    navPop(context);
+    navPop(context);
     return await cropImage(pickedFile!.path);
   }
 
@@ -26,7 +27,8 @@ class Methods {
       maxHeight: 1080,
       maxWidth: 1080,
     );
-    Methods.navPop(context);
+    navPop(context);
+    navPop(context);
     return await cropImage(pickedFile!.path);
   }
 
@@ -55,31 +57,6 @@ class Methods {
 
   static void navPop(BuildContext context) {
     if (Navigator.canPop(context)) Navigator.pop(context);
-  }
-
-  static void signUpImagePickerDialog(BuildContext context) {
-    customDialog(
-      context: context,
-      title: const Text('Please choose an option'),
-      subtitle: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        // mainAxisSize: MainAxisSize.min,
-        children: [
-          ElevatedButton.icon(
-            onPressed: () async =>
-                AuthController.setImageFile(await pickCameraImage(context)),
-            icon: const Icon(Icons.camera),
-            label: const Text('Camera'),
-          ),
-          ElevatedButton.icon(
-            onPressed: () async =>
-                AuthController.setImageFile(await pickGalleryImage(context)),
-            icon: const Icon(Icons.image),
-            label: const Text('Gallery'),
-          ),
-        ],
-      ),
-    );
   }
 
   static void orderDeleteDialog(BuildContext context, String orderId) {

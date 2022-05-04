@@ -10,12 +10,12 @@ class XController {
   static final page = PageController();
   static final scroll = ScrollController();
 
-  static void get signUpDisposer {
+  static void get signInDisposer {
     email.dispose();
     password.dispose();
   }
 
-  static void get signInDisposer {
+  static void get signUpDisposer {
     fullName.dispose();
     phone.dispose();
     address.dispose();

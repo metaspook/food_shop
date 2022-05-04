@@ -69,28 +69,28 @@ class CartController extends ChangeNotifier {
 
   Future<void> makeOrder(BuildContext context,
       {String? deliveryAddress}) async {
+    Methods.snackBar(context, 'Placing Order...');
     try {
       AppUser? customer;
       Database.user(FirebaseAuth.instance.currentUser!.uid)
           .listen((event) async {
-        Methods.snackBar(context, 'Processing Data...');
-        if (event != null) {
-          customer = event;
-          final dbRefPush = Database.dbRealtime.ref("orders").push();
-          await dbRefPush.set({
-            "cartProductList": [for (String e in _cartProducts) jsonDecode(e)],
-            "customerFullName": customer!.fullName,
-            "customerId": customer!.id,
-            "customerPhone": customer!.phone,
-            "deliveryAddress": deliveryAddress ?? customer!.address,
-            "id": dbRefPush.key,
-            "status": "Pending",
-            "total": totalPrice,
-          });
-          Methods.navPop(context);
-          await removeCart();
-          Methods.snackBar(context, 'Order Placed!');
-        }
+        // if (event != null) {
+        customer = event;
+        final dbRefPush = Database.dbRealtime.ref("orders").push();
+        await dbRefPush.set({
+          "cartProductList": [for (String e in _cartProducts) jsonDecode(e)],
+          "customerFullName": customer!.fullName,
+          "customerId": customer!.id,
+          "customerPhone": customer!.phone,
+          "deliveryAddress": deliveryAddress ?? customer!.address,
+          "id": dbRefPush.key,
+          "status": "Pending",
+          "total": totalPrice,
+        });
+        Methods.snackBar(context, 'Order Placed!');
+        Methods.navPop(context);
+        await removeCart();
+        // }
       });
     } catch (err) {
       Methods.snackBar(context, err.toString());

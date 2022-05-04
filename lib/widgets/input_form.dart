@@ -34,7 +34,7 @@ abstract class InputForm {
         controller: XController.fullName,
         keyboardType: TextInputType.name,
         // maxLength: 40,
-        validator: (value) => Validator.isEmpty(value),
+        validator: (value) => Validator.nullOrEmpty(value),
         decoration: InputDecoration(
           hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
           hintText: previousText,

@@ -25,9 +25,9 @@ class Database {
         );
   }
 
-  static Stream<AppUser?> user(String userId) {
-    return dbRealtime.ref("users/$userId").onValue.map<AppUser?>(
-          (event) => AppUser.fromSnapshot(event.snapshot.value),
+  static Stream<AppUser> user(String userId) {
+    return dbRealtime.ref("users/$userId").onValue.map<AppUser>(
+          (event) => AppUser.fromSnapshot(event.snapshot.value!),
         );
   }
   // static Future<AppUser> user(String userId) {

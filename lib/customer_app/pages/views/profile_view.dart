@@ -26,7 +26,7 @@ class ProfileView extends StatelessWidget {
             },
             "Email: ": {
               "value": user.email,
-              "editField": InputForm.email(user.email)
+              "editField": InputForm.email(previousText: user.email)
             },
             "Phone: ": {
               "value": user.phone,

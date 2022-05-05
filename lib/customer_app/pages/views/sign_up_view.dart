@@ -2,7 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/controllers.dart';
 import 'package:food_shop/services/services.dart';
-import 'package:food_shop/utils/validator.dart';
+import 'package:food_shop/utils/utils.dart';
+import 'package:food_shop/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class SignUpView extends StatelessWidget {
@@ -10,11 +11,11 @@ class SignUpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
+    // final formKey = context.watch<AuthController>().currentFormKey;
     final controller = context.watch<AuthController>();
 
     return Form(
-      key: formKey,
+      key: Constants.signUpFormKey,
       child: ListView(
         shrinkWrap: true,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -47,17 +48,7 @@ class SignUpView extends StatelessWidget {
             // mainAxisAlignment: MainAxisAlignment.end,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Flexible(
-                child: TextFormField(
-                  controller: XController.email,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) => Validator.email(value),
-                  decoration: const InputDecoration(
-                    labelText: 'E-mail',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
+              Flexible(child: InputForm.email()),
               Stack(
                 // alignment: AlignmentDirectional.topCenter,
                 children: [
@@ -136,55 +127,27 @@ class SignUpView extends StatelessWidget {
               ),
             ],
           ),
-          TextFormField(
-            controller: XController.password,
-            keyboardType: TextInputType.visiblePassword,
-            validator: (value) => Validator.password(value),
-            decoration: const InputDecoration(
-              labelText: 'Password',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          TextFormField(
-            controller: XController.fullName,
-            keyboardType: TextInputType.name,
-            // maxLength: 40,
-            validator: (value) => Validator.fullName(value),
-            decoration: const InputDecoration(
-              // hintText: 'Name',
-              labelText: "Full Name",
-              border: OutlineInputBorder(),
-            ),
-          ),
-          TextFormField(
-            controller: XController.phone,
-            keyboardType: TextInputType.phone,
-            validator: (value) => Validator.phone(value),
-            decoration: const InputDecoration(
-              labelText: 'Phone',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          TextFormField(
-            controller: XController.address,
-            keyboardType: TextInputType.streetAddress,
-            validator: (value) => Validator.nullOrEmpty(value),
-            decoration: const InputDecoration(
-              labelText: 'Address',
-              border: OutlineInputBorder(),
-            ),
-          ),
+          InputForm.password(),
+          InputForm.fullName(),
+          InputForm.phone(),
+          InputForm.address(),
           FittedBox(
             child: ElevatedButton.icon(
-              onPressed: () async =>
-                  await context.read<AuthController>().signUp(
-                        context,
-                        formKey: formKey,
-                      ),
+              onPressed: () async {
+                String? msg;
+                if (Constants.signUpFormKey.currentState!.validate()) {
+                  Methods.snackBar(Constants.signUpFormKey.currentContext!,
+                      'Creating Account...');
+                  msg = await context.read<AuthController>().signUp();
+                }
+                if (msg != null) {
+                  Methods.snackBar(
+                      Constants.signInFormKey.currentContext!, msg);
+                }
+              },
               icon: const Icon(Icons.app_registration_rounded),
               label: const Text('Sign Up'),
             ),
-            // label: CircularProgressIndicator()),
           ),
         ],
       ),

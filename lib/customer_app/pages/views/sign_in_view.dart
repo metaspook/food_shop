@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/controllers/controllers.dart';
+import 'package:food_shop/utils/utils.dart';
 import 'package:food_shop/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -9,11 +10,12 @@ class SignInView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
+    // final formKey = GlobalKey<FormState>();
+    // final formKey = context.watch<AuthController>().currentFormKey;
 
     return SafeArea(
       child: Form(
-        key: formKey,
+        key: Constants.signInFormKey,
         child: Column(
           children: [
             ListView(
@@ -21,8 +23,8 @@ class SignInView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               itemExtent: 75,
               children: [
-                InputForm.email(),
-                InputForm.password(),
+                InputForm.email(signInMode: true),
+                InputForm.password(signInMode: true),
               ],
             ),
             Row(
@@ -39,8 +41,11 @@ class SignInView extends StatelessWidget {
                       const TextSpan(text: '   '),
                       TextSpan(
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () =>
-                                context.read<AuthController>().setIndex(1),
+                            ..onTap = () {
+                              XController.email.clear();
+                              XController.password.clear();
+                              context.read<AuthController>().setIndex(1);
+                            },
                           text: "Create Here",
                           style: TextStyle(
                             decoration: TextDecoration.underline,
@@ -53,7 +58,7 @@ class SignInView extends StatelessWidget {
                 ),
                 ElevatedButton.icon(
                   onPressed: () async {
-                    if (formKey.currentState!.validate()) {
+                    if (Constants.signInFormKey.currentState!.validate()) {
                       context.read<BottomNavController>().setIndex(0);
                       await context.read<AuthController>().signIn(context);
                     }

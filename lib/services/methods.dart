@@ -48,11 +48,13 @@ class Methods {
   }
 
   static void snackBar(BuildContext context, String text) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(text),
-      ),
-    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(text),
+        ),
+      );
   }
 
   static void navPop(BuildContext context) {

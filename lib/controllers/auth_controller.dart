@@ -56,18 +56,28 @@ class AuthController extends ChangeNotifier {
   }
 
   // AUTH VIEWS CONTROLLER
-  final _views = const {
-    "Sign In": SignInView(),
-    "Create Account": SignUpView(),
-  };
+  final _views = <Map<String, dynamic>>[
+    {
+      "title": "Sign In",
+      "view": const SignInView(),
+    },
+    {
+      "title": "Create Account",
+      "view": const SignUpView(),
+    },
+  ];
+
   int _currentIndex = 0;
   int get currentIndex => _currentIndex;
-  Widget get currentView => _views.values.elementAt(_currentIndex);
-  String get currentAppTitle => _views.keys.elementAt(_currentIndex);
+  Widget get currentView => _views[_currentIndex]["view"];
+  String get currentAppTitle => _views[_currentIndex]["title"];
   void setIndex(int index) {
     _currentIndex = index;
     notifyListeners();
   }
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
 
   /// Sign out current user.
   Future<void> signOut(BuildContext context) async {
@@ -95,72 +105,50 @@ class AuthController extends ChangeNotifier {
     }
   }
 
-  Future<void> signUp(
-    BuildContext context, {
-    required GlobalKey<FormState> formKey,
-  }) async {
-    if (formKey.currentState!.validate()) {
-      if (_imageFile != null) {
-        try {
-          Methods.snackBar(context, 'Processing Data...');
-          // Create new user and set UID.
-          await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(
-                email: XController.email.text,
-                password: XController.password.text,
-              )
-              .then((userCredential) => _userId = userCredential.user!.uid);
-          // } on FirebaseAuthException catch (e) {
-          //   if (e.code == 'weak-password') {
-          //     print('The password provided is too weak.');
-          //   } else if (e.code == 'email-already-in-use') {
-          //     print('The account already exists for that email.');
-          //   }
-          // Set User DB and Storage references.
-          final dbRef = Database.dbRealtime.ref("users/$_userId");
-          final storageRef =
-              FirebaseStorage.instance.ref("images/users/$_userId.jpg");
-          // Upload User image to Storage.
-          await storageRef.putFile(_imageFile!);
-          // Upload User data to DB.
-          await dbRef.set({
-            "id": _userId,
-            "fullName": XController.fullName.text,
-            "email": XController.email.text,
-            "password": XController.password.text,
-            "phone": XController.phone.text,
-            "address": XController.address.text,
-            "image": await storageRef.getDownloadURL(),
-          });
-          // FirebaseAuth.instance.signOut();
-          Methods.snackBar(context, 'Account Created!');
-          // XController.signUpDisposer;
-          XController.fullName.clear();
-          XController.phone.clear();
-          XController.address.clear();
-          // XController.email.clear();
-          // XController.password.clear();
-          _isNewUser = true;
-          _currentIndex = 0;
-          // setIndex(0);
-          notifyListeners();
-          // Navigator.pushAndRemoveUntil(
-          //     context,
-          //     MaterialPageRoute(builder: (context) => const CustomerApp()),
-          //     (Route<dynamic> route) => route.isFirst);
-
-          // Navigator.pushAndRemoveUntil(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => const CustomerApp(),
-          //   ),
-          // );
-        } catch (err) {
-          Methods.snackBar(context, err.toString());
+  Future<String?> signUp() async {
+    if (_imageFile != null) {
+      _isNewUser = true;
+      _currentIndex = 0;
+      notifyListeners();
+      try {
+        // Create new user and set UID.
+        await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+              email: XController.email.text,
+              password: XController.password.text,
+            )
+            .then((userCredential) => _userId = userCredential.user!.uid);
+        // Set User DB and Storage references.
+        final dbRef = Database.dbRealtime.ref("users/$_userId");
+        final storageRef =
+            FirebaseStorage.instance.ref("images/users/$_userId.jpg");
+        // Upload User image to Storage.
+        await storageRef.putFile(_imageFile!);
+        // Upload User data to DB.
+        await dbRef.set({
+          "id": _userId,
+          "fullName": XController.fullName.text,
+          "email": XController.email.text,
+          "password": XController.password.text,
+          "phone": XController.phone.text,
+          "address": XController.address.text,
+          "image": await storageRef.getDownloadURL(),
+        });
+        XController.fullName.clear();
+        XController.phone.clear();
+        XController.address.clear();
+      } on FirebaseAuthException catch (err) {
+        if (err.code == 'weak-password') {
+          return 'The password provided is too weak.';
+        } else if (err.code == 'email-already-in-use') {
+          return 'The account already exists for that email.';
         }
-      } else {
-        Methods.snackBar(context, '* Please pick an image!!');
+      } catch (err) {
+        return err.toString();
       }
+    } else {
+      return '* Please pick an image!!';
     }
+    return 'Account created!';
   }
 }

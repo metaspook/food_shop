@@ -6,9 +6,11 @@ abstract class InputForm {
   InputForm._();
 
   /// E-mail input form.
-  static TextFormField email([String? previousText]) => TextFormField(
+  static TextFormField email({String? previousText, bool signInMode = false}) =>
+      TextFormField(
         controller: XController.email,
         keyboardType: TextInputType.emailAddress,
+        validator: signInMode ? null : (value) => Validator.email(value),
         decoration: InputDecoration(
           hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
           hintText: previousText,
@@ -18,9 +20,12 @@ abstract class InputForm {
       );
 
   /// Password input form.
-  static TextFormField password([String? previousText]) => TextFormField(
+  static TextFormField password(
+          {String? previousText, bool signInMode = false}) =>
+      TextFormField(
         controller: XController.password,
         keyboardType: TextInputType.visiblePassword,
+        validator: signInMode ? null : (value) => Validator.password(value),
         decoration: InputDecoration(
           hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
           hintText: previousText,
@@ -34,7 +39,8 @@ abstract class InputForm {
         controller: XController.fullName,
         keyboardType: TextInputType.name,
         // maxLength: 40,
-        validator: (value) => Validator.nullOrEmpty(value),
+        validator: (value) => Validator.fullName(value),
+
         decoration: InputDecoration(
           hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
           hintText: previousText,
@@ -47,6 +53,7 @@ abstract class InputForm {
   static TextFormField phone([String? previousText]) => TextFormField(
         controller: XController.phone,
         keyboardType: TextInputType.phone,
+        validator: (value) => Validator.phone(value),
         decoration: InputDecoration(
           hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
           hintText: previousText,
@@ -59,6 +66,7 @@ abstract class InputForm {
   static TextFormField address([String? previousText]) => TextFormField(
         controller: XController.address,
         keyboardType: TextInputType.streetAddress,
+        validator: (value) => Validator.nullOrEmpty(value),
         decoration: InputDecoration(
           hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
           hintText: previousText,

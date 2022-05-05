@@ -1,11 +1,15 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart' show Colors, Icon, Icons, Widget;
+import 'package:flutter/material.dart'
+    show Colors, FormState, GlobalKey, Icon, Icons, Widget;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Constants {
   Constants._();
+  static final signInFormKey = GlobalKey<FormState>();
+  static final signUpFormKey = GlobalKey<FormState>();
+
   // Shared Preferences.
   static String userId = "";
   static late final SharedPreferences prefs;

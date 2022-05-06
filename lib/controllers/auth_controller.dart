@@ -27,27 +27,6 @@ class AuthController extends ChangeNotifier {
     }
   }
 
-  // void initCustomerPage(String userId) {
-  //   final appUserProvider = StreamProvider<AppUser?>.value(
-  //     value: Database.user(userId),
-  //     initialData: null,
-  //     catchError: (context, object) {
-  //       throw (object.toString());
-  //     },
-  //   );
-  //   if (!Providers.customerProviders.contains(appUserProvider)) {
-  //     Providers.customerProviders.add(appUserProvider);
-  //   }
-  //   print(userId);
-  //   notifyListeners();
-  // }
-
-  // String get uid => _userId;
-  // void setUid(String uid) {
-  //   _userId = uid;
-  //   notifyListeners();
-  // }
-
   bool _isNewUser = false;
   bool get isNewUser => _isNewUser;
   void setNewUserState(bool isNewUser) {
@@ -76,22 +55,22 @@ class AuthController extends ChangeNotifier {
     notifyListeners();
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   /// Sign out current user.
-  Future<void> signOut(BuildContext context) async {
-    Methods.snackBar(context, 'Logging Out!');
+  Future<String?> signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
     } catch (err) {
-      Methods.snackBar(context, err.toString());
+      return err.toString();
     }
+    return null;
   }
 
   /// Sign in authenticated user.
-  Future<void> signIn(BuildContext context) async {
-    Methods.snackBar(context, 'Logging In!');
+  Future<String?> signIn() async {
+    setNewUserState(false);
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: XController.email.text,
@@ -99,10 +78,10 @@ class AuthController extends ChangeNotifier {
       );
       XController.email.clear();
       XController.password.clear();
-      setNewUserState(false);
     } catch (err) {
-      Methods.snackBar(context, err.toString());
+      return err.toString();
     }
+    return null;
   }
 
   Future<String?> signUp() async {

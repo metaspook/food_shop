@@ -67,10 +67,11 @@ class UserSettingsView extends StatelessWidget {
                     primaryButtonFunction: () => Methods.navPop(context),
                     secondaryButtonText: 'Confirm',
                     secondaryButtonFunction: () async {
+                      Methods.snackBar(context, 'Resetting App...');
                       Methods.navPop(context);
                       await context.read<CartController>().removeCart();
                       await Constants.prefs.clear();
-                      await context.read<AuthController>().signOut(context);
+                      await context.read<AuthController>().signOut();
                     },
                   );
                 },
@@ -87,9 +88,10 @@ class UserSettingsView extends StatelessWidget {
                     primaryButtonFunction: () => Methods.navPop(context),
                     secondaryButtonText: 'Confirm',
                     secondaryButtonFunction: () async {
+                      Methods.snackBar(context, 'Logging Out...');
                       Methods.navPop(context);
                       await context.read<CartController>().removeCart();
-                      await context.read<AuthController>().signOut(context);
+                      await context.read<AuthController>().signOut();
                     },
                   );
                 },

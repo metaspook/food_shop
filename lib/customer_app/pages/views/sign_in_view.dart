@@ -18,7 +18,21 @@ class SignInView extends StatelessWidget {
       children: [
         InputForm.email(),
         const SizedBox(height: _formGap),
-        InputForm.password(),
+        Stack(
+          alignment: Alignment.centerRight,
+          children: [
+            InputForm.password('', controller.obscureText),
+            IconButton(
+                onPressed: () =>
+                    context.read<AuthController>().resetObscureText(),
+                icon: Icon(
+                  controller.obscureText
+                      ? Icons.remove_red_eye
+                      : Icons.remove_red_eye_outlined,
+                  color: Colors.black54,
+                ))
+          ],
+        ),
         const SizedBox(height: _formGap),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

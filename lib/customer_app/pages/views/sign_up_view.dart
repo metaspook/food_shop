@@ -21,15 +21,21 @@ class SignUpView extends StatelessWidget {
           children: [
             Flexible(child: InputForm.email()),
             Stack(
-              // alignment: AlignmentDirectional.topCenter,
               children: [
-                SizedBox(
-                  width: 76,
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxHeight: 59),
                   child: Card(
+                    elevation: 5,
                     margin: const EdgeInsets.symmetric(horizontal: 9),
                     child: controller.imageFile == null
-                        ? Image.asset('assets/images/placeholder_user_00.jpg')
-                        : Image.file(controller.imageFile!),
+                        ? Image.asset(
+                            'assets/images/placeholder_user_00.jpg',
+                            fit: BoxFit.cover,
+                          )
+                        : Image.file(
+                            controller.imageFile!,
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
                 Positioned(
@@ -121,8 +127,10 @@ class SignUpView extends StatelessWidget {
                   const TextSpan(text: '   '),
                   TextSpan(
                       recognizer: TapGestureRecognizer()
-                        ..onTap =
-                            () => context.read<AuthController>().setIndex(0),
+                        ..onTap = () {
+                          controller.signUpCleaner;
+                          context.read<AuthController>().setIndex(0);
+                        },
                       text: "Login",
                       style: TextStyle(
                         decoration: TextDecoration.underline,

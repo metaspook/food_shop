@@ -37,14 +37,14 @@ class OrderStatusButton extends StatelessWidget {
                         primaryButtonFunction: () => Methods.navPop(context),
                         secondaryButtonText: 'YES',
                         secondaryButtonFunction: () async {
-                          await OrdersController.changeStatus(
+                          await OrdersController().changeStatus(
                             order.id,
                             status: newStatus,
                           );
                           Methods.navPop(context);
                         },
                       )
-                    : await OrdersController.changeStatus(
+                    : await OrdersController().changeStatus(
                         order.id,
                         status: newStatus,
                       );

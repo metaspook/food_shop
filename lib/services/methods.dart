@@ -11,33 +11,34 @@ class Methods {
   Methods._();
 
   static Future<File?> pickCameraImage(BuildContext context) async {
+    navPop(context);
+    navPop(context);
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.camera,
       maxHeight: 1080,
       maxWidth: 1080,
     );
-    navPop(context);
-    navPop(context);
     return await cropImage(pickedFile!.path);
   }
 
   static Future<File?> pickGalleryImage(BuildContext context) async {
+    navPop(context);
+    navPop(context);
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
       maxHeight: 1080,
       maxWidth: 1080,
     );
-    navPop(context);
-    navPop(context);
     return await cropImage(pickedFile!.path);
   }
 
   static Future<File?> cropImage(String path) async {
-    return await ImageCropper().cropImage(
+    final croppedFile = await ImageCropper().cropImage(
       sourcePath: path,
       maxHeight: 1080,
       maxWidth: 1080,
     );
+    return File(croppedFile!.path);
   }
 
   static Map<String, dynamic> objectToMap(Object? obj) {
@@ -71,7 +72,7 @@ class Methods {
       secondaryButtonText: 'Confirm',
       secondaryButtonFunction: () {
         Methods.navPop(context);
-        OrdersController.remove(orderId);
+        OrdersController().remove(orderId);
         Methods.navPop(context);
       },
     );
@@ -86,7 +87,7 @@ class Methods {
       primaryButtonFunction: () => Methods.navPop(context),
       secondaryButtonText: 'Confirm',
       secondaryButtonFunction: () {
-        UsersController.remove(userId);
+        UsersController().remove(userId);
         Methods.navPop(context);
       },
     );

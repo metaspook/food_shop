@@ -146,7 +146,7 @@ class UsersView extends StatelessWidget {
                               trailing: IconButton(
                                 icon: const Icon(Icons.delete_forever_outlined),
                                 onPressed: () async =>
-                                    UsersController.remove(users[index].id),
+                                    UsersController().remove(users[index].id),
                               ),
                             ),
                           );

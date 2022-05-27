@@ -6,11 +6,10 @@ abstract class InputForm {
   InputForm._();
 
   /// E-mail input form.
-  static TextFormField email({String? previousText, bool signInMode = false}) =>
-      TextFormField(
+  static TextFormField email([String? previousText]) => TextFormField(
         controller: XController.email,
         keyboardType: TextInputType.emailAddress,
-        validator: signInMode ? null : (value) => Validator.email(value),
+        validator: (value) => Validator.email(value),
         decoration: InputDecoration(
           hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
           hintText: previousText,
@@ -20,12 +19,10 @@ abstract class InputForm {
       );
 
   /// Password input form.
-  static TextFormField password(
-          {String? previousText, bool signInMode = false}) =>
-      TextFormField(
+  static TextFormField password([String? previousText]) => TextFormField(
         controller: XController.password,
         keyboardType: TextInputType.visiblePassword,
-        validator: signInMode ? null : (value) => Validator.password(value),
+        validator: (value) => Validator.password(value),
         decoration: InputDecoration(
           hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
           hintText: previousText,

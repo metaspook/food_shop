@@ -16,9 +16,9 @@ class SignInView extends StatelessWidget {
 
     return Column(
       children: [
-        InputForm.email(signInMode: true),
+        InputForm.email(),
         const SizedBox(height: _formGap),
-        InputForm.password(signInMode: true),
+        InputForm.password(),
         const SizedBox(height: _formGap),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -35,8 +35,7 @@ class SignInView extends StatelessWidget {
                   TextSpan(
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          XController.email.clear();
-                          XController.password.clear();
+                          controller.signInCleaner;
                           context.read<AuthController>().setIndex(1);
                         },
                       text: "Create Here",

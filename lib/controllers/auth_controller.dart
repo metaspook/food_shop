@@ -18,6 +18,26 @@ class AuthController extends ChangeNotifier {
   //   }
   // }
 
+  void _resetImageFile() {
+    if (_imageFile != null && _imageFile!.existsSync()) {
+      _imageFile!.deleteSync();
+      _imageFile = null;
+    }
+  }
+
+  void get signInCleaner {
+    XController.email.clear();
+    XController.password.clear();
+  }
+
+  void get signUpCleaner {
+    signInCleaner;
+    XController.fullName.clear();
+    XController.phone.clear();
+    XController.address.clear();
+    _resetImageFile();
+  }
+
   static File? _imageFile;
   File? get imageFile => _imageFile;
   void setImageFile(File? imageFile) {
@@ -76,12 +96,20 @@ class AuthController extends ChangeNotifier {
         email: XController.email.text,
         password: XController.password.text,
       );
-      XController.email.clear();
-      XController.password.clear();
+      signInCleaner;
+    } on FirebaseAuthException catch (err) {
+      switch (err.code) {
+        case 'wrong-password':
+          return "Your password is wrong.";
+        case 'user-not-found':
+          return "User with this email doesn't exist.";
+        case 'invalid-email':
+          return "This email is invalid.";
+      }
     } catch (err) {
       return err.toString();
     }
-    return null;
+    return 'Signed In!';
   }
 
   Future<String?> signUp() async {
@@ -117,10 +145,11 @@ class AuthController extends ChangeNotifier {
         XController.phone.clear();
         XController.address.clear();
       } on FirebaseAuthException catch (err) {
-        if (err.code == 'weak-password') {
-          return 'The password provided is too weak.';
-        } else if (err.code == 'email-already-in-use') {
-          return 'The account already exists for that email.';
+        switch (err.code) {
+          case 'weak-password':
+            return "The password provided is too weak.";
+          case 'email-already-in-use':
+            return "The account already exists for that email.";
         }
       } catch (err) {
         return err.toString();

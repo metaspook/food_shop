@@ -108,7 +108,21 @@ class SignUpView extends StatelessWidget {
         ),
         const SizedBox(height: _formGap),
         for (var e in [
-          InputForm.password(),
+          Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              InputForm.password('', controller.obscureText),
+              IconButton(
+                  onPressed: () =>
+                      context.read<AuthController>().resetObscureText(),
+                  icon: Icon(
+                    controller.obscureText
+                        ? Icons.remove_red_eye
+                        : Icons.remove_red_eye_outlined,
+                    color: Colors.black54,
+                  ))
+            ],
+          ),
           InputForm.fullName(),
           InputForm.phone(),
           InputForm.address(),

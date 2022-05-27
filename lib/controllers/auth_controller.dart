@@ -18,6 +18,13 @@ class AuthController extends ChangeNotifier {
   //   }
   // }
 
+  bool _obscureText = true;
+  bool get obscureText => _obscureText;
+  void resetObscureText() {
+    _obscureText = !_obscureText;
+    notifyListeners();
+  }
+
   void _resetImageFile() {
     if (_imageFile != null && _imageFile!.existsSync()) {
       _imageFile!.deleteSync();

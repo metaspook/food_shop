@@ -19,7 +19,10 @@ abstract class InputForm {
       );
 
   /// Password input form.
-  static TextFormField password([String? previousText]) => TextFormField(
+  static TextFormField password(
+          [String? previousText, bool obscureText = true]) =>
+      TextFormField(
+        obscureText: obscureText,
         controller: XController.password,
         keyboardType: TextInputType.visiblePassword,
         validator: (value) => Validator.password(value),

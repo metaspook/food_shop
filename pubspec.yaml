@@ -39,7 +39,7 @@ dependencies:
   badges: ^2.0.2
   shared_preferences: ^2.0.13
   encrypted_shared_preferences: ^3.0.0
-  easy_sidemenu: ^0.3.0
+  easy_sidemenu: ^0.2.1
   firebase_core: ^1.13.1
   firebase_database: ^9.0.8
   charts_flutter: ^0.12.0

@@ -5,12 +5,12 @@ A Food Shop app with web admin panel.
 
 ## **🎈 Screenshots**
 ### **Admin App 🌐**
-<img alt="&nbsp;Missing screenshot!" src="screenshots/admin/admin_dashboard.jpg" width="430" height="204">&emsp;
-<img alt="&nbsp;Missing screenshot!" src="screenshots/admin/admin_users.jpg" width="430" height="204">&emsp;
-<img alt="&nbsp;Missing screenshot!" src="screenshots/admin/admin_products.jpg" width="430" height="204">&emsp;
-<img alt="&nbsp;Missing screenshot!" src="screenshots/admin/admin_order_list_01.jpg" width="430" height="204">&emsp;
-<img alt="&nbsp;Missing screenshot!" src="screenshots/admin/admin_order_list_02.jpg" width="430" height="204">&emsp;
-<img alt="&nbsp;Missing screenshot!" src="screenshots/admin/admin_order_details.jpg" width="430" height="204">&emsp;
+<img alt="&nbsp;Missing screenshot!" src="screenshots/admin/admin_dashboard.jpg" width="600" height="319">&emsp;
+<img alt="&nbsp;Missing screenshot!" src="screenshots/admin/admin_users.jpg" width="600" height="319">&emsp;
+<img alt="&nbsp;Missing screenshot!" src="screenshots/admin/admin_products.jpg" width="600" height="319">&emsp;
+<img alt="&nbsp;Missing screenshot!" src="screenshots/admin/admin_order_list_01.jpg" width="600" height="319">&emsp;
+<img alt="&nbsp;Missing screenshot!" src="screenshots/admin/admin_order_list_02.jpg" width="600" height="319">&emsp;
+<img alt="&nbsp;Missing screenshot!" src="screenshots/admin/admin_order_details.jpg" width="600" height="319">&emsp;
 
 ### **Customer App 📱**
 <img alt="&nbsp;Missing screenshot!" src="screenshots/customer/customer_products.jpg" width="204" height="430">&emsp;

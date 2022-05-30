@@ -22,7 +22,8 @@ A Food Shop app with web admin panel.
 <img alt="&nbsp;Missing screenshot!" src="screenshots/customer/customer_sign_in.jpg" width="204" height="430">&emsp;
 <img alt="&nbsp;Missing screenshot!" src="screenshots/customer/customer_sign_up_01.jpg" width="204" height="430">&emsp;
 <img alt="&nbsp;Missing screenshot!" src="screenshots/customer/customer_sign_up_02.jpg" width="204" height="430">&emsp;
-<img alt="&nbsp;Missing screenshot!" src="screenshots/customer/customer_sign_up_03.jpg" width="204" height="430"><br>
+<img alt="&nbsp;Missing screenshot!" src="screenshots/customer/customer_sign_up_03.jpg" width="204" height="430">&emsp;
+<img alt="&nbsp;Missing screenshot!" src="screenshots/customer/customer_about.jpg" width="204" height="430"><br>
 
 ## **🎈 Features**
 #### **Admin App 🌐**

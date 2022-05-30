@@ -11,6 +11,9 @@ class SettingsView extends StatefulWidget {
   @override
   State<SettingsView> createState() => _SettingsViewState();
 }
+//
+//  This file Used for generate and upload fake/random data for testing purpose.
+//
 
 class _SettingsViewState extends State<SettingsView> {
   @override
@@ -22,19 +25,22 @@ class _SettingsViewState extends State<SettingsView> {
         children: [
           const SizedBox(width: 5),
           ElevatedButton.icon(
-            onPressed: _uploadUser,
+            onPressed: () {},
+            // onPressed: _uploadUser,
             icon: const Icon(Icons.person_add_alt),
             label: const Text('Users'),
           ),
           const SizedBox(width: 5),
           ElevatedButton.icon(
-            onPressed: () => _uploadOrder(),
+            onPressed: () {},
+            // onPressed: () => _uploadOrder(),
             icon: const Icon(Icons.shopping_cart_outlined),
             label: const Text('Orders'),
           ),
           const SizedBox(width: 5),
           ElevatedButton.icon(
-            onPressed: _uploadProduct,
+            onPressed: () {},
+            // onPressed: _uploadProduct,
             icon: const Icon(Icons.shopping_cart_outlined),
             label: const Text('Products'),
           ),
@@ -501,9 +507,8 @@ void _uploadOrder() {
     final orderRef = Database.dbRealtime.ref("orders").push();
     // final List<Map<String, dynamic>> cartProductList = e["cartProductList"];
 
-    final unitPrice = num.tryParse((Random().nextInt(20) + 1).toString() +
-        "." +
-        (25 * Random().nextInt(4)).toString());
+    final unitPrice =
+        num.tryParse("${Random().nextInt(20) + 1}.${25 * Random().nextInt(4)}");
 
     for (int i = 0; i < e["cartProductList"].length; i++) {
       e["cartProductList"][i]["unitPrice"] = unitPrice;
